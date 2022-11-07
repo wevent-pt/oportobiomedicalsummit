@@ -1,0 +1,1 @@
+import 'react-notion-x/src/styles.css'
