@@ -10,8 +10,8 @@ import { getPage } from './notion'
 export async function resolveNotionPage(domain: string, rawPageId?: string) {
   let pageId: string
   let recordMap: ExtendedRecordMap
-  let htmlToPage = ''
-  let jsToPage = ''
+  const htmlToPage = ''
+  const jsToPage = ''
 
 
   if (rawPageId && rawPageId !== 'index') {
@@ -90,13 +90,13 @@ export async function resolveNotionPage(domain: string, rawPageId?: string) {
     recordMap = await getPage(pageId)
   } 
 
-    let dataFetched: any
-    await fetch('https://notion-cloudflare-worker.pedrogq.workers.dev/v1/' + 'table/8a37c9686d234a84923f0390dde78017')
-      .then((response) => response.json())
-      .then((data) => { dataFetched = (data)});
-    htmlToPage = dataFetched.find(x => x.slug === 'index').html;
-    jsToPage = dataFetched.find(x => x.slug === 'index').js;
-    // console.log("jsssssssssssssssssssss", jsToPage)
+    // let dataFetched: any
+    // await fetch('https://notion-cloudflare-worker.pedrogq.workers.dev/v1/' + 'table/8a37c9686d234a84923f0390dde78017')
+    //   .then((response) => response.json())
+    //   .then((data) => { dataFetched = (data)});
+    // htmlToPage = dataFetched.find(x => x.slug === 'index').html;
+    // jsToPage = dataFetched.find(x => x.slug === 'index').js;
+    // // console.log("jsssssssssssssssssssss", jsToPage)
  
 
   const props = { site, recordMap, pageId, htmlToPage, jsToPage }
