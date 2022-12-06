@@ -16,42 +16,99 @@ export const WeventNav: React.FC<{
   block: types.CollectionViewPageBlock | types.PageBlock
 }> = () => {
   
-  const navLinks = [
+  // const navLinks = [
+  //   {
+  //     title: 'Demo',
+  //     href: '/1f41c20b8d9b439aa521f5b030c2b745',
+  //     subPages: [
+  //       {
+  //         title: 'Rooms',
+  //         href: '/#'
+  //       },
+  //       {
+  //         title: 'Chat Room',
+  //         href: '/1f41c20b8d9b439aa521f5b030c2b745'
+  //       },
+  //       {
+  //         title: 'Blocks',
+  //         href: '/1f41c20b8d9b439aa521f5b030c2b745'
+  //       },
+  //       {
+  //         title: 'Security',
+  //         href: '/1f41c20b8d9b439aa521f5b030c2b745'
+  //       },
+  //       {
+  //         title: 'Design',
+  //         href: '/1f41c20b8d9b439aa521f5b030c2b745'
+  //       },
+  //       {
+  //         title: 'Payment',
+  //         href: '/1f41c20b8d9b439aa521f5b030c2b745'
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     title: 'Contact Us',
+  //     href: '/1f41c20b8d9b439aa521f5b030c2b745'
+  //   },
+  // ]
+
+
+  const navStruct = [
     {
-      title: 'Demo',
-      href: '/1f41c20b8d9b439aa521f5b030c2b745',
-      subPages: [
+      name:'Demo',
+      subArr:[
         {
-          title: 'Rooms',
-          href: '/#'
+          name:'Room1',
+          href:null,
+          class: 'text-sm hover:text-[color:var(--xg-color)]',
+          type: 'li',
         },
         {
-          title: 'Chat Room',
-          href: '/1f41c20b8d9b439aa521f5b030c2b745'
+          name:'Room2',
+          href:null,
+          class: 'text-sm hover:text-[color:var(--xg-color)]',
+          type: 'li'
         },
-        {
-          title: 'Blocks',
-          href: '/1f41c20b8d9b439aa521f5b030c2b745'
-        },
-        {
-          title: 'Security',
-          href: '/1f41c20b8d9b439aa521f5b030c2b745'
-        },
-        {
-          title: 'Design',
-          href: '/1f41c20b8d9b439aa521f5b030c2b745'
-        },
-        {
-          title: 'Payment',
-          href: '/1f41c20b8d9b439aa521f5b030c2b745'
-        }
-      ]
+
+      ],
+      href:null,
+      class: 'mr-1',
+      type: 'div'
     },
     {
-      title: 'Contact Us',
-      href: '/1f41c20b8d9b439aa521f5b030c2b745'
+      name:'About',
+      subArr:null,
+      href:null,
+      class:'hover:text-[color:var(--xg-color)]',
+      type: 'li'
+
     },
+    {
+      name:'Tickets',
+      subArr:null,
+      href:null,
+      class:'hover:text-[color:var(--xg-color)]',
+      type: 'li'
+    },
+    {
+      name:'Contacts',
+      subArr:null,
+      href:null,
+      class:'hover:text-[color:var(--xg-color)]',
+      type: 'li'
+    },
+    {
+      name:'Sign In',
+      subArr:null,
+      href:null,
+      class:'bg-[color:var(--bg-color)] border-2 border-[color:var(--fg-color)] px-5 py-1 rounded-sm hover:bg-[color:var(--xg-color)] text-[color:var(--fg-color)] hidden md:flex',
+      type: 'a'
+    },
+
   ]
+
+
 const openCloseMenu = () => {
   const mobile_menu = document.getElementById('mobile-menu');
   mobile_menu.classList.toggle('hidden');
@@ -87,28 +144,64 @@ const toggleNavDesporto = (num) => {
                   SUMMIT
                 </p>
               </a>
-    
+
+
+              {/*parses the navStruct to build the navBar*/}
               <ul className="hidden md:flex space-x-6 items-center">
-                <li className="flex relative group ">
-                  <div  className="mr-1">{navLinks[0].title}</div> 
-                  {/* <!-- Submenu starts --> */}
-                  <ul className="absolute  bg-[color:var(--fg-color)] text-[color:var(--bg-color)] p-3 w-52 top-6 transform scale-0 group-hover:scale-100 transition duration-150 ease-in-out origin-top shadow-lg">
-                    <li className="text-sm hover:text-[color:var(--xg-color)]"><a href="/resources">Resources</a></li>
-                    <li className="text-sm hover:text-[color:var(--xg-color)]"><a href="#">Estrutura e Clube</a></li>
-                    <li className="text-sm hover:text-[color:var(--xg-color)]"><a href="#">Equipas e  Seleções</a></li>
-                    <li className="text-sm hover:text-[color:var(--xg-color)]"><a href="#">Liga AEFEUP</a></li>
-                    <li className="text-sm hover:text-[color:var(--xg-color)]"><a href="#">Formula Student</a></li>
-                    <li className="text-sm hover:text-[color:var(--xg-color)]"><a href="#">Eventos e Torneios</a></li>
-                    <li className="text-sm hover:text-[color:var(--xg-color)]"><a href="#">Esports</a></li>
-                  </ul>
-                  {/* <!-- Submenu ends --> */}
-                </li>
-                <li className="hover:text-[color:var(--xg-color)]"><a href="/resources">Resources</a></li>
-                <li className="hover:text-[color:var(--xg-color)]"><a href="#">Serviços</a></li>
-                <li className="hover:text-[color:var(--xg-color)]"><a href="#">Loja</a></li>
-                <li className="hover:text-[color:var(--xg-color)]"><a href="#">Contactos</a></li>
-              <a href='/signin' id="loginBtn" className="bg-[color:var(--bg-color)] border-2 border-[color:var(--fg-color)] px-5 py-1 rounded-sm hover:bg-[color:var(--xg-color)] text-[color:var(--fg-color)] hidden md:flex" role="button">Sign In</a>
-              </ul>
+                {navStruct.map( navItem => (navItem.subArr != null) ?
+                  (
+                    <>
+                      <li className="flex relative group ">
+                        <div  className="mr-1">{navItem.name}</div>
+                        <ul className="absolute  bg-[color:var(--fg-color)] text-[color:var(--bg-color)] p-3 w-52 top-6 transform scale-0 group-hover:scale-100 transition duration-150 ease-in-out origin-top shadow-lg">
+                          <>
+                            {
+                              navItem.subArr.map(subNavItem => {
+
+                                return(
+                                    <>
+                                      <li className="text-sm hover:text-[color:var(--xg-color)]"><a href="#">{subNavItem.name}</a></li>
+                                    </>
+                                  )
+                                
+                                  
+                              }
+                               
+                            )}
+                          </>
+                        </ul>
+                      </li>
+                    </>
+                      
+                  ):(
+
+                    <>
+                      {navItem.type == 'li' ? (
+                          <>
+                            <li className="hover:text-[color:var(--xg-color)]"><a href={navItem.href}>{navItem.name}</a></li>
+                          </>
+                        ):(
+
+                          <>
+                            {
+                              navItem.type == 'a' ? (
+                                <>
+                                   <a href='/signin' id="loginBtn" className="bg-[color:var(--bg-color)] border-2 border-[color:var(--fg-color)] px-5 py-1 rounded-sm hover:bg-[color:var(--xg-color)] text-[color:var(--fg-color)] hidden md:flex" role="button">{navItem.name}</a>
+                                </>
+                                ):null
+                            }
+                          </>
+
+                        )}
+                      
+                    </>
+
+
+                  )
+
+                )}
+              </ul>              
+              
     
             
             {/* <!-- Mobile menu icon --> */}
@@ -122,37 +215,56 @@ const toggleNavDesporto = (num) => {
           </div>
           
           {/* <!-- Mobile menu --> */}
+
           <div className="md:hidden flex justify-center mt-3 w-full">
             <div id="mobile-menu" className="hidden mobile-menu absolute top-70 w-full overflow-scroll"> 
             {/* <!-- add hidden here later --> */}
               <ul className="text-center bg-[color:var(--bg-color)] shadow-sm leading-9 font-bold h-screen overflow-scroll">
-                <li className="  bg-[color:var(--bg-color)] ">
-                  <div onClick={() =>toggleNavDesporto(0)} className="block border-b-2 border-[color:var(--fg-color)] hover:border-[color:var(--xg-color)]">Demo<i className="fa-solid fa-chevron-down fa-2xs pt-4"></i></div> 
-                  
-                  {/* <!-- Submenu starts --> */}
-                  <ul  id="NavDesporto0" className="hidden bg-[color:var(--fg-color)] text-[color:var(--bg-color)]">
-                    <li className="text-sm leading-8 font-normal hover:text-[color:var(--xg-color)]"><a  className="block" href="/resources">Resources</a></li>
-                    <li className="text-sm leading-8 font-normal hover:text-[color:var(--xg-color)]"><a className="block"  href="#">Estrutura e Clube</a></li>
-                    <li className="text-sm leading-8 font-normal hover:text-[color:var(--xg-color)]"><a className="block"  href="#">Equipas e  Seleções</a></li>
-                    <li className="text-sm leading-8 font-normal hover:text-[color:var(--xg-color)]"><a className="block"  href="#">Liga AEFEUP</a></li>
-                    <li className="text-sm leading-8 font-normal hover:text-[color:var(--xg-color)]"><a className="block"  href="#">Formula Student</a></li>
-                    <li className="text-sm leading-8 font-normal hover:text-[color:var(--xg-color)]"><a className="block"  href="#">Eventos e Torneios</a></li>
-                    <li className="text-sm leading-8 font-normal hover:text-[color:var(--xg-color)]"><a className="block"  href="#">Esports</a></li>
-                  </ul>
-                  {/* <!-- Submenu ends --> */}
-                </li>
+                 {navStruct.map( navItem => (navItem.subArr != null) ?
+                    (
+                      <>
+                         <li className="  bg-[color:var(--bg-color)] ">
+                          <div onClick={() =>toggleNavDesporto(0)} className="block border-b-2 border-[color:var(--fg-color)] hover:border-[color:var(--xg-color)]">{navItem.name}<i className="fa-solid fa-chevron-down fa-2xs pt-4"></i></div>
+                          <ul  id="NavDesporto0" className="hidden bg-[color:var(--fg-color)] text-[color:var(--bg-color)]">
+                            <>
+                              {
+                                navItem.subArr.map(subNavItem =>  {
+                                    return(
+                                      <>
+                                        <li className="text-sm leading-8 font-normal hover:text-[color:var(--xg-color)]"><a  className="block" href="/resources">{subNavItem.name}</a></li>
+                                      </>
+                                    )
+                                }
+                                    
+                                    
+                              )}
+                            </>
+                          </ul>
+                        </li>
+                      </>
+                        
+                    ):(
 
+                      <>
+                        {navItem.name == 'Sign In' ? (
+                            <>
+                              <li className="hover:text-[color:var(--xg-color)]"><a href={navItem.href} className="block">{navItem.name}</a></li>
+                            </>
+                          ):(
+                            <>
+                               <li className="border-[color:var(--fg-color)] border-2 hover:bg-[color:var(--xg-color)] text-[color:var(--fg-color)]"><a id="loginBtnM" href='/signin' className="block">{navItem.name}</a></li>
+                            </>
+                            
+
+                          )}
+                        
+                      </>
+
+
+                    )
+
+                  )}
                 
-
-
-
-
-                <li className="hover:text-[color:var(--xg-color)]"><a href="/resources" className="block">Resources</a></li>
-                <li className="hover:text-[color:var(--xg-color)]"><a href="#" className="block">Serviços</a></li>
-                <li className="hover:text-[color:var(--xg-color)]"><a href="#" className="block">Comunicação</a></li>
-                <li className="hover:text-[color:var(--xg-color)]"><a href="#" className="block">Loja</a></li>
-                <li className="hover:text-[color:var(--xg-color)]"><a href="#" className="block">Contactos</a></li>
-                 <li className="border-[color:var(--fg-color)] border-2 hover:bg-[color:var(--xg-color)] text-[color:var(--fg-color)]"><a id="loginBtnM" href='/signin' className="block">Sign In</a></li>
               </ul>
               
             </div>
