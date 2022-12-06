@@ -77,7 +77,7 @@ const toggleNavDesporto = (num) => {
         <nav className="relative px-2 py-4">
           
           <div className="customNav-icon-container container mx-auto flex justify-between items-center">
-              <a href="#" className="customNav-icon-a">
+              <a href="/" className="customNav-icon-a">
                 <img src="/nav/logo_menu.svg" width="70" height="70"/> 
                 <p className="customNav-icon-title">
                   OPORTO 
