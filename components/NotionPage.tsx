@@ -22,11 +22,12 @@ import { useDarkMode } from '@/lib/use-dark-mode'
 import { Footer } from './Footer'
 // import { GitHubShareButton } from './GitHubShareButton'
 import { Loading } from './Loading'
-import { NotionPageHeader } from './NotionPageHeader'
+// import { NotionPageHeader } from './NotionPageHeader'
+import { WeventNav } from './WeventNav'
 import { Page404 } from './Page404'
-import { PageAside } from './PageAside'
 import { PageHead } from './PageHead'
 import styles from './styles.module.css'
+      
 
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
@@ -69,7 +70,10 @@ const Code = dynamic(() =>
       import('prismjs/components/prism-yaml.js')
     ])
     return m.Code
-  })
+  }),
+  {
+    ssr: false
+  }
 )
 
 const Collection = dynamic(() =>
@@ -147,7 +151,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
   site,
   recordMap,
   error,
-  pageId
+  pageId,
 }) => {
   const router = useRouter()
   const lite = useSearchParam('lite')
@@ -162,7 +166,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
       Pdf,
       Modal,
       Tweet,
-      Header: NotionPageHeader,
+      Header: WeventNav,
       propertyLastEditedTimeValue,
       propertyTextValue,
       propertyDateValue,
@@ -193,13 +197,6 @@ export const NotionPage: React.FC<types.PageProps> = ({
 
   const showTableOfContents = !!isBlogPost
   const minTableOfContentsItems = 3
-
-  const pageAside = React.useMemo(
-    () => (
-      <PageAside block={block} recordMap={recordMap} isBlogPost={isBlogPost} />
-    ),
-    [block, recordMap, isBlogPost]
-  )
 
   const footer = React.useMemo(() => <Footer />, [])
 
@@ -243,6 +240,12 @@ export const NotionPage: React.FC<types.PageProps> = ({
     getPageProperty<string>('Description', block, recordMap) ||
     config.description
 
+  function createMarkup(c){
+    return { __html: c };
+  } 
+  
+  const htmlInnerBody = `
+  `;
   return (
     <>
       <PageHead
@@ -253,7 +256,6 @@ export const NotionPage: React.FC<types.PageProps> = ({
         image={socialImage}
         url={canonicalPageUrl}
       />
-
       {isLiteMode && <BodyClassName className='notion-lite' />}
       {isDarkMode && <BodyClassName className='dark-mode' />}
 
@@ -269,7 +271,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
         rootDomain={site.domain}
         fullPage={!isLiteMode}
         previewImages={!!recordMap.preview_images}
-        showCollectionViewDropdown={false}
+        showCollectionViewDropdown={true}
         showTableOfContents={showTableOfContents}
         minTableOfContentsItems={minTableOfContentsItems}
         defaultPageIcon={config.defaultPageIcon}
@@ -278,11 +280,10 @@ export const NotionPage: React.FC<types.PageProps> = ({
         mapPageUrl={siteMapPageUrl}
         mapImageUrl={mapImageUrl}
         searchNotion={config.isSearchEnabled ? searchNotion : null}
-        pageAside={pageAside}
         footer={footer}
       />
-
-      {/*<GitHubShareButton />*/}
+      <div id="AllPages.innerBodyAfter" dangerouslySetInnerHTML={createMarkup(htmlInnerBody)}/>
+      
     </>
   )
 }

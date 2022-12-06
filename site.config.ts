@@ -3,18 +3,19 @@ import { siteConfig } from './lib/site-config'
 export default siteConfig({
   // the site's root Notion page (required)
   rootNotionPageId: 'dad7a60a4d364262bddb86725620565e',
+  // rootNotionPageId: '52ab8229827d4d4a8327ea557eb86155',
 
   // if you want to restrict pages to a single notion workspace (optional)
   // (this should be a Notion ID; see the docs for how to extract this)
   rootNotionSpaceId: null,
 
   // basic site info (required)
-  name: 'oportobiomedicalsummit',
-  domain: 'oportobiomedicalsummit.pedro.gq',
+  name: 'Wevent',
+  domain: 'wevent.pedro.gq',
   author: 'wevent',
 
   // open graph metadata (optional)
-  description: 'oportobiomedicalsummit',
+  description: 'Wevent, the platforms platform.',
 
   // social usernames (optional)
   twitter: '',
@@ -30,7 +31,7 @@ export default siteConfig({
   defaultPageCoverPosition: 0.5,
 
   // whether or not to enable support for LQIP preview images (optional)
-  isPreviewImageSupportEnabled: true,
+  isPreviewImageSupportEnabled: false,
 
   // whether or not redis is enabled for caching generated preview images (optional)
   // NOTE: if you enable redis, you need to set the `REDIS_HOST` and `REDIS_PASSWORD`
@@ -42,9 +43,8 @@ export default siteConfig({
   // example:
   //
   // pageUrlOverrides: {
-  //   '/foo': '067dd719a912471ea9a3ac10710e7fdf',
-  //   '/bar': '0be6efce9daf42688f65c76b89f8eb27'
-  // }
+  //   '/bio': '1f41c20b8d9b439aa521f5b030c2b745',
+  // },
   pageUrlOverrides: null,
 
   // whether to use the default notion navigation style or a custom one with links to
@@ -53,8 +53,8 @@ export default siteConfig({
   navigationStyle: 'custom',
   navigationLinks: [
     // {
-    //   title: 'Entrar',
-    //   pageId: '652dce0865f64a84a19bd0151821007b'
+    //   title: 'bio',
+    //   pageId: '1f41c20b8d9b439aa521f5b030c2b745'
     // },
   ]
 })

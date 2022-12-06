@@ -7,6 +7,7 @@ import * as Fathom from 'fathom-client'
 // used for rendering equations (optional)
 import 'katex/dist/katex.min.css'
 import posthog from 'posthog-js'
+
 // used for code syntax highlighting (optional)
 import 'prismjs/themes/prism-coy.css'
 // core styles shared by all of react-notion-x (required)
