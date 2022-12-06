@@ -76,8 +76,17 @@ const toggleNavDesporto = (num) => {
     <header className="h-15 bg-[color:var(--bg-color)] sticky top-0 z-50 notion-nav-header">
         <nav className="relative px-2 py-4">
           
-          <div className="container mx-auto flex justify-between items-center">
-              <a href="/"><img src="/nav/wevent_menu.svg" alt="wevent-logo"/></a>
+          <div className="customNav-icon-container container mx-auto flex justify-between items-center">
+              <a href="#" className="customNav-icon-a">
+                <img src="/nav/logo_menu.svg" width="70" height="70"/> 
+                <p className="customNav-icon-title">
+                  OPORTO 
+                  <br/>
+                  BIOMEDICAL 
+                  <br/>
+                  SUMMIT
+                </p>
+              </a>
     
               <ul className="hidden md:flex space-x-6 items-center">
                 <li className="flex relative group ">
@@ -98,7 +107,7 @@ const toggleNavDesporto = (num) => {
                 <li className="hover:text-[color:var(--xg-color)]"><a href="#">Serviços</a></li>
                 <li className="hover:text-[color:var(--xg-color)]"><a href="#">Loja</a></li>
                 <li className="hover:text-[color:var(--xg-color)]"><a href="#">Contactos</a></li>
-              <a href='/signin' id="loginBtn" className="bg-[color:var(--bg-color)] border-2 border-[color:var(--fg-color)] px-5 py-1 rounded-sm hover:bg-[#62908a] text-[color:var(--fg-color)] hidden md:flex" role="button">Sign In</a>
+              <a href='/signin' id="loginBtn" className="bg-[color:var(--bg-color)] border-2 border-[color:var(--fg-color)] px-5 py-1 rounded-sm hover:bg-[color:var(--xg-color)] text-[color:var(--fg-color)] hidden md:flex" role="button">Sign In</a>
               </ul>
     
             

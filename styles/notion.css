@@ -99,3 +99,20 @@
 .notion-hash-link{
   display:none;
 }
+
+.notion-collection-view-type-icon{
+  display: none;
+}
+.notion-collection-view-tabs-row{
+  /* margin-left: 30vw; */
+}
+.notion-gallery-grid-size-small{
+  
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.notion-block-813e5aaeb710488aaa3a621938e774ae{/*agenda align center*/
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
