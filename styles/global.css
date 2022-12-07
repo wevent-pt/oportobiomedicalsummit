@@ -73,3 +73,11 @@ body {
 .notion-collection-view-tabs-row{
   
 }
+.mobile-custommenu-wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50vw;
+}
+.mobile-menu{
+  background-color: var(--bg-color);
+}

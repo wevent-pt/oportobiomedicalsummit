@@ -53,11 +53,11 @@ export const WeventNav: React.FC<{
 
   const navStruct = [
     {
-      name: '3rd Edition',
+      name: '3rd edition',
       subArr: [
         {
-          name: 'Sessions',
-          href: null,
+          name: 'Program',
+          href: '/program',
           class: 'text-sm hover:text-[color:var(--xg-color)]',
           type: 'li'
         },
@@ -79,36 +79,31 @@ export const WeventNav: React.FC<{
       type: 'div'
     },
     {
-      name: 'About',
-      subArr: null,
-      href: null,
-      class: 'hover:text-[color:var(--xg-color)]',
-      type: 'li'
-    },
-    {
       name: 'Tickets',
       subArr: null,
-      href: null,
+      href: '/tickets',
       class: 'hover:text-[color:var(--xg-color)]',
       type: 'li'
     },
     {
-      name: 'Contacts',
+      name: 'Contact',
       subArr: null,
-      href: null,
+      href: '/contact',
       class: 'hover:text-[color:var(--xg-color)]',
       type: 'li'
     },
     {
       name: 'Sign In',
       subArr: null,
-      href: null,
+      href: '/signin',
       class:
         'bg-[color:var(--bg-color)] border-2 border-[color:var(--fg-color)] px-5 py-1 rounded-sm hover:bg-[color:var(--xg-color)] text-[color:var(--fg-color)] hidden md:flex',
       type: 'a'
     }
   ]
 
+  // const htmlTimer = `<!-- timer --><div class="custom-container-container"><div class="custom-container"><h1 id="custom-headline"></h1><div id="custom-countdown"><ul><li><span id="custom-days"></span>days</li><li><span id="custom-hours"></span>Hours</li><li><span id="custom-minutes"></span>Minutes</li><li><span id="custom-seconds"></span>Seconds</li></ul></div><div id="custom-content" class="custom-emoji"><span>⏰</span><span>👩‍🔬</span><span>🎉</span></div></div></div><style>.custom-container-container{align-items:center;background-color:var(--bg-color);display:flex;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif}.custom-container{color:#333;margin:0 auto;text-align:center}.custom-container h1{font-weight:400;letter-spacing:.125rem;text-transform:uppercase}.custom-container li{display:inline-block;font-size:1em;list-style-type:none;padding:0.5em;text-transform:uppercase}.custom-container li span{display:block;font-size:3.5rem}.custom-container .custom-emoji{display:none;padding:0.5rem}.custom-container .custom-emoji span{font-size:2.5rem;padding:0 .5rem}@media all and (max-width:768px){.custom-container h1{font-size:calc(1rem * var(--smaller))}.custom-container li{font-size:calc(1rem * var(--smaller))}.custom-container li span{font-size:calc(2.5em * var(--smaller))}}</style><script>!function(){const e=6e4,t=36e5,n=24*t;let o=new Date,c=String(o.getDate()).padStart(2,"0"),m=String(o.getMonth()+1).padStart(2,"0"),l=o.getFullYear(),d="04/20/",s=d+l;o=m+"/"+c+"/"+l,o>s&&(s=d+(l+1));const a=new Date(s).getTime(),u=setInterval((function(){const o=(new Date).getTime(),c=a-o;document.getElementById("custom-days").innerText=Math.floor(c/n),document.getElementById("custom-hours").innerText=Math.floor(c%n/t),document.getElementById("custom-minutes").innerText=Math.floor(c%t/e),document.getElementById("custom-seconds").innerText=Math.floor(c%e/1e3),c<0&&(document.getElementById("custom-headline").innerText="It's on!",document.getElementById("custom-countdown").style.display="none",document.getElementById("custom-content").style.display="block",clearInterval(u))}),0)}();</script>`
+    
   const openCloseMenu = () => {
     const mobile_menu = document.getElementById('mobile-menu')
     mobile_menu.classList.toggle('hidden')
@@ -127,13 +122,16 @@ export const WeventNav: React.FC<{
     dropdown.classList.toggle('hidden')
   }
 
+  function createMarkup(c) {
+    return { __html: c }
+  }
   return (
     <>
       <header className='h-15 bg-[color:var(--bg-color)] sticky top-0 z-50 notion-nav-header'>
-        <nav className='relative px-2 py-4'>
+        <nav className='relative px-2 py-2'>
           <div className='customNav-icon-container container mx-auto flex justify-between items-center'>
             <a href='/' className='customNav-icon-a'>
-              <img src='/nav/logo_menu.svg' width='70' height='70' />
+              <img src='/nav/logo_menu.svg' width='50' height='50' />
               <p className='customNav-icon-title'>
                 OPORTO
                 <br />
@@ -142,6 +140,11 @@ export const WeventNav: React.FC<{
                 SUMMIT
               </p>
             </a>
+            
+      {/* <div
+              id='AllPages.timer'
+              dangerouslySetInnerHTML={createMarkup(htmlTimer)}
+            /> */}
 
             {/*parses the navStruct to build the navBar*/}
             <ul className='hidden md:flex space-x-6 items-center'>
@@ -217,12 +220,13 @@ export const WeventNav: React.FC<{
 
           {/* <!-- Mobile menu --> */}
 
-          <div className='md:hidden flex justify-center mt-3 w-full'>
+          <div className='md:hidden flex justify-center mt-0 w-full'>
             <div
               id='mobile-menu'
-              className='hidden mobile-menu absolute top-70 w-full overflow-scroll'
+              className='hidden mobile-menu flex justify-center absolute top-70 w-full overflow-scroll'
             >
               {/* <!-- add hidden here later --> */}
+              <div className="mobile-custommenu-wrapper">
               <ul className='text-center bg-[color:var(--bg-color)] shadow-sm leading-9 font-bold h-screen overflow-scroll'>
                 {navStruct.map((navItem) =>
                   navItem.subArr != null ? (
@@ -278,10 +282,12 @@ export const WeventNav: React.FC<{
                   )
                 )}
               </ul>
+              </div>
             </div>
           </div>
         </nav>
       </header>
+      
     </>
   )
 }
