@@ -122,9 +122,6 @@ export const WeventNav: React.FC<{
     dropdown.classList.toggle('hidden')
   }
 
-  function createMarkup(c) {
-    return { __html: c }
-  }
   return (
     <>
       <header className='h-15 bg-[color:var(--bg-color)] sticky top-0 z-50 notion-nav-header'>
