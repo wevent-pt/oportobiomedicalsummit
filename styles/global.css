@@ -70,6 +70,6 @@ body {
   flex-direction: row;
 }
 
-div:has(.notion-collection-view-tabs-content-item){
-color:red;
+.notion-collection-view-tabs-row{
+  
 }

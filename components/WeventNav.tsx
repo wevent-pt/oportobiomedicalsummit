@@ -53,16 +53,22 @@ export const WeventNav: React.FC<{
 
   const navStruct = [
     {
-      name: 'Demo',
+      name: '3rd Edition',
       subArr: [
         {
-          name: 'Room1',
+          name: 'Sessions',
           href: null,
           class: 'text-sm hover:text-[color:var(--xg-color)]',
           type: 'li'
         },
         {
-          name: 'Room2',
+          name: 'Speakers',
+          href: null,
+          class: 'text-sm hover:text-[color:var(--xg-color)]',
+          type: 'li'
+        },
+        {
+          name: 'Partners',
           href: null,
           class: 'text-sm hover:text-[color:var(--xg-color)]',
           type: 'li'
