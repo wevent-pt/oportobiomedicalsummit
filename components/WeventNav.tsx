@@ -53,7 +53,7 @@ export const WeventNav: React.FC<{
 
   const navStruct = [
     {
-      name: '3rd edition',
+      name: '3rd Edition',
       subArr: [
         {
           name: 'Program',
@@ -86,7 +86,7 @@ export const WeventNav: React.FC<{
       type: 'li'
     },
     {
-      name: 'Contact',
+      name: 'Contact Us',
       subArr: null,
       href: '/contact',
       class: 'hover:text-[color:var(--xg-color)]',
