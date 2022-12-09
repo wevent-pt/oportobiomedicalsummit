@@ -2,54 +2,12 @@ import * as React from 'react'
 
 import * as types from 'notion-types'
 
-// import { IoMoonSharp } from '@react-icons/all-files/io5/IoMoonSharp'
-// import { IoSunnyOutline } from '@react-icons/all-files/io5/IoSunnyOutline'
-// import cs from 'classnames'
-// import { Breadcrumbs, Header, useNotionContext } from 'react-notion-x'
-// import { Search } from 'react-notion-x'
-// import { navigationLinks, navigationStyle } from '@/lib/config'
-
-// import styles from './styles.module.css'
+import LoginBtn from './UserComponentLoginBtn'
+import LoginBtnMobile from './UserComponentLoginBtnMobile'
 
 export const WeventNav: React.FC<{
   block: types.CollectionViewPageBlock | types.PageBlock
 }> = () => {
-  // const navLinks = [
-  //   {
-  //     title: 'Demo',
-  //     href: '/1f41c20b8d9b439aa521f5b030c2b745',
-  //     subPages: [
-  //       {
-  //         title: 'Rooms',
-  //         href: '/#'
-  //       },
-  //       {
-  //         title: 'Chat Room',
-  //         href: '/1f41c20b8d9b439aa521f5b030c2b745'
-  //       },
-  //       {
-  //         title: 'Blocks',
-  //         href: '/1f41c20b8d9b439aa521f5b030c2b745'
-  //       },
-  //       {
-  //         title: 'Security',
-  //         href: '/1f41c20b8d9b439aa521f5b030c2b745'
-  //       },
-  //       {
-  //         title: 'Design',
-  //         href: '/1f41c20b8d9b439aa521f5b030c2b745'
-  //       },
-  //       {
-  //         title: 'Payment',
-  //         href: '/1f41c20b8d9b439aa521f5b030c2b745'
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     title: 'Contact Us',
-  //     href: '/1f41c20b8d9b439aa521f5b030c2b745'
-  //   },
-  // ]
 
   const navStruct = [
     {
@@ -95,10 +53,10 @@ export const WeventNav: React.FC<{
     {
       name: 'Sign In',
       subArr: null,
-      href: '/signin',
+      href: '/api/auth/login',
       class:
         'bg-[color:var(--bg-color)] border-2 border-[color:var(--fg-color)] px-5 py-1 rounded-sm hover:bg-[color:var(--xg-color)] text-[color:var(--fg-color)] hidden md:flex',
-      type: 'a'
+      type: 'login'
     }
   ]
 
@@ -175,16 +133,9 @@ export const WeventNav: React.FC<{
                       </>
                     ) : (
                       <>
-                        {navItem.type == 'a' ? (
+                        {navItem.type == 'login' ? (
                           <>
-                            <a
-                              href='/signin'
-                              id='loginBtn'
-                              className='bg-[color:var(--bg-color)] border-2 border-[color:var(--fg-color)] px-5 py-1 rounded-sm hover:bg-[color:var(--xg-color)] text-[color:var(--fg-color)] hidden md:flex'
-                              role='button'
-                            >
-                              {navItem.name}
-                            </a>
+                            <LoginBtn/>
                           </>
                         ) : null}
                       </>
@@ -258,13 +209,10 @@ export const WeventNav: React.FC<{
                     </>
                   ) : (
                     <>
-                      {navItem.name == 'Sign In' ? (
+                      {navItem.type == 'login' ? (
                         <>
-                          <li className='border-[color:var(--fg-color)] border-2 hover:bg-[color:var(--xg-color)] text-[color:var(--fg-color)]'>
-                            <a id='loginBtnM' href='/signin' className='block'>
-                              {navItem.name}
-                            </a>
-                          </li>
+                         <LoginBtnMobile/>
+                         <p>kiguiug</p>
                         </>
                       ) : (
                         <>

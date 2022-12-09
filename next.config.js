@@ -19,14 +19,14 @@ module.exports = withBundleAnalyzer({
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"
   },
-  async rewrites() {
-    return [
-      {
-        source: '/api/(.*)',
-        destination: '/api',
-      },
-    ]
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: '/api/(.*)',
+  //       destination: '/api',
+  //     },
+  //   ]
+  // },
 })
 
 

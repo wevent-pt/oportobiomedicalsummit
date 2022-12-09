@@ -1,6 +1,9 @@
 // global styles shared across the entire site
 import * as React from 'react'
 import type { AppProps } from 'next/app'
+
+import { UserProvider } from '@auth0/nextjs-auth0/client'
+
 import { useRouter } from 'next/router'
 
 import * as Fathom from 'fathom-client'
@@ -62,5 +65,9 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, [router.events])
 
-  return <Component {...pageProps} />
+  return (
+    <UserProvider loginUrl="/api/auth/login" profileUrl="/api/auth/me">
+      <Component {...pageProps} />
+    </UserProvider>
+  )
 }
