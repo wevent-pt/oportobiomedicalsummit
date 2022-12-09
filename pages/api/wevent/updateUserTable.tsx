@@ -22,7 +22,7 @@ const trialData = {
       "database_id": user_table_id
    },
    "properties":{
-      "Acesso-Componente-1":{
+      "access-component-x":{
          "id":"BMnm",
          "type":"rich_text",
          "rich_text":[
@@ -45,7 +45,7 @@ const trialData = {
             }
          ]
       },
-      "nome":{
+      "name":{
          "id":"NTP%3E",
          "type":"rich_text",
          "rich_text":[
@@ -120,13 +120,13 @@ const trialData = {
 
 async function joinUserData(userData: any){
 
-    const {email, nome, bilhete, } = userData;
+    const {email, name, bilhete, } = userData;
 
     const auxTrialData = trialData;
 
-    auxTrialData.properties.nome['rich_text'][0].text.content = nome;
+    auxTrialData.properties.name['rich_text'][0].text.content = name;
 
-    auxTrialData.properties.nome['rich_text'][0]['plain_text'] = nome;
+    auxTrialData.properties.name['rich_text'][0]['plain_text'] = name;
 
     auxTrialData.properties.email['title'][0].text.content = email;
 
@@ -145,16 +145,7 @@ export default async function addUser(req: NextApiRequest, res: NextApiResponse)
 	try{	
 
       const userData = req.query;
-
       console.log('userData: ', userData);
-
-
-      // const userData = {
-      //      email: 'nortada'+Math.random()*157+'@hotmail.com',
-      //      nome: 'Vitor Norte',
-      //      bilhete: 'none',
-      //      Acesso_Componente_1:'no', 
-      //  }
       const method = 'post';
       const url = 'https://api.notion.com/v1/pages';
       config.method = method;

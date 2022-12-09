@@ -26,7 +26,7 @@ function getUser(results, userEmail){
       status: null,
       userInfo: {
          email: null,
-         nome: null,
+         name: null,
          bilhete: null
       }
    }
@@ -41,14 +41,14 @@ function getUser(results, userEmail){
 
          returnObj.status = true;
 
-         const nomeProps= results[i].properties['nome'];
+         const nomeProps= results[i].properties['name'];
          const bilheteProps =  results[i].properties['bilhete'];
 
-         const nome = nomeProps[nomeProps.type][0].text.content;
+         const name = nomeProps[nomeProps.type][0].text.content;
          const bilhete = bilheteProps[bilheteProps.type][0].text.content;
 
          returnObj.userInfo.email = userEmail;
-         returnObj.userInfo.nome = nome;
+         returnObj.userInfo.name = name;
          returnObj.userInfo.bilhete = bilhete;
 
          return returnObj;

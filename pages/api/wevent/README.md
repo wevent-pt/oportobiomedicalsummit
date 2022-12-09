@@ -18,7 +18,7 @@ Returns obj = {
 	status:true,
 	userInfo:{
 		email: 'user email'
-		nome: 'user nome'
+		name: 'user nome'
 		bilhete: 'user bilhete'
 	}
 } 
@@ -36,7 +36,7 @@ Returns obj = {
 
 Adds a new user to the user table on Notion.
 
-Usage: http://domain/api/wevent/updateUserTable?email=teste@gmail.com&nome=Teste&bilhete=none
+Usage: http://domain/api/wevent/updateUserTable?email=teste@gmail.com&name=Teste&bilhete=none
 
 
 
