@@ -43,49 +43,6 @@ export default class MyDocument extends Document {
       }
     }
     </script>
-    <script id="tabChangerCity">
-     function openCity(tabId, containerId) {
-     
-       
-      var i, x, tablinks;
-      x = document.getElementsByClassName("day");
-      for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";
-      }
-      tablinks = document.getElementsByClassName("tablink");
-      for (i = 0; i < x.length; i++) {
-        if(tablinks[i].className.includes("w3-border-green")){
-        tablinks[i].className = tablinks[i].className.replace(" w3-border-green", "");
-        }
-      }
-      document.getElementById(containerId).style.display = "block";
-      currentClass = document.getElementById(tabId).getAttribute('class')
-      newClass = currentClass + " border-green"
-      document.getElementById(tabId).setAttribute('class', newClass)
-    }
-  
-  
-  
-  
-    function doStuffCity(element) {
-      openCity('tabId-2', 'container-2');
-    }
-    var checkIfExistsCity = setInterval(function() {
-      var exists = document.getElementById("container-0");
-      if (exists) {
-        clearInterval(checkIfExists);
-        doStuffCity(exists);
-      }
-    }, 25);
-    // window.addEventListener("load", (event) => {
-    //  console.log("page is fully loaded");
-    //  openCity(event, 'container-0');
-    //   document.getElementById('container-1').style.display = "block";
-    //   let currentClass = document.getElementById('tabId-0').getAttribute('class')
-    //    // console.log(document.getElementById('tabId-0').getAttribute('class'))
-    //   document.getElementById('tabId-0').setAttribute('class', currentClass + " w3-border-green") ;
-    // });
-  </script>
     <script id="debuggerUser">
       const debug = false;
     
