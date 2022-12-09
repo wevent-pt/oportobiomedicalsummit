@@ -212,7 +212,6 @@ export const WeventNav: React.FC<{
                       {navItem.type == 'login' ? (
                         <>
                          <LoginBtnMobile/>
-                         <p>kiguiug</p>
                         </>
                       ) : (
                         <>
