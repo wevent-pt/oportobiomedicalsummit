@@ -132,7 +132,7 @@ export const WeventNav: React.FC<{
                             return (
                               <>
                                 <li className='text-sm hover:text-[color:var(--xg-color)]'>
-                                  <a href='#'>{subNavItem.name}</a>
+                                  <a href={subNavItem.href}>{subNavItem.name}</a>
                                 </li>
                               </>
                             )

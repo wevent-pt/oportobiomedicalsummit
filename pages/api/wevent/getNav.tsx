@@ -89,7 +89,7 @@ function parseNav(results:any){
             }
                  
          }
-         else if(key == 'subMenuItems_hrefs(by order)'){
+         else if(key == 'subMenuItems_hrefs_ordered'){
 
             if(subMenuProps['rich_text'][0].text.content == 'true'){
 
