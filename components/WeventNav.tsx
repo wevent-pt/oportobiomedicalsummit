@@ -17,13 +17,76 @@ export const WeventNav: React.FC<{
     
       // const res = await fetch('/api/wevent/getNav');
       // const data = await res.json();
+      if (true){
 
+        const navArr = [
+          {
+              "name": "3rd Edition",
+              "subArr": [
+                  {
+                      "name": "Program",
+                      "href": "/program",
+                      "class": null,
+                      "type": "li",
+                      "order": null
+                  },
+                  {
+                      "name": "Speakers",
+                      "href": "/speakers",
+                      "class": null,
+                      "type": "li",
+                      "order": null
+                  },
+                  {
+                      "name": "Partners",
+                      "href": "/partners",
+                      "class": null,
+                      "type": "li",
+                      "order": null
+                  }
+              ],
+              "href": null,
+              "class": null,
+              "type": "div",
+              "order": 0
+          },
+          {
+              "name": "Tickets",
+              "subArr": null,
+              "href": "/tickets",
+              "class": null,
+              "type": "li",
+              "order": 1
+          },
+          {
+              "name": "Contact Us ",
+              "subArr": null,
+              "href": "/contact",
+              "class": null,
+              "type": "li",
+              "order": 2
+          },
+          {
+              "name": "Sign In",
+              "subArr": null,
+              "href": "/api/auth/login",
+              "class": null,
+              "type": "login",
+              "order": 3
+          }
+      ];
+
+        setNavStruct([...navArr])
+      }
+      else{
       fetch('/api/wevent/getNav').then((res) => res.json()).then((data) =>{
-
+        
         const navArr = data.navArr;
 
         setNavStruct([...navArr])
       });
+
+      }
 
   }, [])
 
