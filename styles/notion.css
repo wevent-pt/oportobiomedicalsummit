@@ -126,3 +126,7 @@
 .index-page .notion-column{
   justify-content: center;
 }
+
+.notion-text {
+  text-align: justify;
+}
