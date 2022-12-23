@@ -14,10 +14,10 @@ export const WeventNav: React.FC<{
   const [navStruct, setNavStruct] = useState([]);
 
   useEffect(() => {
-    
+      const dynamic = true;
       // const res = await fetch('/api/wevent/getNav');
       // const data = await res.json();
-      if (true){
+      if (!dynamic){
 
         const navArr = [
           {
@@ -74,17 +74,17 @@ export const WeventNav: React.FC<{
               "type": "login",
               "order": 3
           }
-      ];
+        ];
 
         setNavStruct([...navArr])
       }
       else{
-      fetch('/api/wevent/getNav').then((res) => res.json()).then((data) =>{
-        
-        const navArr = data.navArr;
+        fetch('/api/wevent/getNav').then((res) => res.json()).then((data) =>{
+          
+          const navArr = data.navArr;
 
-        setNavStruct([...navArr])
-      });
+          setNavStruct([...navArr])
+        });
 
       }
 
@@ -257,19 +257,19 @@ export const WeventNav: React.FC<{
               {/* <!-- add hidden here later --> */}
               <div className="mobile-custommenu-wrapper">
               <ul className='text-center bg-[color:var(--bg-color)] shadow-sm leading-9 font-bold h-screen overflow-scroll'>
-                {navStruct.map((navItem) =>
+                {navStruct.map((navItem, navId) =>
                   navItem.subArr != null ? (
                     <>
-                      <li className='  bg-[color:var(--bg-color)] '>
+                      <li className='bg-[color:var(--bg-color)] '>
                         <div
-                          onClick={() => toggleNavDesporto(0)}
+                          onClick={() => toggleNavDesporto(navId)}
                           className='block border-b-2 border-[color:var(--fg-color)] hover:border-[color:var(--xg-color)]'
                         >
                           {navItem.name}
                           <i className='fa-solid fa-chevron-down fa-2xs pt-4'></i>
                         </div>
                         <ul
-                          id='NavDesporto0'
+                          id={`NavDesporto${navId}`}
                           className='hidden bg-[color:var(--fg-color)] text-[color:var(--bg-color)]'
                         >
                           <>
@@ -277,9 +277,7 @@ export const WeventNav: React.FC<{
                               return (
                                 <>
                                   <li className='text-sm leading-8 font-normal hover:text-[color:var(--xg-color)]'>
-                                    <a className='block' href='/resources'>
-                                      {subNavItem.name}
-                                    </a>
+                                    <a className='block' href={subNavItem.href}>{subNavItem.name}</a>
                                   </li>
                                 </>
                               )
