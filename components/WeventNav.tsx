@@ -163,7 +163,7 @@ export const WeventNav: React.FC<{
 
   return (
     <>
-      <header className='h-15 bg-[color:var(--bg-color)] sticky top-0 z-50 notion-nav-header'>
+      <header className='h-15 bg-[color:var(--xg-color)] sticky top-0 z-50 notion-nav-header'>
         <nav className='relative px-2 py-2'>
           <div className='customNav-icon-container container mx-auto flex justify-between items-center'>
             <a href='/' className='customNav-icon-a'>
