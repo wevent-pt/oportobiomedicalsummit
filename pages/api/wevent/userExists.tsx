@@ -1,23 +1,7 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
-
-import {TOKEN, NOTION_VERSION, USER_TABLE_ID} from './APIConstants';
-
-const token = TOKEN;
-const notion_version = NOTION_VERSION;
-const user_table_id = USER_TABLE_ID;
-
-
-const config = {
-    method: null,
-    url: null,
-    headers: { 
-      'Notion-Version': notion_version, 
-      'Authorization': 'Bearer ' + token,
-
-    },
-    data: null,
-};
+import { USER_TABLE_ID} from './APIConstants';
+import {config} from './axiosConfig';
 
 
 function getUser(results, userEmail){
@@ -68,7 +52,7 @@ export default async function userExists(req: NextApiRequest, res: NextApiRespon
 	try{	
       const userData = req.query;
       const method = 'post';
-      const url = 'https://api.notion.com/v1/databases/' + user_table_id + '/query';
+      const url = 'https://api.notion.com/v1/databases/' + USER_TABLE_ID + '/query';
       config.method = method;
       config.url = url;
       config.headers['Content-type'] = 'application/json'; 

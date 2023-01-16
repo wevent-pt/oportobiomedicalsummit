@@ -1,24 +1,7 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
-
-import {TOKEN, NOTION_VERSION, NAV_TABLE_ID} from './APIConstants';
-
-const token = TOKEN;
-const notion_version = NOTION_VERSION;
-const nav_table_id = NAV_TABLE_ID;
-
-
-const config = {
-    method: null,
-    url: null,
-    headers: { 
-      'Notion-Version': notion_version, 
-      'Authorization': 'Bearer ' + token,
-
-    },
-    data: null,
-};
-
+import {NAV_TABLE_ID} from './APIConstants';
+import {config} from './axiosConfig';
 
 function parseNav(results:any){
 
@@ -152,7 +135,7 @@ export default async function getNav(req: NextApiRequest, res: NextApiResponse){
 	try{	
 
       const method = 'post';
-      const url = 'https://api.notion.com/v1/databases/' + nav_table_id + '/query';
+      const url = 'https://api.notion.com/v1/databases/' + NAV_TABLE_ID + '/query';
       config.method = method;
       config.url = url;
       config.headers['Content-type'] = 'application/json'; 

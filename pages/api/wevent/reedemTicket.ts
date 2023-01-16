@@ -85,19 +85,19 @@ function parseNotionResult(results:any, userCode:string ){
 
 
 
- async function updateTicketCodesTable(results:any){
+//  async function updateTicketCodesTable(results:any){
 
-    const method = 'PATCH';
-    const url = 'https://api.notion.com/v1/databases/'+ TICKET_CODES_ID;
-    config.method = method;
-    config.url = url;
-    config.headers['Content-type'] = 'application/json'; 
-    config.data = results;
-    const result = await axios(config);
-    console.log('updatedCodeTable:', result);
+//     const method = 'PATCH';
+//     const url = 'https://api.notion.com/v1/databases/'+ TICKET_CODES_ID;
+//     config.method = method;
+//     config.url = url;
+//     config.headers['Content-type'] = 'application/json'; 
+//     config.data = results;
+//     const result = await axios(config);
+//     console.log('updatedCodeTable:', result);
 
 
-}
+// }
 
 
 export default async function reedemTicket(req: NextApiRequest, res: NextApiResponse){
@@ -106,7 +106,7 @@ export default async function reedemTicket(req: NextApiRequest, res: NextApiResp
     try{
         
         //code provided by the user
-        let userInputCode:string = '';
+        let userInputCode = '';
 
         if(typeof req.query.code === 'string'){
 

@@ -1,25 +1,11 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
-import {TOKEN, NOTION_VERSION, USER_TABLE_ID} from './APIConstants';
-
-const token = TOKEN;
-const notion_version = NOTION_VERSION;
-const user_table_id = USER_TABLE_ID;
-
-const config = {
-    method: null,
-    url: null,
-    headers: { 
-      'Notion-Version': notion_version, 
-      'Authorization': 'Bearer ' + token,
-
-    },
-    data: null,
-  };
+import {USER_TABLE_ID} from './APIConstants';
+import {config} from './axiosConfig';
 
 const trialData = {
    "parent":{
-      "database_id": user_table_id
+      "database_id": USER_TABLE_ID
    },
    "properties":{
       "access-component-x":{

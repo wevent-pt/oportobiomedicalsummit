@@ -1,23 +1,8 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { SCHEDULE_TABLE_ID} from './APIConstants';
+import {config} from './axiosConfig';
 
-import {TOKEN, NOTION_VERSION, SCHEDULE_TABLE_ID} from './APIConstants';
-
-const token = TOKEN;
-const notion_version = NOTION_VERSION;
-const schedule_table_id = SCHEDULE_TABLE_ID;
-
-
-const config = {
-    method: null,
-    url: null,
-    headers: { 
-      'Notion-Version': notion_version, 
-      'Authorization': 'Bearer ' + token,
-
-    },
-    data: null,
-};
 
 
 function parseSchedule(results){
@@ -81,7 +66,7 @@ export default async function getSchedule(req: NextApiRequest, res: NextApiRespo
 	try{	
 
       const method = 'post';
-      const url = 'https://api.notion.com/v1/databases/' + schedule_table_id + '/query';
+      const url = 'https://api.notion.com/v1/databases/' + SCHEDULE_TABLE_ID + '/query';
       config.method = method;
       config.url = url;
       config.headers['Content-type'] = 'application/json'; 

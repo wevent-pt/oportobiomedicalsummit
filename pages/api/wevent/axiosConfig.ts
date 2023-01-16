@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {TOKEN, NOTION_VERSION} from './APIConstants';
 
 export const config = {
