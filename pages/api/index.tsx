@@ -16,6 +16,7 @@ const config= {
 
 
 
+
 async function callNotionApi(path){
 
   config.url = 'https://notion-cloudflare-worker.pedrogq.workers.dev/v1/' + path;
