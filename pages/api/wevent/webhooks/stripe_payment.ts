@@ -2,96 +2,56 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 import axios from 'axios'
 
-const extractInformation = (event: any) => {
-  let userEmail = ''
-  let eventId = ''
-  let product = ''
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method !== 'POST' || req.body.type !== 'payment_intent.succeeded')
+    return res.status(500).json({ message: 'Error with request' })
+  if (!(await createTicketNotionPage(req)))
+    return res.status(501).json({ message: 'Error with ticket creation' })
+  if (!(await sendTicketEmail(req)))
+    return res.status(502).json({ message: 'Error with ticket email' })
 
-  userEmail = event.data.object.receipt_email || 'test@exmaple.com'
-  eventId = event.id || ''
-  product = event.type || ''
-  console.log(event.type)
-
-  return { userEmail, eventId, product }
+  return res
+    .status(200)
+    .json({ message: 'Ticket creation and email sent successfully' })
 }
-const createTicketPage = async (
-  database_id: string,
-  userEmail?: string,
-  eventId?: string,
-  product?: string
-) => {
+
+async function createTicketNotionPage(req: NextApiRequest) {
+  const databaseId = req.query.database_id ? req.query.database_id : 'N/A'
+  const ticketType = req.query.ticketType ? req.query.ticketType : 'N/A'
+  const assigneeId = req.query.assignee_id ? req.query.assignee_id : 'N/A'
+  const paymentId = req.body.data?.object?.id || 'N/A'
+  const receiptEmail = req.body.data?.object?.receipt_email || 'N/A'
+
   try {
-    const { data } = await axios.post(
-      `/api/wevent/notion/pages/create`,
+    await axios.post(
+      `https://api.notion.com/v1/pages`,
       {
-        parent: {
-          database_id: `${database_id}`
-        },
+        parent: { database_id: databaseId },
         properties: {
-          id: {
-            title: [
-              {
-                text: {
-                  content: `${eventId}`
-                }
-              }
-            ]
-          },
-          userId: {
-            rich_text: [
-              {
-                text: {
-                  content: 'not assigned'
-                }
-              }
-            ]
-          },
-          email: {
-            rich_text: [
-              {
-                text: {
-                  content: `${userEmail}`
-                }
-              }
-            ]
-          },
-          product: {
-            rich_text: [
-              {
-                text: {
-                  content: `${product}`
-                }
-              }
-            ]
-          }
+          paymentId: { title: [{ text: { content: paymentId } }] },
+          receiptEmail: { rich_text: [{ text: { content: receiptEmail } }] },
+          assigneeId: { rich_text: [{ text: { content: assigneeId } }] },
+          ticketType: { rich_text: [{ text: { content: ticketType } }] }
+        }
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Notion-Version': `${process.env.NOTION_VERSION}`,
+          Authorization: `Bearer ${process.env.NOTION_TOKEN}`
         }
       }
     )
-
-    return { message: 'Page created successfully', data }
+    return 1
   } catch (err) {
-    return { message: 'Failed to create page', error: err }
+    return 0
   }
 }
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === 'POST') {
-    const { userEmail, eventId, product } = extractInformation(req.body)
-    // console.log(userEmail, eventId, product)
-    if (product === 'payment_intent,succeed') {
-      const databaseId = req.query.database_id.toString()
-      const pageResponse = await createTicketPage(
-        databaseId,
-        userEmail,
-        eventId,
-        product
-      )
+async function sendTicketEmail(req: NextApiRequest) {
+  const ticketType = req.query.ticketType ? req.query.ticketType : 'N/A'
+  const paymentId = req.body.data?.object?.id || 'N/A'
+  const receiptEmail = req.body.data?.object?.receipt_email || 'N/A'
 
-      res.status(200).json(pageResponse)
-    } else {
-      res.status(201).json({ message: 'Not a payment_intent_succeed event' })
-    }
-  } else {
-    res.status(405).json({ message: 'Method not allowed' })
-  }
+  return 1
 }
