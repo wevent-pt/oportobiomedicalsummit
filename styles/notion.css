@@ -6,7 +6,16 @@
  * whereas our goal with this site is to adjust Notion's styling in a few key
  * places to add some flare.
  */
- 
+ @import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Alata&family=Text+Me+One&display=swap');
+
+ @font-face {
+  font-family: 'ArialNova';
+  src: url('../public/fonts/arial-nova-cond-light.ttf');
+  font-weight: 400;
+  font-style: normal;
+  }
+
 .notion {
   --notion-max-width: 1800px;
   --notion-header-height: 67px;
@@ -14,7 +23,6 @@
 .notion-page-cover-wrapper img{
   object-fit: contain;
 }
- 
 .notion-page {
   --notion-max-width: 1200px;
   padding-bottom: calc(max(5vh, 32px)) !important;
@@ -24,7 +32,6 @@
   padding-bottom: 0!important;
   /* min-height: 90vh; */
 }
- 
 .index-page .notion-title {
   display: none !important;
 }
@@ -127,10 +134,6 @@
   justify-content: center;
 }
 
-.notion-text {
-  text-align: justify;
-}
-
 .notion-table-header {
   z-index: 1;
 }
@@ -138,12 +141,45 @@
   max-width: 100vw !important;
   /* padding-left: 20px !important; */
 }
-
 .notion-collection-group-title{
   padding: 20px !important;
-
 }
 .notion-table-view{
   padding: 20px !important;
+}
 
+
+.notion-h1{
+  font-size: 1.875em;
+  margin-top: 1.08em;
+  font-family: 'Alata', sans-serif;
+  display: flex;
+  align-self: center;
+}
+
+.notion-h2{
+  font-family: 'Alata', sans-serif;
+}
+
+.notion-h3{
+  font-size: 1.25em;
+  margin-top: 1em;
+  font-family: 'Text Me One', sans-serif;
+}
+
+.notion-text{
+  text-align: justify;
+  font-family: 'ArialNova', sans-serif;
+}
+
+
+/*Remove pointer events from cultural gallery items*/
+.notion-block-f121b04476b04eafa06f76b090c35d13 > div > div > div > a{
+  pointer-events: none;
+  cursor: none;
+}
+/*Remove pointer events from cultural gallery items*/
+
+.notion-page-title-text{
+  font-family: 'ArialNova', sans-serif;
 }
