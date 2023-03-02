@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import axios from 'axios'
-import dotenv from 'dotenv'
+// import dotenv from 'dotenv'
 
-dotenv.config()
+// dotenv.config()
 
 const notionApiUrl = 'https://api.notion.com/v1'
 const notionApiKey = process.env.NOTION_TOKEN

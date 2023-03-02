@@ -183,3 +183,115 @@
 .notion-page-title-text{
   font-family: 'ArialNova', sans-serif;
 }
+
+
+/*Center gallery view items for scientifc*/
+/* .notion-block-18e8a0ff9d154ad6a095800e13facce0 > div > div > div{
+  background-color: blue;
+} */
+
+/*Center gallery view text*/
+.notion-page-link{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/*Center gallery view text*/
+
+
+/**Box for  Roundtable items and Workshops**/
+.notion-block-c359ca8256d84439818caca5d70483c6 ~ details{
+  width: 60vw;
+  min-width: 290px;
+  height: fit-content;
+  align-self: center;
+}
+.notion-block-c359ca8256d84439818caca5d70483c6 ~ details:last-child{
+  margin-bottom: 5%;
+}
+
+.notion-block-c359ca8256d84439818caca5d70483c6 ~ details > summary{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
+  border-radius: 4px;
+  margin-bottom: 2%;
+  padding: 2px 2px;
+}
+
+.notion-block-c359ca8256d84439818caca5d70483c6 ~ details > summary:hover{
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.notion-block-c359ca8256d84439818caca5d70483c6 ~ details > div{
+  width: 60vw !important;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  /* border-top-left-radius: 0px; */
+  margin-left: 0;
+  padding: 2px 10px;
+}
+
+.notion-block-c359ca8256d84439818caca5d70483c6 ~ details > summary > h3{
+  margin-top: 0% !important;
+}
+
+
+/**Remove table of contents**/
+.notion-aside-table-of-contents{
+  display: none;
+}
+/**Remove table of contents**/
+
+
+/**Coralia vicente award link regulamentos**/
+
+.notion-block-2da4e71df0b74146878c63da15111b43,.notion-block-88c728e9c76f4cf8b0d92b09081d8100{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
+  border-radius: 4px;
+  padding: 2px 2px;
+}
+
+.notion-block-2da4e71df0b74146878c63da15111b43:hover,.notion-block-88c728e9c76f4cf8b0d92b09081d8100:hover{
+  opacity: 0.8;
+  cursor: pointer;
+}
+/**Coralia vicente award link regulamentos**/
+
+
+/***Observatory page margin bottom*/
+.notion-block-7a72ce3a683043b7933e1debcac4941f{
+  margin-bottom: 5%;
+}
+/***Observatory page margin bottom*/
+
+
+/**Sponsors page*/
+.notion-block-8059a7b092164dbf8b41dc87cd134466 > details > summary{
+  list-style: none;
+  padding: 0% 0% !important;
+  display: flex;
+  justify-content: center;
+  transform: translateX(5%);
+  margin-bottom: 2%;
+}
+.notion-block-8059a7b092164dbf8b41dc87cd134466 > details > summary > div > span > div{
+  width: 50vw;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
+  border-radius: 4px;
+  padding: 10px 10px !important;
+  font-size: 2em;
+  font-weight: 700;
+}
+/**Sponsors page*/

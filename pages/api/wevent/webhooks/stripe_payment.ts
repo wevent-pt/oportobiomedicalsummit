@@ -52,6 +52,8 @@ async function sendTicketEmail(req: NextApiRequest) {
   const ticketType = req.query.ticketType ? req.query.ticketType : 'N/A'
   const paymentId = req.body.data?.object?.id || 'N/A'
   const receiptEmail = req.body.data?.object?.receipt_email || 'N/A'
-
+  console.log("logging:", ticketType, "( ticketType )");
+  console.log("logging:", paymentId, "( paymentId )");
+  console.log("logging:", receiptEmail, "( receiptEmail )");
   return 1
 }
