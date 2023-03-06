@@ -188,8 +188,8 @@ export const WeventNav: React.FC<{
                 navItem.subArr != null ? (
                   <>
                     <li className='flex relative group '>
-                      <div className='mr-1 hover:text-[color:white]'>{navItem.name}</div>
-                      <ul className='absolute  bg-[color:var(--fg-color)] text-[color:var(--bg-color)] p-3 w-52 top-6 transform scale-0 group-hover:scale-100 transition duration-150 ease-in-out origin-top shadow-lg'>
+                      <div className='mr-1 text-[color:white] hover:text-[color:var(--fg-color)]'>{navItem.name}</div>
+                      <ul className='absolute rounded  bg-[color:var(--fg-color)] text-[color:var(--bg-color)] p-3 w-40 top-8 transform scale-0 group-hover:scale-100 transition duration-150 ease-in-out origin-top shadow-lg'>
                         <>
                           {navItem.subArr.map((subNavItem) => {
                             return (
@@ -208,7 +208,7 @@ export const WeventNav: React.FC<{
                   <>
                     {navItem.type == 'li' ? (
                       <>
-                        <li className='hover:text-[color:white]'>
+                        <li className='hover:text-[color:var(--fg-color)] text-[color:white]'>
                           <a href={navItem.href}>{navItem.name}</a>
                         </li>
                       </>

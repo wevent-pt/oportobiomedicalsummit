@@ -118,11 +118,14 @@
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
 
-.notion-block-813e5aaeb710488aaa3a621938e774ae{/*agenda align center*/
-  /* display: flex;
+
+
+/*agenda align center*/
+/* .notion-block-813e5aaeb710488aaa3a621938e774ae{
+   display: flex;
   flex-wrap: wrap;
-  justify-content: center; */
-}
+  justify-content: center;
+} */
 
 .index-page .notion-collection-view-tabs-row{
   /* margin-left: 30vw; */
@@ -158,17 +161,23 @@
 }
 
 .notion-h2{
+  font-size: 1.65em;
   font-family: 'Alata', sans-serif;
 }
 
 .notion-h3{
-  font-size: 1.25em;
+  font-size: 1.35em;
   margin-top: 1em;
   font-family: 'Text Me One', sans-serif;
 }
 
 .notion-text{
+  font-size: 1.1em;
   text-align: justify;
+  font-family: 'ArialNova', sans-serif;
+}
+
+.notion-page-title-text{
   font-family: 'ArialNova', sans-serif;
 }
 
@@ -180,18 +189,31 @@
 }
 /*Remove pointer events from cultural gallery items*/
 
-.notion-page-title-text{
-  font-family: 'ArialNova', sans-serif;
+
+
+/*Schedule change background color*/
+.notion-block-813e5aaeb710488aaa3a621938e774ae .notion-collection-card-body{
+  background-color: var(--fg-color);  
 }
-
-
-/*Center gallery view items for scientifc*/
-/* .notion-block-18e8a0ff9d154ad6a095800e13facce0 > div > div > div{
-  background-color: blue;
-} */
+.notion-block-813e5aaeb710488aaa3a621938e774ae .notion-collection-card-body:hover{
+  opacity: 0.8;
+}
+.notion-block-813e5aaeb710488aaa3a621938e774ae .notion-page-link{
+  color: white;
+}
+.notion-block-813e5aaeb710488aaa3a621938e774ae .notion-property-text {
+  color:white;
+}
+/*Schedule change background color*/
 
 /*Center gallery view text*/
 .notion-page-link{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notion-property-text{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -295,3 +317,16 @@
   font-weight: 700;
 }
 /**Sponsors page*/
+
+/*Hide other stuff btn*/
+.notion-block-60bef9bc1a954cc88fe1b305c5a74c65{
+  pointer-events: none;
+  color: var(--bg-color);
+}
+
+
+/**remove margin for top images */
+.notion-page-content-inner > .notion-asset-wrapper-image{
+  margin-top: 0%;
+}
+/**remove margin for top images */
