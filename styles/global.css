@@ -77,9 +77,9 @@ a {
 }
 
 .dark-mode {
-  --fg-color: #D4DFEC;
+  --fg-color: #243445;
   --xg-color: #C87766; 
-  --bg-color: #243445;
+  --bg-color: #D4DFEC;
 
   --fg-color-0: var(--fg-color);
   --fg-color-1: var(--fg-color);
