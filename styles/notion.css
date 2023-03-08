@@ -120,12 +120,7 @@
 
 
 
-/*agenda align center*/
-/* .notion-block-813e5aaeb710488aaa3a621938e774ae{
-   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-} */
+
 
 .index-page .notion-collection-view-tabs-row{
   /* margin-left: 30vw; */
@@ -204,6 +199,26 @@
 .notion-block-813e5aaeb710488aaa3a621938e774ae .notion-property-text {
   color:white;
 }
+
+/**BLock schedule routing*/
+.notion-block-813e5aaeb710488aaa3a621938e774ae .notion-property-multi_select:empty {
+  display: none;
+}
+
+.notion-block-813e5aaeb710488aaa3a621938e774ae .notion-property-multi_select:not(:empty){
+  display: none;
+}
+
+.notion-block-813e5aaeb710488aaa3a621938e774ae .notion-collection-card:has(.notion-property-multi_select:not(:empty)){
+  pointer-events: none;
+}
+
+/* .notion-block-813e5aaeb710488aaa3a621938e774ae .notion-property-multi_select:not(:empty) {
+  display: none;
+  pointer-events: none;
+} */
+/**BLock schedule routing*/
+
 /*Schedule change background color*/
 
 /*Center gallery view text*/
@@ -236,20 +251,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: white;
-  box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
-  border-radius: 4px;
+  background-color: var(--fg-color);
+  color:white;
+  /* box-shadow: 0px 3px 6px rgba(0,0,0,0.16); */
+  border-radius: 20px;
   margin-bottom: 2%;
-  padding: 2px 2px;
+  padding: 4px 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .notion-block-c359ca8256d84439818caca5d70483c6 ~ details > summary:hover{
   opacity: 0.8;
   cursor: pointer;
 }
+.notion-block-c359ca8256d84439818caca5d70483c6 ~ details > summary > h4{
+  padding: 0%;
+  margin-top: 0%;
+  word-break:break-all;
+}
 
 .notion-block-c359ca8256d84439818caca5d70483c6 ~ details > div{
   width: 60vw !important;
+  min-width: 290px;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 10px;
   /* border-top-left-radius: 0px; */
@@ -329,4 +352,18 @@
 .notion-page-content-inner > .notion-asset-wrapper-image{
   margin-top: 0%;
 }
+
+
+@media only screen and (max-width: 767px) {
+  .notion-page-content-inner > .notion-asset-wrapper-image > div > img{
+    margin-top: 0%;
+    content: url("../public/mobileHero.webp");
+    /* display: none; */
+  } 
+}
+
+
+
 /**remove margin for top images */
+
+

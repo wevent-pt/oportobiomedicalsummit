@@ -234,12 +234,12 @@ export const WeventNav: React.FC<{
             >
               <i onClick={changeIcon} id='navIcon' className=''>
                 <img
-                  className='hidden w-6 h-6'
+                  className='w-6 h-6'
                   id='navIconSVG0'
                   src='/nav/bars-visible.svg'
                 />
                 <img
-                  className='w-6 h-6'
+                  className='hidden w-6 h-6'
                   id='navIconSVG1'
                   src='/nav/bars-hidden.svg'
                 />

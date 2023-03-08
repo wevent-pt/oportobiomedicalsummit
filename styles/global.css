@@ -78,6 +78,7 @@ a {
 
 .dark-mode {
   --fg-color: #243445;
+  --fg-hover-color: rgba(36, 52, 69, 0.759);
   --xg-color: #C87766; 
   --bg-color: #D4DFEC;
 

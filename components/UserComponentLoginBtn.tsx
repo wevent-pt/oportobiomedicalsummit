@@ -32,7 +32,7 @@ export default function LoginBtn() {
       console.log("user deleted: " + JSON.stringify(obj));
   }
     return(
-      <a href='/api/auth/login' id="loginBtn" className="bg-[color:var(--fg-color)] border-2 border-[color:var(--fg-color)] px-5 py-1 rounded-sm  text-[color:white] hover:text-[color:var(--xg-color)]  hidden md:flex" role="button">Sign In</a>
+      <a href='/api/auth/login' id="loginBtn" className="bg-[color:var(--fg-color)] border-2 border-[color:var(--fg-color)] px-5 py-1 rounded-sm  text-[color:white] hover:bg-[color:var(--fg-hover-color)] hidden md:flex" role="button">Sign In</a>
  
     )
      }
