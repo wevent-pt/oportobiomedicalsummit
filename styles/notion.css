@@ -254,10 +254,11 @@
   background-color: var(--fg-color);
   color:white;
   /* box-shadow: 0px 3px 6px rgba(0,0,0,0.16); */
-  border-radius: 20px;
+  border-radius: 4px;
   margin-bottom: 2%;
   padding: 4px 4px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  list-style: none;
 }
 
 .notion-block-c359ca8256d84439818caca5d70483c6 ~ details > summary:hover{
@@ -268,6 +269,14 @@
   padding: 0%;
   margin-top: 0%;
   word-break:break-all;
+}
+
+@media only screen and (max-width: 767px) {
+  .notion-block-c359ca8256d84439818caca5d70483c6 ~ details > summary > h4{
+    font-size: 0.8em;
+    padding: 5px 5px;
+
+  } 
 }
 
 .notion-block-c359ca8256d84439818caca5d70483c6 ~ details > div{
@@ -293,20 +302,8 @@
 
 
 /**Coralia vicente award link regulamentos**/
-
-.notion-block-2da4e71df0b74146878c63da15111b43,.notion-block-88c728e9c76f4cf8b0d92b09081d8100{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
-  border-radius: 4px;
-  padding: 2px 2px;
-}
-
-.notion-block-2da4e71df0b74146878c63da15111b43:hover,.notion-block-88c728e9c76f4cf8b0d92b09081d8100:hover{
-  opacity: 0.8;
-  cursor: pointer;
+.notion-block-54bbdada5edc4807a007a560a74cd715 >div > figure> div > iframe {
+  background-color: var(--bg-color);
 }
 /**Coralia vicente award link regulamentos**/
 
@@ -355,10 +352,13 @@
 
 
 @media only screen and (max-width: 767px) {
-  .notion-page-content-inner > .notion-asset-wrapper-image > div > img{
+  .notion-page-content-inner > .notion-block-a06254f0738d40b7a5406f2241df65fe > div{
     margin-top: 0%;
     content: url("../public/mobileHero.webp");
-    /* display: none; */
+    min-width: 98vw;
+    /* min-width: max-content; */
+    max-height: 400px;
+    overflow-x:hidden;
   } 
 }
 
