@@ -168,7 +168,7 @@ export const WeventNav: React.FC<{
           <div className='customNav-icon-container container mx-auto flex justify-between items-center'>
             <a href='/' className='customNav-icon-a'>
               <img src='/nav/logo_menu.svg' width='50' height='50' />
-              <p className='customNav-icon-title'>
+              <p className='customNav-icon-title text-[color:white]'>
                 OPORTO
                 <br />
                 BIOMEDICAL

@@ -19,7 +19,7 @@ a {
   --fg-color: #243445;
   --xg-color: #C87766; 
   --bg-color: #D4DFEC;
-  --fg-color-hover: #243445;
+  --fg-color-hover: #243445bd;
 
   --fg-color-0: rgba(55, 53, 47, 0.09);
   --fg-color-1: rgba(55, 53, 47, 0.16);
@@ -161,10 +161,11 @@ body {
 }
 
 .customNav-icon-title {
-  margin-left: 10px;
-  color: var(--xg-color);
+  margin-left: 1%;
+  color: var(--fg-color);
   font-size: x-small;
   font-weight: 500;
+  margin-right: 5%;
 }
 
 .customNav-icon-a {
