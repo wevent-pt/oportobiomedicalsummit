@@ -27,23 +27,6 @@ export const FooterImpl: React.FC = () => {
   return (
     <div>    
       <footer className={styles.footer} data-id="footer">
-      <h2 className={styles.contactUs}>Get in touch</h2>
-      <div className={styles.footerForm}>
-        <form action="mailto:oportobiomedicalsummit@gmail.com" method="post" encType="text/plain" className={styles.form}>
-            <div className={styles.formCol}>
-              <label htmlFor="name" className="block font-bold mb-2 text-xl">Name:</label>
-              <input type="text" id="name" name="name" className="border rounded w-96 py-2 px-3"/>
-              <label htmlFor="email" className="block font-bold mb-2 text-xl">Email:</label>
-              <input type="email" id="email" name="email" className="border rounded w-96 py-2 px-3"/>
-            </div>          
-            <div className={styles.formCol}>
-              <label htmlFor="message" className="block font-bold mb-2 text-xl">Message:</label>
-              <textarea id="message" name="message"  className="border rounded h-[7.5rem] w-96 py-2 px-3"/>  
-              <input type="submit" value="Send" className=" w-96 bg-[color:var(--fg-color)] text-[color:var(--bg-color)] font-bold py-2 px-4 rounded mt-4"/>
-            </div>
-        </form>
-      </div>
-
         <div className="w-screen bg-[color:var(--bg-color)]">
           <div className="py-6 px-4 bg-[color:var(--xg-color)] md:flex md:items-center md:justify-between">
               <span className="text-sm text-[color:var(--bg-color)] sm:text-center">
