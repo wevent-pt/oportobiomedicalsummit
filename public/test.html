@@ -1,0 +1,89 @@
+
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Buy cool new product</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- <script src="https://js.stripe.com/v3/"></script> -->
+  </head>
+  <body>
+    <section>
+      <h1>Test checkout btn and ticket creation</h1>
+      <form action="http://localhost:3000/api/wevent/webhooks/stripe_payment_link" method="POST">
+        <button type="submit" id="checkout-button">Checkout</button>
+      </form>
+    </section>
+    <section>
+      <h1>Test ticket submission</h1>
+      super-embed:
+      <script>
+        
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.onclick = function(){
+          const receiptCode= document.getElementById('receiptCode').value;
+          if(receiptCode === ''){
+            
+          }
+          else{
+            const apiRoute = "/api/wevent/reedemTicket?"
+            const ticketCode = "code="+receiptCode;
+            const fullRoute = apiRoute + ticketCode;
+            window.open(fullRoute);
+          }
+        };
+        </script>
+      <div>
+        <h3>Get your ticket:</h3>
+        <h3>You can find the code to redeem your ticket in the receipt that was sent to your email.</h3>
+        <h3>Receipt #xxxx-xxxx</h3>
+        <input type="text" id="receiptCode">
+        <div id='submitBtn'>Test Submit</div>
+        <a href="/api/wevent/reedemTicket?code=123-123" target="_blank" type="button" "id="yourButton">Submit</a>
+      </div>
+      <form action="http://localhost:3000/api/wevent/webhooks/stripe_payment_link" method="POST">
+        <button type="submit" id="checkout-button">Checkout</button>
+      </form>
+    </section>
+    <!-- <section>
+      <h1>
+        AAAAAAAAAAAAAAAA
+      </h1>
+      <form action="stripe_payment_handler.php" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+      
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+      
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" required><br><br>
+      
+        <label for="up_number">UP Number:</label>
+        <input type="text" id="up_number" name="up_number" required><br><br>
+      
+        <label for="faculty">Faculty:</label>
+        <input type="text" id="faculty" name="faculty"><br><br>
+      
+        <label for="university">University:</label>
+        <input type="text" id="university" name="university"><br><br>
+      
+        <label for="academic_year">Academic Year:</label>
+        <input type="text" id="academic_year" name="academic_year" required><br><br>
+      
+        <label for="ambassador_code">Ambassador Code:</label>
+        <input type="text" id="ambassador_code" name="ambassador_code"><br><br>
+      
+        <label for="is_student">Are you a student?</label>
+        <input type="radio" id="student_yes" name="is_student" value="yes" required>
+        <label for="student_yes">Yes</label>
+        <input type="radio" id="student_no" name="is_student" value="no" required>
+        <label for="student_no">No</label><br><br>
+      
+        <input type="submit" value="Submit">
+      </form>
+      
+    </section> -->
+  </body>
+</html>

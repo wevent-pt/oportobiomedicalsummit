@@ -23,7 +23,7 @@ function parseNotionResult(results:any, userCode:string ){
   
        const resultProps = results[i].properties;
 
-       console.log(resultProps);
+    //    console.log(resultProps);
  
        for(const [key,value] of Object.entries(resultProps)){
 

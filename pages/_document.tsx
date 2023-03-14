@@ -8,11 +8,21 @@ export default class MyDocument extends Document {
     function createMarkup(c) {
       return { __html: c }
     }
-    const htmlHeadAll = `     
+    const htmlHeadAll = `   
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.6/axios.min.js" integrity="sha512-RUkwGPgBmjCwqXpCRzpPPmGl0LSFp9v5wXtmG41+OS8vnmXybQX5qiG5adrIhtO03irWCXl+z0Jrst6qeaLDtQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
+    <script>
+async function submitCheckoutForm() {
+  try {
+    await axios.post("http://localhost:3000/api/wevent/webhooks/stripe_payment_link").then(response => {console.log(response);});
+  } catch (error) {
+    console.error(error);
+  }
+}</script>
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script id="tailwindd-script" src="https://cdn.tailwindcss.com"></script>
-    <script id="mojo-script" src="https://cdn.mojoauth.com/js/mojoauth.min.js"></script>
     <script id="mojo-custom-script">
     function resolveMojoSignIn(response) {
       deb(JSON.stringify(response));
@@ -32,14 +42,6 @@ export default class MyDocument extends Document {
       if (authed) {
         deb(authed + " already signedIn");
         window.location = "/signedin";
-      } else {
-        const mojoauth = new MojoAuth("dd4b7e12-f1bd-4fb6-aec3-ad86de79d558", {
-          source: [{
-            type: 'email',
-            feature: 'magiclink'
-          }]
-        });
-        mojoauth.signIn().then(response => resolveMojoSignIn(response));
       }
     }
     </script>
@@ -56,7 +58,7 @@ export default class MyDocument extends Document {
         }
       }
     </script>
-    <script id="userFunctionsAndMojo">
+    <script id="userFunctions">
       function setUser(email, token) {
         var obj = {
           'userEmail': email,

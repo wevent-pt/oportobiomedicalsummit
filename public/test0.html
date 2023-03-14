@@ -1,0 +1,398 @@
+<html>
+
+<head>
+  <title>Ticketing Form</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* global styles */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+    }
+
+    h1 {
+      font-size: 36px;
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 30px;
+    }
+
+    form {
+      max-width: 50vw;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+      border-radius: 10px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    select,
+    input[type="text"] {
+      width: 97%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+      background-color: var(--input-bg-color, #e0e0e0);
+      margin-bottom: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    select:focus,
+    input[type="text"]:focus {
+      outline: none;
+      box-shadow: 0 0 5px #999;
+      background-color: var(--input-focus-bg-color, #f0f0f0);
+    }
+
+    .form-fields {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    #error {
+      color: red;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    #total {
+      font-size: 24px;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+
+    button[type="button"] {
+      padding: 10px 20px;
+      background-color: var(--button-bg-color, #4CAF50);
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button[type="button"]:hover {
+      background-color: var(--button-hover-bg-color, #3e8e41);
+    }
+
+    /* media queries */
+    @media screen and (max-width: 600px) {
+      form {
+        max-width: 100%;
+        margin: 0;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Ticketing Form</h1>
+  <form id="ticket-form">
+    <label for="ticket-type">Ticket Type:</label>
+    <select id="ticket-type">
+      <option value="Early Bird">Early Bird</option>
+      <option value="Late Bird">Late Bird</option>
+    </select>
+    <br><br>
+
+    <label for="form-of-ticket">Form of Ticket:</label>
+    <select id="form-of-ticket">
+      <option value="Full Ticket">Full Ticket</option>
+      <option value="Partial Ticket">Partial Ticket</option>
+    </select>
+    <br><br>
+
+    <label for="participant-type">Participant Type:</label>
+    <select id="participant-type">
+      <option value="ICBAS Student">ICBAS Student</option>
+      <option value="Non-ICBAS Student">Non-ICBAS Student</option>
+      <option value="Non-Student">Non-Student</option>
+    </select>
+    <br><br>
+
+    <div id="form-fields">
+      <!-- Form fields will be generated dynamically -->
+    </div>
+
+    <div>
+      <label for="coupon-code">
+        Coupon Code:
+      </label>
+      <input type="text" id="coupon-code" aria-label="Coupon Code" />
+      <div id="coupon-error"></div>
+    </div>
+    <br><br>
+
+    <label for="total">Total:</label>
+    <span id="total"></span>
+
+    <br><br>
+
+    <button type="button" id="submit-button">Payment</button>
+  </form>
+  <button id="checkout-button">Checkout</button>
+
+  <script>
+    // Your JavaScript code goes here
+    const commonRequiredInfo = ["Full Name", "Email", "Phone Number"];
+    const commonCoupons = ["100OFF"];
+    const tickets = {
+      "Early Bird": {
+        "Full Ticket": {
+          "ICBAS Student": {
+            price: 35.5,
+            coupons: [...commonCoupons, "ICBASPROMOFULL"],
+            requiredInfo: [...commonRequiredInfo, "Student Number", "Academic Year"]
+          },
+          "Non-ICBAS Student": {
+            price: 38.5,
+            coupons: commonCoupons,
+            requiredInfo: [
+              ...commonRequiredInfo,
+              "University",
+              "Faculty",
+              "Academic Year"
+            ]
+          }
+        },
+        "Partial Ticket": {
+          "ICBAS Student": {
+            price: 15.5,
+            coupons: [...commonCoupons, "ICBASPROMOPARTIAL"],
+            requiredInfo: [...commonRequiredInfo, "Student Number", "Academic Year"]
+          },
+          "Non-ICBAS Student": {
+            price: 18.5,
+            coupons: commonCoupons,
+            requiredInfo: [
+              ...commonRequiredInfo,
+              "University",
+              "Faculty",
+              "Academic Year"
+            ]
+          },
+          "Non-Student": {
+            price: 39.5,
+            coupons: commonCoupons,
+            requiredInfo: commonRequiredInfo
+          }
+        }
+      },
+      "Late Bird": {
+        "Full Ticket": {
+          "ICBAS Student": {
+            price: 38.5,
+            coupons: [...commonCoupons, "ICBASPROMOFULL"],
+            requiredInfo: [...commonRequiredInfo, "Student Number", "Academic Year"]
+          },
+          "Non-ICBAS Student": {
+            price: 41.5,
+            coupons: commonCoupons,
+            requiredInfo: [
+              ...commonRequiredInfo,
+              "University",
+              "Faculty",
+              "Academic Year"
+            ]
+          }
+        },
+        "Partial Ticket": {
+          "ICBAS Student": {
+            price: 18.5,
+            coupons: [...commonCoupons, "ICBASPROMOPARTIAL"],
+            requiredInfo: [...commonRequiredInfo, "Student Number", "Academic Year"]
+          },
+          "Non-ICBAS Student": {
+            price: 21.5,
+            coupons: commonCoupons,
+            requiredInfo: [
+              ...commonRequiredInfo,
+              "University",
+              "Faculty",
+              "Academic Year"
+            ]
+          },
+          "Non-Student": {
+            price: 42.5,
+            coupons: commonCoupons,
+            requiredInfo: commonRequiredInfo
+          }
+        }
+      }
+    };
+    const updateTotal = (price) => {
+      const couponCode = document.getElementById("coupon-code").value;
+      const couponResult = applyCoupon(couponCode, price);
+      if (price === -1) {
+        // document.getElementById("coupon-error").textContent = "Invalid";
+        // document.getElementById("total").textContent = "invalid";
+      } else {
+        document.getElementById("coupon-error").textContent = "";
+        if (couponResult.isValid) {
+          const discountedPrice = couponResult.discount;
+          document.getElementById("total").textContent = discountedPrice.toFixed(2);
+        } else {
+          document.getElementById("coupon-error").textContent = "Invalid coupon code";
+          return -1;
+        }
+      }
+      return couponResult.discount;
+    };
+    const applyCoupon = (couponCode, price) => {
+      const couponMapping = {
+        "100OFF": 0,
+        "ICBASPROMOFULL": 200,
+        "ICBASPROMOPARTIAL": 300
+      };
+      if (couponCode) {
+        if (couponMapping.hasOwnProperty(couponCode)) {
+          const discount = couponMapping[couponCode];
+          return {
+            isValid: true,
+            discount
+          };
+        } else {
+          return {
+            isValid: false
+          };
+        }
+      } else {
+        return {
+          isValid: true,
+          discount: price
+        };
+      }
+    };
+    const generateFormFields = (requiredInfo) => {
+      let formFields = "";
+      requiredInfo.forEach((info) => {
+        formFields += `
+      <div>
+        <label for="${info}">
+          ${info}:
+        </label>
+        <input type="text" id="${info}" required aria-label="${info}" />
+      </div>
+    `;
+      });
+      return formFields;
+    };
+    const updateFormFields = () => {
+      const ticketType = document.getElementById("ticket-type");
+      const formOfTicket = document.getElementById("form-of-ticket");
+      const participantType = document.getElementById("participant-type");
+      // Check that required form elements exist
+      if (!ticketType || !formOfTicket || !participantType) {
+        console.error("Error: Required form elements not found");
+        return;
+      }
+      const ticketTypeValue = ticketType.value;
+      const formOfTicketValue = formOfTicket.value;
+      const participantTypeValue = participantType.value;
+      // Check that entered values are valid
+      if (!tickets[ticketTypeValue] || !tickets[ticketTypeValue][formOfTicketValue] || !tickets[ticketTypeValue][formOfTicketValue][participantTypeValue]) {
+        console.error("Error: Invalid form values entered");
+        return;
+      }
+      const requiredInfo =
+        tickets[ticketTypeValue][formOfTicketValue][participantTypeValue].requiredInfo;
+      const formFields = generateFormFields(requiredInfo);
+      document.getElementById("form-fields").innerHTML = formFields;
+    };
+    const checkFormFields = () => {
+      const requiredFields = document.querySelectorAll("#form-fields input[required]");
+      let isFormValid = true;
+      requiredFields.forEach((field) => {
+        if (field.value.trim() === "") {
+          isFormValid = false;
+          updateTotal(-1);
+        }
+      });
+      return isFormValid;
+    };
+    const calculateTotal = () => {
+      try {
+        const ticketPrice =
+          tickets[document.getElementById("ticket-type").value][
+            document.getElementById("form-of-ticket").value
+          ][document.getElementById("participant-type").value].price;
+        updateTotal(ticketPrice);
+        if (!checkFormFields()) {
+          throw new Error("Please fill in all required form fields");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    const submitForm = (event) => {
+      event.preventDefault(); // prevent the default form submission
+      const ticketType = document.getElementById("ticket-type").value;
+      const formOfTicket = document.getElementById("form-of-ticket").value;
+      const participantType = document.getElementById("participant-type").value;
+      if (!tickets[ticketType] || !tickets[ticketType][formOfTicket] || !tickets[ticketType][formOfTicket][participantType] || !checkFormFields()) {
+        console.error("Error: Invalid form values entered");
+        alert("Invalid form values entered. Please select valid options.");
+        return;
+      }
+      const endpoint = 'http://localhost:3000/api/wevent/webhooks/stripe_payment_link';
+      const params = new URLSearchParams({
+        ticket_type: ticketType,
+        form_of_ticket: formOfTicket,
+        participant_type: participantType,
+        price: tickets[ticketType][formOfTicket][participantType],
+        // add any additional query parameters here
+      });
+      fetch(`${endpoint}?${params}`, {
+          method: 'POST'
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          // handle the response data
+          alert('Order submitted successfully!');
+          console.log(data);
+        })
+        .catch(error => {
+          // handle any errors that occur
+          alert('Error submitting order. Please try again.');
+          console.error(error);
+        });
+    };
+    document.getElementById("ticket-type").addEventListener("change", () => {
+      updateFormFields();
+      calculateTotal();
+    });
+    document.getElementById("form-of-ticket").addEventListener("change", () => {
+      updateFormFields();
+      calculateTotal();
+    });
+    document.getElementById("participant-type").addEventListener("change", () => {
+      updateFormFields();
+      calculateTotal();
+    });
+    document.getElementById("coupon-code").addEventListener("input", () => {
+      calculateTotal();
+    });
+    document.getElementById("submit-button").addEventListener("click", submitForm);
+    // initial form setup
+    updateFormFields();
+    calculateTotal();
+  </script>
+</body>
+
+</html>
