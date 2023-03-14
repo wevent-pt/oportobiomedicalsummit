@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (ticketPrice <= 0){//!!!and more security
       
-    return res.status(200).json({ sessionUrl: "http://localhost:3000/success?ticket_code=aaa&&email=aaa@gmail.com" });//!!!
+    return res.status(200).json({ sessionUrl: "https://oportobiomedicalsummit.wevent.gq/success?ticket_code=aaa&&email=aaa@gmail.com" });//!!!
     }
     // const ticketPrice = 10;
     const ticket = tickets.find(ticket => ticket.id === ticketType);
@@ -58,8 +58,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
       payment_method_types: ['card'],
       mode: 'payment',
-      success_url: `http://localhost:3000/api/handlwstripe?success=true`, //!!!
-      cancel_url: `http://localhost:3000/api/handlwstripe?canceled=true`, //!!!
+      success_url: `https://oportobiomedicalsummit.wevent.gq/api/handlwstripe?success=true`, //!!!
+      cancel_url: `https://oportobiomedicalsummit.wevent.gq/api/handlwstripe?canceled=true`, //!!!
     });
     return res.status(200).json({ sessionUrl: session.url });
     // return Response.redirect(session.url, 303);
