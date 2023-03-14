@@ -174,9 +174,6 @@ async function queryTicketNotionDatabase(req: NextApiRequest) {
   }
 }
 async function createUserNotionPage(req: NextApiRequest) {
-  if(req){
-    console.log('1')
-  }
   // const databaseId = await req.query.database_id ? req.query.database_id : 'N/A'
   // const email = await req.body.data?.object?.metadata?.participant_ticketType ? req.body.data?.object?.metadata?.participant_ticketType : 'N/A'
   // const ticketId = await req.body.data.object?.metadata?.participant_ticketCode ? req.body.data.object?.metadata?.participant_ticketCode : 'N/A'

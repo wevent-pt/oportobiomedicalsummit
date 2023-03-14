@@ -289,6 +289,26 @@
   margin-top: 0% !important;
 }
 
+/**Togles for sections*/
+.notion-block-c359ca8256d84439818caca5d70483c6 ~ details > div > details > summary{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color:var(--fg-color);
+  /* box-shadow: 0px 3px 6px rgba(0,0,0,0.16); */
+  border-radius: 4px;
+  margin-bottom: 2%;
+  padding: 4px 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  list-style: none;
+}
+.notion-block-c359ca8256d84439818caca5d70483c6 ~ details > div > details > summary:hover{
+  background-color: whitesmoke;
+  cursor: pointer;
+}
+/**Togles for sections*/
+
 
 /**Remove table of contents**/
 .notion-aside-table-of-contents{
@@ -437,3 +457,18 @@
 }
 /**Organizing committe*/
 
+/**Align countdown*/
+#sil-widget-640e68274fce680013bceb71 > timer > div{
+  max-width: 100%;
+  
+}
+
+#sil-widget-640e68274fce680013bceb71 > timer > div:nth-child(2){
+ display: none;
+}
+
+#sil-widget-640e68274fce680013bceb71 > timer > div > div{
+  align-items: center;
+  justify-content: center;
+  
+}
