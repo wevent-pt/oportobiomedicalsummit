@@ -50,10 +50,43 @@
   padding: 0px;
 
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+.contactUs{
+  width: 100%;
+  background-color: #c87666b7;
+  margin-top: 2%;
+  font-size: 1.65em;
+  font-family: 'Alata', sans-serif;
+  text-indent: 2%;
+
+}
+.footerForm{
+  width: 100%;
+  background-color: #c87666b7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form{
+  width: 100%;
+  margin-left: 2%;
+  margin-top: 2%;
+  margin-bottom:2%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2%;
+}
+
+.formCol{
+  display: flex;
+  flex-direction: column;
+}
+
 
 .copyright {
   font-size: 80%;

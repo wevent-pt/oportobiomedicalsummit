@@ -102,7 +102,10 @@
 
 import { NextApiRequest, NextApiResponse } from 'next';
 
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+// const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+import Stripe from 'stripe';
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY,null);
+
 interface StripeTicket {
   id: string;
   name: string;
@@ -176,6 +179,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       const ticketType = req.query.ticket_type?.toString() || 'gen_adm';
       const ticketPrice = 10;
+      console.log(ticketPrice);
       const ticket = tickets.find(ticket => ticket.id === ticketType);
       if (!ticket) throw new Error('Invalid ticket type.');
       const ticketNumber = Math.random().toString(36).substr(2, 6);
