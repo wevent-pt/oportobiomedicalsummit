@@ -30,6 +30,7 @@
     "@keyvhq/core": "^1.6.9",
     "@keyvhq/redis": "^1.6.10",
     "@react-icons/all-files": "^4.1.0",
+    "@stripe/stripe-js": "^1.49.0",
     "@vercel/og": "^0.0.19",
     "autoprefixer": "^10.4.13",
     "axios": "^1.1.3",

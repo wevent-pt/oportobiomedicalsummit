@@ -1,4 +1,4 @@
-import { NextApiRequest } from 'next'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 import axios from 'axios'
 
@@ -55,7 +55,7 @@ async function updateUserNotionPage(req: NextApiRequest) {
   const name = req.query.name ? req.query.name : ''
   const ticketId = req.query.ticket_id ? req.query.ticket_id : ''
 
-  let body = { properties: {} }
+  const body = { properties: {} }
 
   if (name) {
     body.properties = {

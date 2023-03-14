@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -6,99 +7,163 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     /* global styles */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #fff;
-    }
+    :root {
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --input-bg-color: #243445;
+  --input-focus-bg-color: #243445;
+  --button-bg-color: #b95f4d;
+  --button-hover-bg-color: #2F2F2F;
+}
 
-    h1 {
-      font-size: 36px;
-      text-align: center;
-      margin-top: 20px;
-      margin-bottom: 30px;
-    }
+/* Global Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    form {
-      max-width: 50vw;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #f5f5f5;
-      border-radius: 10px;
-    }
+body {
+  font-family: var(--font-family);
+  background-color: #d4dfec;
+}
 
-    label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 10px;
-    }
+h1 {
+  font-size: 30px;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #243445;
+  text-shadow: 1px 1px #C87766;
+}
 
-    select,
-    input[type="text"] {
-      width: 97%;
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 5px;
-      border: none;
-      background-color: var(--input-bg-color, #e0e0e0);
-      margin-bottom: 20px;
-      transition: background-color 0.3s ease;
-    }
+form {
+    max-width: 70vw;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #c8d5e27d;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    grid-template-columns: max-content !important;
+    grid-gap: 5px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: #243445;
+}
 
-    select:focus,
-    input[type="text"]:focus {
-      outline: none;
-      box-shadow: 0 0 5px #999;
-      background-color: var(--input-focus-bg-color, #f0f0f0);
-    }
+select,
+input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--input-bg-color);
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+  color: #fff;
+}
 
-    .form-fields {
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
+select:focus,
+input[type="text"]:focus {
+  outline: none;
+  box-shadow: 0 0 5px #C87766;
+  background-color: var(--input-focus-bg-color);
+}
 
-    #error {
-      color: red;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
+.personal-info-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 30px;
+}
 
-    #total {
-      font-size: 24px;
-      font-weight: bold;
-      margin-left: 10px;
-    }
+.personal-info-section div {
+  grid-column: span 2;
+}
 
-    button[type="button"] {
-      padding: 10px 20px;
-      background-color: var(--button-bg-color, #4CAF50);
-      border: none;
-      color: white;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+.personal-info-section input[type="text"] {
+  width: 100%;
+}
 
-    button[type="button"]:hover {
-      background-color: var(--button-hover-bg-color, #3e8e41);
-    }
+.submit-button {
+  background-color: var(--button-bg-color);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-    /* media queries */
-    @media screen and (max-width: 600px) {
-      form {
-        max-width: 100%;
-        margin: 0;
-        padding: 10px;
-      }
-    }
+.submit-button:hover {
+  background-color: var(--button-hover-bg-color);
+}
+/* Media Queries */
+@media screen and (max-width: 1024px) {
+  form {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 36px;
+  }
+  form {
+    max-width: 80vw;
+  }
+}
+#total{
+  color: #fff
+}
+
+#submit-button {
+  background-color: #C87766; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius:5px;
+}
+
+#total-checkoutbtn_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border: 1px solid #c87766;
+    border-radius: 5px;
+}
+
+#total-checkoutbtn_wrapper label {
+font-size: 1.2rem;
+}
+
+#total-checkoutbtn_wrapper span {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 10px;
+}
   </style>
 </head>
 
 <body>
   <h1>Ticketing Form</h1>
   <form id="ticket-form">
+    <div>
     <label for="ticket-type">Ticket Type:</label>
     <select id="ticket-type">
       <option value="Early Bird">Early Bird</option>
@@ -119,29 +184,27 @@
       <option value="Non-ICBAS Student">Non-ICBAS Student</option>
       <option value="Non-Student">Non-Student</option>
     </select>
-    <br><br>
+    <label for="coupon-code">
+      Coupon Code:
+    </label>
+    <input type="text" id="coupon-code" aria-label="Coupon Code" />
+    <div id="coupon-error"></div>
+  </div>
 
     <div id="form-fields">
       <!-- Form fields will be generated dynamically -->
     </div>
+<div id='total-checkoutbtn_wrapper'>
 
-    <div>
-      <label for="coupon-code">
-        Coupon Code:
-      </label>
-      <input type="text" id="coupon-code" aria-label="Coupon Code" />
-      <div id="coupon-error"></div>
-    </div>
     <br><br>
 
     <label for="total">Total:</label>
     <span id="total"></span>
+    <button type="button" id="submit-button">Payment</button>
 
     <br><br>
-
-    <button type="button" id="submit-button">Payment</button>
+  </div>
   </form>
-  <button id="checkout-button">Checkout</button>
 
   <script>
     // Your JavaScript code goes here
@@ -234,20 +297,26 @@
     const updateTotal = (price) => {
       const couponCode = document.getElementById("coupon-code").value;
       const couponResult = applyCoupon(couponCode, price);
+      
+      var discountedPrice = couponResult.discount;
       if (price === -1) {
+        
+        discountedPrice = -1
+        return -1;
         // document.getElementById("coupon-error").textContent = "Invalid";
         // document.getElementById("total").textContent = "invalid";
       } else {
         document.getElementById("coupon-error").textContent = "";
         if (couponResult.isValid) {
-          const discountedPrice = couponResult.discount;
+          discountedPrice = couponResult.discount;
           document.getElementById("total").textContent = discountedPrice.toFixed(2);
         } else {
+          discountedPrice = -1
           document.getElementById("coupon-error").textContent = "Invalid coupon code";
           return -1;
         }
       }
-      return couponResult.discount;
+      return discountedPrice;
     };
     const applyCoupon = (couponCode, price) => {
       const couponMapping = {
@@ -340,17 +409,19 @@
       const ticketType = document.getElementById("ticket-type").value;
       const formOfTicket = document.getElementById("form-of-ticket").value;
       const participantType = document.getElementById("participant-type").value;
+      var ticket_price = document.getElementById("total").innerText*100;
       if (!tickets[ticketType] || !tickets[ticketType][formOfTicket] || !tickets[ticketType][formOfTicket][participantType] || !checkFormFields()) {
         console.error("Error: Invalid form values entered");
         alert("Invalid form values entered. Please select valid options.");
         return;
       }
-      const endpoint = 'http://localhost:3000/api/wevent/webhooks/stripe_payment_link';
+      const endpoint = `http://localhost:3000/api/wevent/webhooks/stripe_payment_link`;
       const params = new URLSearchParams({
-        ticket_type: ticketType,
-        form_of_ticket: formOfTicket,
-        participant_type: participantType,
-        price: tickets[ticketType][formOfTicket][participantType],
+        ticket_type: 'gen_adm',
+        // form_of_ticket: formOfTicket,
+        // participant_type: participantType,
+        ticket_price: document.getElementById("total").innerText*100,
+        participant_email: document.getElementById("Full Name").innerText,
         // add any additional query parameters here
       });
       fetch(`${endpoint}?${params}`, {
@@ -366,6 +437,8 @@
           // handle the response data
           alert('Order submitted successfully!');
           console.log(data);
+          window.open(data.sessionUrl, "_blank");
+          
         })
         .catch(error => {
           // handle any errors that occur

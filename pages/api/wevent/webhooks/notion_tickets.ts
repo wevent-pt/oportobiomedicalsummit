@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import axios from 'axios'
-import { request } from 'http'
+// import { request } from 'http'
 
 const headers = {
   headers: {
@@ -10,6 +10,7 @@ const headers = {
     Authorization: `Bearer ${process.env.NOTION_TOKEN}`
   }
 }
+
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST' || !req.query.action)
@@ -65,7 +66,7 @@ async function validateTicketNotionPage(req: NextApiRequest) {
   // return 0
 }
 async function queryUserNotionDatabase(req: NextApiRequest) {
-  let resultb = ''
+  // let resultb = ''
 
   let result = 0
   const userDbId = '9bb6c9aa543b45768541587fe0e40f3b'
@@ -173,6 +174,9 @@ async function queryTicketNotionDatabase(req: NextApiRequest) {
   }
 }
 async function createUserNotionPage(req: NextApiRequest) {
+  if(req){
+    console.log('1')
+  }
   // const databaseId = await req.query.database_id ? req.query.database_id : 'N/A'
   // const email = await req.body.data?.object?.metadata?.participant_ticketType ? req.body.data?.object?.metadata?.participant_ticketType : 'N/A'
   // const ticketId = await req.body.data.object?.metadata?.participant_ticketCode ? req.body.data.object?.metadata?.participant_ticketCode : 'N/A'
@@ -265,7 +269,7 @@ async function createTicketNotionPage(req: NextApiRequest) {
 async function updateTicketNotionPage(req: NextApiRequest) {
   const pageId = req.query.page_id ? req.query.page_id : '' //get pageId that is the ticket code on the query, and then use that pageID
 
-  let body = { properties: {} }
+  const body = { properties: {} }
 
   const paymentId = req.query.payment_id ? req.query.payment_id : ''
   const assigneeEmail = req.query.assignee_email ? req.query.assignee_email : ''
