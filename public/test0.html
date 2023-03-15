@@ -270,7 +270,7 @@ font-size: 1.2rem;
               ...commonRequiredInfo,
               "University",
               "Faculty",
-              "Academic Year"
+              "Year of Studies"
             ]
           },
           "Non-Student": {
@@ -311,7 +311,7 @@ font-size: 1.2rem;
               ...commonRequiredInfo,
               "University",
               "Faculty",
-              "Academic Year"
+              "Year of Studies"
             ]
           },
           "Non-Student": {
@@ -374,6 +374,24 @@ font-size: 1.2rem;
     const generateFormFields = (requiredInfo) => {
       let formFields = "";
       requiredInfo.forEach((info) => {
+        if (info === 'Academic Year'){ 
+          formFields += `
+          <div>
+            <label for="${info}">
+              ${info}:
+            </label>
+            <select id="${info}" required aria-label="${info}">
+              <option value="1st year">1st year</option>
+              <option value="2nd year">2nd year</option>
+              <option value="3rd year">3rd year</option>
+              <option value="4th year">4th year</option>
+              <option value="5th year">5th year</option>
+              <option value="6th year">6th year</option>
+            </select>
+          </div>
+    `;
+
+        }else{
         formFields += `
       <div>
         <label for="${info}">
@@ -382,6 +400,8 @@ font-size: 1.2rem;
         <input type="text" id="${info}" required aria-label="${info}" />
       </div>
     `;
+
+        }
       });
       return formFields;
     };
