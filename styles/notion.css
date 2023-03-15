@@ -269,10 +269,22 @@
 
 @media only screen and (max-width: 767px) {
   .notion-block-c359ca8256d84439818caca5d70483c6 ~ details > summary > h4{
-    font-size: 0.8em;
+    font-size: 0.70em;
     padding: 5px 5px;
 
-  } 
+  }
+
+  .notion-block-c359ca8256d84439818caca5d70483c6 ~ details > div > h4{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .notion-block-c359ca8256d84439818caca5d70483c6 ~ details > div > details > summary{
+    font-size: min(0.58rem,0.62rem);
+    /* white-space: nowrap; */
+  }
 }
 
 .notion-block-c359ca8256d84439818caca5d70483c6 ~ details > div{
@@ -280,7 +292,6 @@
   min-width: 290px;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 10px;
-  /* border-top-left-radius: 0px; */
   margin-left: 0;
   padding: 2px 10px;
 }
