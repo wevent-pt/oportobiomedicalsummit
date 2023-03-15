@@ -31,7 +31,7 @@ export const FooterImpl: React.FC = () => {
           <div className="py-6 px-4 bg-[color:var(--xg-color)] md:flex md:items-center md:justify-between">
               <span className="text-sm text-[color:var(--bg-color)] sm:text-center">
                 <div className={styles.settings}></div>
-                <a href="https://wevent.gq/">2022 © Wevent</a>
+                <a href="mailto:weventpt@gmail.com/">2023 © Wevent</a>
               </span>
 
               <div className="flex mt-4 space-x-6 sm:justify-center md:mt-0">

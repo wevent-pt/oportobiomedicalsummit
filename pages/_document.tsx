@@ -14,7 +14,7 @@ export default class MyDocument extends Document {
     <script>
 async function submitCheckoutForm() {
   try {
-    await axios.post("https://oportobiomedicalsummit.wevent.gq/api/wevent/webhooks/stripe_payment_link").then(response => {console.log(response);});
+    await axios.post("https://oportobiomedicalsummit.com/api/wevent/webhooks/stripe_payment_link").then(response => {console.log(response);});
   } catch (error) {
     console.error(error);
   }

@@ -11,11 +11,11 @@ export default siteConfig({
 
   // basic site info (required)
   name: 'Wevent',
-  domain: 'wevent.pedro.gq',
+  domain: 'oportobiomedicalsummit.com',
   author: 'wevent',
 
   // open graph metadata (optional)
-  description: 'Wevent, the platforms platform.',
+  description: 'oportobiomedicalsummit',
 
   // social usernames (optional)
   twitter: '',
