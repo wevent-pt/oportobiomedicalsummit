@@ -1,5 +1,5 @@
 export function bootstrap() {
   console.log(`                                                                                               
-   This site is built by weventpt@gmail.com
+   This site was built by weventpt@gmail.com
 `)
 }
