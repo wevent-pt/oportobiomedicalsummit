@@ -58,8 +58,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
       payment_method_types: ['card'],
       mode: 'payment',
-      success_url: `https://oportobiomedicalsummit.wevent.gq/api/handlwstripe?success=true`, //!!!
-      cancel_url: `https://oportobiomedicalsummit.wevent.gq/api/handlwstripe?canceled=true`, //!!!
+      success_url: `https://oportobiomedicalsummit.wevent.gq/api/handlestripe?success=true&ticket_code=${ticketNumber}`, //!!!
+      cancel_url: `https://oportobiomedicalsummit.wevent.gq/api/handlestripe?canceled=true`, //!!!
     });
     return res.status(200).json({ sessionUrl: session.url });
     // return Response.redirect(session.url, 303);
