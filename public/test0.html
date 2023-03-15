@@ -463,7 +463,7 @@ font-size: 1.2rem;
         alert("Invalid form values entered. Please select valid options.");
         return;
       }
-      const endpoint = `https://oportobiomedicalsummit.com/api/wevent/webhooks/stripe_payment_link`;
+      const endpoint = `/api/wevent/webhooks/stripe_payment_link`;
       const params = new URLSearchParams({
         ticket_type: 'gen_adm',
         // form_of_ticket: formOfTicket,
@@ -485,7 +485,10 @@ font-size: 1.2rem;
           // handle the response data
           alert('Order submitted successfully!');
           console.log(data);
-          window.location = data.sessionUrl;
+          // if(window.parent){
+          //   window.parent.location = data.sessionUrl;
+          // }else
+          top.location.href = data.sessionUrl;
           
         })
         .catch(error => {
