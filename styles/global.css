@@ -185,3 +185,7 @@ body {
 .mobile-menu{
   background-color: var(--bg-color);
 }
+
+disclaimer{/*bawkbox*/
+  display: none !important;
+}
