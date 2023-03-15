@@ -151,12 +151,36 @@ input[type="text"]:focus {
 #total-checkoutbtn_wrapper label {
 font-size: 1.2rem;
 }
+/* #total-checkoutbtn_wrapper span {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 10px;
+  border: 2px solid #fff;
+  background: linear-gradient(to right, #6dd5ed, #2193b0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+} */
 
 #total-checkoutbtn_wrapper span {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 10px;
+  animation: pulse 2s infinite;
+  text-shadow: 0 0 10px #C87766;
 }
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
   </style>
 </head>
 
