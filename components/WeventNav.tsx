@@ -27,7 +27,7 @@ export const WeventNav: React.FC<{
         fetch('/api/wevent/getNav').then((res) => res.json()).then((data) =>{
           
           const navArr = data.navArr;
-          console.log("navArrayUpdated", JSON.stringify(navArr));
+          // console.log("navArrayUpdated", JSON.stringify(navArr));
 
           setNavStruct([...navArr])
         });

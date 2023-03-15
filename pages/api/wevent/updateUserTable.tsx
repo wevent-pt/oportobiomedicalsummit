@@ -131,7 +131,7 @@ export default async function addUser(req: NextApiRequest, res: NextApiResponse)
 	try{	
 
       const userData = req.query;
-      console.log('userData: ', userData);
+      // console.log('userData: ', userData);
       const method = 'post';
       const url = 'https://api.notion.com/v1/pages';
       config.method = method;

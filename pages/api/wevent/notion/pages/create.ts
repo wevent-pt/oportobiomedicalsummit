@@ -63,7 +63,7 @@ interface Property {
 
 const isValidProperty = (property: Property): boolean => {
   if (property) {
-    console.log(property)
+    console.log(' ')
     // check if the property object contains only valid key and value
     // return true if the property object is valid, false otherwise
     return true // or false, depending on the validation logic
@@ -73,7 +73,7 @@ const isValidProperty = (property: Property): boolean => {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     try {
-      console.log("dgsxdg")
+      // console.log("dgsxdg")
       const property: Property = req.body
       if (!isValidProperty(property)) {
         return res.status(400).json({ message: 'Invalid property' })

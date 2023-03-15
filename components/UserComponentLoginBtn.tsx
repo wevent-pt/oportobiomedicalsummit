@@ -14,7 +14,7 @@ export default function LoginBtn() {
           'userName': user.name
         }
         localStorage.setItem('userEmail', obj.userEmail);
-        console.log("user setted: " + JSON.stringify(obj));
+        // console.log("user setted: " + JSON.stringify(obj));
     }
   return (
     user && (
@@ -29,7 +29,7 @@ export default function LoginBtn() {
         'userName': ''
       }
       localStorage.setItem('userEmail', obj.userEmail);
-      console.log("user deleted: " + JSON.stringify(obj));
+      // console.log("user deleted: " + JSON.stringify(obj));
   }
     return(
       <a href='/api/auth/login' id="loginBtn" className="bg-[color:var(--fg-color)] border-2 border-[color:var(--fg-color)] px-5 py-1 rounded-sm  text-[color:white] hover:bg-[color:var(--fg-hover-color)] hidden md:flex" role="button">Sign In</a>

@@ -37,7 +37,7 @@ function parseNotionResult(results:any, userCode:string ){
                 tableCode = value[type][0].text.content;
 
                 if(tableCode === userCode){
-                    console.log('codes match');
+                    // console.log('codes match');
                     const stateValue = resultProps['State'];
                     codeState = stateValue[stateValue.type].name;
                     //update notion results 
@@ -54,7 +54,7 @@ function parseNotionResult(results:any, userCode:string ){
                     
                 }
                 else{
-                    console.log('codes dont match');
+                    // console.log('codes dont match');
                 }
             }
        }

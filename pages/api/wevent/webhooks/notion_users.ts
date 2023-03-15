@@ -75,7 +75,7 @@ async function updateUserNotionPage(req: NextApiRequest) {
       email: { title: [{ text: { content: email } }] }
     }
   }
-  console.log(body.properties)
+  // console.log(body.properties)
 
   try {
     await axios.patch(

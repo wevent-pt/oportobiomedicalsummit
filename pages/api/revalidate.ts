@@ -7,7 +7,7 @@ if (req.query.secret !== process.env.NEXT_REVALIDATE_TOKEN) {
 }
 
 try {
-    console.log(req)
+    // console.log(req)
     await res.revalidate(req.query.path[0]);
     return res.json({
     revalidated: true

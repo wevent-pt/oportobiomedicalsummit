@@ -50,7 +50,7 @@ async function submitCheckoutForm() {
     
       function deb(data) {
         if (debug) {
-          console.log("debug: ", data);
+          // console.log("debug: ", data);
           if (document.getElementById("info")) {
             document.getElementById("info").innerHTML += '<p></p>';
             document.getElementById("info").innerHTML += data;

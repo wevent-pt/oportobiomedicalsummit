@@ -65,7 +65,7 @@ const SiteName1 = () => {
     const el = document.getElementsByClassName("notion-page-scroller") as HTMLCollectionOf<HTMLElement>;;
    
     const elHeight = el[0].offsetHeight;
-     console.log(elHeight);
+    //  console.log(elHeight);
     window.scrollTo({
         top: elHeight,
         behavior: 'smooth',

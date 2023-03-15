@@ -14,7 +14,7 @@ export default function LoginBtnMobile() {
           'userName': user.name
         }
         localStorage.setItem('userEmail', obj.userEmail);
-        console.log("user setted: " + JSON.stringify(obj));
+        // console.log("user setted: " + JSON.stringify(obj));
     }
   return (
     user && (<>
@@ -32,7 +32,7 @@ export default function LoginBtnMobile() {
         'userName': ''
       }
       localStorage.setItem('userEmail', obj.userEmail);
-      console.log("user deleted: " + JSON.stringify(obj));
+      // console.log("user deleted: " + JSON.stringify(obj));
   }
     return(<>
       <li key="signinm" className="border-[color:var(--fg-color)] border-2 hover:bg-[color:var(--xg-color)] text-[color:var(--fg-color)]">
