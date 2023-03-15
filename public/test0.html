@@ -485,7 +485,7 @@ font-size: 1.2rem;
           // handle the response data
           alert('Order submitted successfully!');
           console.log(data);
-          window.open(data.sessionUrl);
+          window.location = data.sessionUrl;
           
         })
         .catch(error => {
