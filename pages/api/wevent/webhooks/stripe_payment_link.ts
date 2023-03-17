@@ -48,7 +48,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           quantity: 1
         }
       ],
-      allow_promotion_codes: true,
+      allow_promotion_codes: false,
       metadata: {
         participant_name: req.query.name?.toString(),
         participant_email: req.query.email?.toString(),
