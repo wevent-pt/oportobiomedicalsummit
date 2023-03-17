@@ -300,7 +300,7 @@ class EventParticipant {
     }
     async register(ticket) {
         if (!await EventParticipant.isParticipantEmailAvailable(this.email)) {
-          console.log('Participant already registered');
+          console.log('Participant already registered!');
           return false;
         }
         const participantPage = await NotionPageManager.createPage('Participant', {
