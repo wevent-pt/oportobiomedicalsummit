@@ -299,7 +299,10 @@ class EventParticipant {
         Object.assign(this, { name, email, phone, assignedParticipant });
     }
     async register(ticket) {
-        if (!await EventParticipant.isParticipantEmailAvailable(this.email)) throw new Error('Participant already registered');
+        if (!await EventParticipant.isParticipantEmailAvailable(this.email)) {
+          console.log('Participant already registered');
+          return false;
+        }
         const participantPage = await NotionPageManager.createPage('Participant', {
             Name: { title: [{ text: { content: this.name } }] },
             Email: { rich_text: [{ text: { content: this.email } }] },
