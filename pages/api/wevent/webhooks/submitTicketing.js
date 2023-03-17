@@ -558,7 +558,7 @@ export default async function handler(req, res) {
                     return res.status(200).json({ success: 'Ticket registered with success' });
 
                 default:
-                    return res.status(400).json({ error: 'Invalid action' });
+                    return res.status(400).json({ error: 'Invalid action!' });
             }
         } else {
             const action = req.query.action;
