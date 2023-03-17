@@ -398,42 +398,37 @@
       const userEmail = localStorage.getItem('userEmail') || 'Please Sign In';
       requiredInfo.forEach((info) => {
         if (info === 'Academic Year') {
-          formFields += `
-          <div>
-            <label for="${info}">
-              ${info}:
-            </label>
-            <select id="${info}" required aria-label="${info}">
-              <option value="1st year">1st year</option>
-              <option value="2nd year">2nd year</option>
-              <option value="3rd year">3rd year</option>
-              <option value="4th year">4th year</option>
-              <option value="5th year">5th year</option>
-              <option value="6th year">6th year</option>
-            </select>
-          </div>
-    `;
+          formFields += '<div>' +
+          '<label for="' + info + '">' +
+          info + ':' +
+          '</label>' +
+          '<select id="' + info + '" required aria-label="' + info + '">' +
+          '<option value="1st year">1st year</option>' +
+          '<option value="2nd year">2nd year</option>' +
+          '<option value="3rd year">3rd year</option>' +
+          '<option value="4th year">4th year</option>' +
+          '<option value="5th year">5th year</option>' +
+          '<option value="6th year">6th year</option>' +
+          '</select>' +
+          '</div>';
 
         } else if (userEmail && info === 'Email') {
-          formFields += `
-      <div>
-        <label for="${info}">
-          ${info}:
-        </label>
-        <input type="email" id="${info}" required aria-label="${info}" readonly="readonly" value="${userEmail}"></input>
-      </div>
-    `;
-        } else {
-          formFields += `
-      <div>
-        <label for="${info}">
-          ${info}:
-        </label>
-        <input type="text" id="${info}" required aria-label="${info}" />
-      </div>
-    `;
+  formFields += '<div>' +
+    '<label for="' + info + '">' +
+    info + ':' +
+    '</label>' +
+    '<input type="email" id="' + info + '" required aria-label="' + info + '" readonly="readonly" value="' + userEmail + '"></input>' +
+    '</div>';
+} else {
+      formFields += '<div>' +
+    '<label for="' + info + '">' +
+    info + ':' +
+    '</label>' +
+    '<input type="text" id="' + info + '" required aria-label="' + info + '" />' +
+    '</div>';
+}
 
-        }
+        
       });
       return formFields;
     };
