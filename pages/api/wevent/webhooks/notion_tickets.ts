@@ -1,73 +1,64 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import axios from 'axios'
-// import { request } from 'http'
 
 const headers = {
   headers: {
     'Content-Type': 'application/json',
     'Notion-Version': `${process.env.NOTION_VERSION}`,
-    Authorization: `Bearer ${process.env.NOTION_TOKEN}`
+    Authorization: `Bearer secret_NPPoN4SzvDWlRNEZkyj6vyHQytm1XpQ3oPdD4MSQDvP`
   }
 }
-
+type TicketNotionPageFunction = (req: NextApiRequest) => Promise<any>;
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST' || !req.query.action)
     return res.status(500).json({ message: 'Error with request' })
-  const action = req.query.action
 
-  if (action === 'create') {
-    if (await createTicketNotionPage(req))
-      return res.status(200).json({ message: 'Ticket created' })
-  } else if (action === 'update') {
-    if (await updateTicketNotionPage(req))
-      return res.status(200).json({ message: 'Ticket updated' })
-  } else if (action === 'delete') {
-    if (await deleteTicketNotionPage(req))
-      return res.status(200).json({ message: 'Ticket deleted' })
-  } else if (action === 'validate') {
-    if (await validateTicketNotionPage(req)) {
-      return res.status(200).json({ message: 'Ticket is valid!' })
-    }
+  const action = Array.isArray(req.query.action)
+    ? req.query.action.join('')
+    : req.query.action
+    const actions: { [key: string]: TicketNotionPageFunction } = {
+      create: createTicketNotionPage,
+      update: updateTicketNotionPage,
+      delete: deleteTicketNotionPage,
+      validate: validateTicketNotionPage
+    };
+  const handleAction = actions[action]
+
+  if (handleAction) {
+    if (await handleAction(req))
+      return res.status(200).json({ message: `Ticket ${action}d` })
   } else {
     return res
       .status(500)
       .json({ message: `Error with action ${req.query?.action}` })
   }
+
   return res.status(200).json({ message: 'Notion Ticket Webhook successful' })
 }
 async function validateTicketNotionPage(req: NextApiRequest) {
-  const ticketCode = req.query.ticket_code
-  const userEmail = req.query.email
-  // const ticketPaymentId = 'pi_3MWVjJBg4lHvVejr1zB2nzaB'
-  // const checkoutIdfromNotion = 'cs_test_b1g8Zz9Yy2mpBhIBgHSXWcbQrMQmMXOFhiLhYwsU38wrIlCFpiYdgNpQjb'
-  // const stripe = require('stripe')('sk_test_51L5MzLBg4lHvVejrb4zYLpMKZY9s2eK8DzwypbV0nCy92iAgsgfYMxeuZuAoGlaKRlK7Sgg9QGCJrs6IR5TThHXy00L4h63yxX');
-  // Search charges by metadata
-  // const pi = await stripe.paymentIntents.retrieve(`${ticketPaymentId}`);
-  // console.log(`payment status: ${JSON.stringify(pi.status)}`)
-  if (ticketCode) {
-    console.log(`validating ticket with code no: ${ticketCode}...`)
-    const isValidCode = await queryTicketNotionDatabase(req)
-    console.log('ticket validation result: ', await isValidCode)
+  const { ticket_code, email } = req.query
+  if (!ticket_code) return 1
 
-    console.log(`\nvalidating user with email: ${userEmail}...`)
-    const isValidUser = await queryUserNotionDatabase(req)
-    console.log('user validation result: ', await isValidUser)
+  const [isValidCode, isValidUser] = await Promise.all([
+    queryTicketNotionDatabase(req),
+    queryUserNotionDatabase(req)
+  ])
+  console.log(
+    `\nvalidating ticket with code no: ${ticket_code}...\nticket validation result: ${isValidCode}`
+  )
+  console.log(
+    `\nvalidating user with email: ${email}...\nuser validation result: ${isValidUser}`
+  )
 
-    console.log(`regist of ticket with receipt no: ${ticketCode}...`)
-    if (!isValidUser) {
-      createUserNotionPage(req)
-    }
-  }
+  if (!isValidUser) createUserNotionPage(req)
+
+  console.log(`regist of ticket with receipt no: ${ticket_code}...`)
 
   return 1
-  // }
-  // return 0
 }
 async function queryUserNotionDatabase(req: NextApiRequest) {
-  // let resultb = ''
-
   let result = 0
   const userDbId = '9bb6c9aa543b45768541587fe0e40f3b'
   try {
@@ -82,36 +73,23 @@ async function queryUserNotionDatabase(req: NextApiRequest) {
             }
           }
         },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Notion-Version': `${process.env.NOTION_VERSION}`,
-            Authorization: `Bearer ${process.env.NOTION_TOKEN}`
-          }
-        }
+        headers
       )
       .then((response) => {
         let userNotionEmail = ''
-        // const ticketCode = response.data.results[0].properties.ticketCode.rich_text[0].plain_text
-        // const ticketType = response.data.results[0].properties.ticketType.rich_text[0].plain_text
-        // const
         userNotionEmail =
           response.data.results[0].properties.email.title[0].text.content
-          const ticket = response.data?.results[0]?.properties?.ticket?.rich_text[0]?.plain_text
-          const name = response.data?.results[0]?.properties?.name?.rich_text[0]?.plain_text
-          
-          // console.log(`${JSON.stringify(ticket)}`)
+        const ticket =
+          response.data?.results[0]?.properties?.ticket?.rich_text[0]
+            ?.plain_text
+        const name =
+          response.data?.results[0]?.properties?.name?.rich_text[0]?.plain_text
 
-        console.log(`
-        email: ${userNotionEmail}
-        name: ${name}
-        ticket: ${ticket}
-      `)
+        console.log(`email: ${userNotionEmail} name: ${name} ticket: ${ticket}`)
         if (userNotionEmail === req.query.email) {
           result = 1
           return 1
         }
-
         return 0
       })
     return result
@@ -134,13 +112,7 @@ async function queryTicketNotionDatabase(req: NextApiRequest) {
             }
           }
         },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Notion-Version': `${process.env.NOTION_VERSION}`,
-            Authorization: `Bearer ${process.env.NOTION_TOKEN}`
-          }
-        }
+        headers
       )
       .then((response) => {
         const paymentId =
@@ -152,7 +124,7 @@ async function queryTicketNotionDatabase(req: NextApiRequest) {
           response.data.results[0].properties.ticketCode.rich_text[0].plain_text
         const ticketType =
           response.data.results[0].properties.ticketType.rich_text[0].plain_text
-        
+
         console.log(`
           paymentId: ${paymentId}
           ticketCode: ${ticketCode}
@@ -174,7 +146,7 @@ async function queryTicketNotionDatabase(req: NextApiRequest) {
   }
 }
 async function createUserNotionPage(req: NextApiRequest) {
-  if(req){
+  if (req) {
     console.log('1')
   }
   // const databaseId = await req.query.database_id ? req.query.database_id : 'N/A'
@@ -252,13 +224,7 @@ async function createTicketNotionPage(req: NextApiRequest) {
           amount: { rich_text: [{ text: { content: amount.toString() } }] }
         }
       },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Notion-Version': `${process.env.NOTION_VERSION}`,
-          Authorization: `Bearer ${process.env.NOTION_TOKEN}`
-        }
-      }
+      headers
     )
     return 1
   } catch (err) {
