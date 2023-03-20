@@ -413,9 +413,8 @@
   <form id="ticket-form">
     <div id="formContent">
       <label htmlFor="ticket-bird">Ticket Bird:</label>
-      <select id="ticket-bird">
-        <option value="Early Bird">Early Bird</option>
-        <option value="Late Bird" disabled>Late Bird</option>
+      <select id="ticket-bird" disabled>
+        <option value="Late Bird" selected="selected">Late Bird</option>
       </select>
 
       <label htmlFor="ticket-type">Ticket Type:</label>
@@ -469,9 +468,10 @@
             <div class="text-sm ">Non-Student</div>
           </div>
           <img src="https://oportobiomedicalsummit.com/nav/logo_menu.svg" />
-          <div class="flex justify-between items-center px-6 py-3" style="background-color: #D4DFEC; border-radius: 4px">
+          <div class="flex justify-between items-center px-6 py-3 flex-col" style="background-color: #D4DFEC; border-radius: 4px">
             <div class="text-sm font-bold uppercase"></div>
-            <div id="userName" class="text-sm text-gray-700"> Pedro Nunes</div>
+            <div id="userName" class="text-sm text-gray-700"></div>
+            <div id="userEmail" class="text-sm text-gray-700"></div>
           </div>
         </div>
         <div class="ticketRip">
@@ -488,7 +488,9 @@
   </div>
 
   <script>
-    if(localStorage.getItem('userTicket')){
+
+    const run = true;
+    if(localStorage.getItem('userTicket') && run){
       const form = document.getElementById('ticket-form');
       form.style.display = 'none';
       const ticketTitle = document.getElementById('ticket-title');
@@ -496,12 +498,16 @@
 
       const userTicketString = localStorage.getItem('userTicket');
       const userTicket = JSON.parse(userTicketString);
-      const userEmail = localStorage.getItem('userEmail');
+      const userEmailStored = localStorage.getItem('userEmail');
+      const userNameStored = localStorage.getItem('userName');
 
       console.log(userTicket);
 
       const userName = document.getElementById('userName');
-      userName.innerText = userEmail;
+      userName.innerText = userNameStored;
+
+      const userEmail = document.getElementById('userEmail');
+      userEmail.innerText = userEmailStored;
 
       const ticketType = document.getElementById('ticketType');
       ticketType.innerText = userTicket.ticketType;
