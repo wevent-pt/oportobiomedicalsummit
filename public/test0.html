@@ -5,7 +5,20 @@
   <title>Ticketing Form</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    @font-face {
+      font-family: 'ArialNova';
+      src: url('../public/fonts/arial-nova-cond-light.ttf');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    * {
+      font-family: 'ArialNova', sans-serif;
+    }
+
     /* global styles */
     :root {
       --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -21,14 +34,22 @@
       margin: 0;
       padding: 0;
     }
-
     body {
-      font-family: var(--font-family);
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
       background-color: #d4dfec;
+      /* background-color: blue; */
     }
 
     h1 {
-      font-size: 30px;
+      font-size: 2em !important;
       text-align: center;
       margin-top: 10px;
       margin-bottom: 10px;
@@ -37,7 +58,8 @@
     }
 
     form {
-      max-width: 70vw;
+      width: clamp(500px,100%);
+      height: fit-content;
       margin: 0 auto;
       padding: 10px;
       background-color: #c8d5e27d;
@@ -50,6 +72,14 @@
       grid-gap: 5px;
       flex-wrap: wrap;
       justify-content: space-evenly;
+      /* background-color: red; */
+    }
+
+    #formContent{
+      width: 95%;
+    }
+    #form-fields{
+      width: 95%;
     }
 
     label {
@@ -63,13 +93,20 @@
     input[type="text"] {
       width: 100%;
       padding: 5px;
+      height: 34px;
       font-size: 16px;
       border-radius: 5px;
       border: none;
       background-color: var(--input-bg-color);
       margin-bottom: 10px;
       transition: background-color 0.3s ease;
-      color: #fff;
+      color: #fff !important;
+      font-size: 0.9rem !important;
+      text-indent: 2%;
+    }
+
+    select > option{
+      color: white;
     }
 
     select:focus,
@@ -164,11 +201,13 @@
     }
 
     #total-checkoutbtn_wrapper {
+      width: 95%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 0.5rem;
       border: 1px solid #c87766;
+      margin-top: 5%;
       border-radius: 5px;
     }
 
@@ -208,35 +247,193 @@
       }
     }
 
+
+   
+
+    /* Main Ticket Style */
+    .ticketContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: flex-start;
+}
+    .ticket {
+      color: #243445;
+      border-color: #C87766;
+      border-radius: 4px;
+    }
+
+
+    /* Ticket Content */
+    /* .ticketTitle {
+      display: flex;
+      font-size: 1.8rem;
+      font-weight: 700;
+      padding: 12px 16px 4px;
+      justify-content: center;
+      align-items: center;
+    } */
+
+    hr {
+      width: 100%;
+      border: 0.1px solid #C87766;
+    }
+
+    img {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+      height: 33vh;
+    }
+
+    .ticketDetail {
+      display: flex;
+      font-size: 1.1rem;
+      font-weight: 500;
+      padding: 4px 16px;
+      flex-wrap: wrap;
+      flex-direction: column;
+      align-content: center;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ticketSubDetail {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1rem;
+      padding: 12px 16px;
+    }
+
+    .ticketSubDetail .code {
+      margin-right: 24px;
+    }
+
+    /* Ticket Ripper */
+    .ticketRip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .circleLeft {
+      width: 12px;
+      height: 24px;
+      background-color: #C87766;
+      border-radius: 0 12px 12px 0;
+    }
+
+    .ripLine {
+      width: 100%;
+      border-top: 3px solid #C87766;
+      border-top-style: dashed;
+    }
+
+    .circleRight {
+      width: 12px;
+      height: 24px;
+      background-color: #C87766;
+      border-radius: 12px 0 0 12px;
+    }
+
+    /* Ticket Bouncing Animation */
+    @keyframes bouncingCard {
+      from {
+        transform: translateY(0);
+      }
+
+      to {
+        transform: translateY(-18px);
+      }
+    }
+
+    @keyframes bouncingShadow {
+      from {
+        transform: translateY(0px);
+      }
+
+      to {
+        transform: translateY(4px);
+      }
+    }
+
+    #ticketType {
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    #ticketPrice {
+      font-size: 0.875rem;
+      font-weight: 400;
+    }
+
+    #ticketCategory {
+      font-size: 0.875rem;
+      font-weight: 400;
+    }
+
+    #ticketLogo {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+      height: auto;
+    }
+
+    #ticketCode {
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    #ticketHolder {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: #4A5568;
+    }
+
+    #ticketCodeDisplay {
+      font-size: 1.125rem;
+      font-weight: 700;
+    }
+
+    #ticketDate {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: #4A5568;
+    }
+
   </style>
 </head>
 
 <body>
-  <h1>Ticketing Form</h1>
+  <h1 id="ticket-title">Ticketing Form</h1>
+
   <form id="ticket-form">
-    <div>
-      <label for="ticket-bird">Ticket Bird:</label>
+    <div id="formContent">
+      <label htmlFor="ticket-bird">Ticket Bird:</label>
       <select id="ticket-bird">
         <option value="Early Bird">Early Bird</option>
         <option value="Late Bird" disabled>Late Bird</option>
       </select>
 
-      <label for="ticket-type">Ticket Type:</label>
+      <label htmlFor="ticket-type">Ticket Type:</label>
       <select id="ticket-type">
         <option value="Full Ticket">Full Ticket</option>
         <option value="Partial Ticket">Partial Ticket</option>
       </select>
-      <label for="participant-type">Participant Type:</label>
+      <label htmlFor="participant-type">Participant Type:</label>
       <select id="participant-type">
         <option value="ICBAS Student">ICBAS Student</option>
         <option value="Non-ICBAS Student">Non-ICBAS Student</option>
         <option value="Non-Student">Non-Student</option>
       </select>
-      <label for="ambassador-code">
+      <label htmlFor="ambassador-code">
         Ambassador Code (optional):
       </label>
       <input type="text" id="ambassador-code" aria-label="Ambassador Code" />
-      <label for="coupon-code">
+      <label htmlFor="coupon-code">
         Coupon Code (optional):
       </label>
       <input type="text" id="coupon-code" aria-label="Coupon Code" />
@@ -244,194 +441,262 @@
     </div>
 
     <div id="form-fields">
-      <!-- Form fields will be generated dynamically -->
     </div>
     <div id='total-checkoutbtn_wrapper'>
-
-      <br><br>
-
-      <label for="total">Total:</label>
+      <br/><br/>
+      <label htmlFor="total">Total:</label>
       <span id="total"></span>
       <button type="button" id="submit-button">Payment</button>
 
-      <br><br>
+      <br /><br />
     </div>
   </form>
 
+  <h1 id="ticket-title-1" style="display: none;">Your Ticket</h1>
+  <div id="ticketPageContainer" class="ticketPageContainer">
+
+    <div class="ticketContainer">
+      <div class="ticket">
+        <div class="ticketTitle" style="display: none;">Oporto Biomedical Summit</div>
+        <hr>
+        <div class="ticketDetail">
+          <div class="flex justify-between items-center px-6 py-3" style="background-color: #D4DFEC; border-radius: 4px">
+            <div id="ticketType" class="text-sm font-bold uppercase ">Full Ticket</div>
+            <div class="text-sm"></div>
+          </div>
+          <div class="flex justify-between items-center  px-6 py-3">
+
+            <div class="text-sm ">Non-Student</div>
+          </div>
+          <img src="https://oportobiomedicalsummit.com/nav/logo_menu.svg" />
+          <div class="flex justify-between items-center px-6 py-3" style="background-color: #D4DFEC; border-radius: 4px">
+            <div class="text-sm font-bold uppercase"></div>
+            <div id="userName" class="text-sm text-gray-700"> Pedro Nunes</div>
+          </div>
+        </div>
+        <div class="ticketRip">
+          <div class="circleLeft"></div>
+          <div class="ripLine"></div>
+          <div class="circleRight"></div>
+        </div>
+        <div class="ticketSubDetail">
+          <div id="ticketId" class="code">OBS-12tyg3</div>
+          <div class="date">20th-23rd April</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // Your JavaScript code goes here
-    const commonRequiredInfo = ["Full Name", "Email", "Phone Number"];
-    const commonCoupons = ["100OFF"];
-    const tickets = {
-      "Early Bird": {
-        "Full Ticket": {
-          "ICBAS Student": {
-            price: 35.5,
-            coupons: [...commonCoupons, "ICBASPROMOFULL"],
-            requiredInfo: [...commonRequiredInfo, "Student Number", "Academic Year"]
+    if(localStorage.getItem('userTicket')){
+      const form = document.getElementById('ticket-form');
+      form.style.display = 'none';
+      const ticketTitle = document.getElementById('ticket-title');
+      ticketTitle.style.display = 'none';
+
+      const userTicketString = localStorage.getItem('userTicket');
+      const userTicket = JSON.parse(userTicketString);
+      const userEmail = localStorage.getItem('userEmail');
+
+      console.log(userTicket);
+
+      const userName = document.getElementById('userName');
+      userName.innerText = userEmail;
+
+      const ticketType = document.getElementById('ticketType');
+      ticketType.innerText = userTicket.ticketType;
+
+      const ticketId = document.getElementById('ticketId');
+      ticketId.innerText = 'OBS-' + userTicket.ticketId;
+
+      const bird = document.getElementById('bird');
+      bird.innerText = userTicket.ticketBird;
+
+      const participantType = document.getElementById('participantType');
+      participantType.innerText = userTicket.participantType;
+
+
+
+    } else {
+      const ticketPageContainer = document.getElementById('ticketPageContainer');
+      ticketPageContainer.style.display = 'none';
+      const ticketTitle = document.getElementById('ticket-title-1');
+      ticketTitle.style.display = 'none';
+
+      // Your JavaScript code goes here
+      const commonRequiredInfo = ["Full Name", "Email", "Phone Number"];
+      const commonCoupons = ["100OFF"];
+      const tickets = {
+        "Early Bird": {
+          "Full Ticket": {
+            "ICBAS Student": {
+              price: 35.5,
+              coupons: [...commonCoupons, "ICBASPROMOFULL"],
+              requiredInfo: [...commonRequiredInfo, "Student Number", "Academic Year"]
+            },
+            "Non-ICBAS Student": {
+              price: 38.5,
+              coupons: commonCoupons,
+              requiredInfo: [
+                ...commonRequiredInfo,
+                "Faculty/University",
+                "Academic Year"
+              ]
+            }
           },
-          "Non-ICBAS Student": {
-            price: 38.5,
-            coupons: commonCoupons,
-            requiredInfo: [
-              ...commonRequiredInfo,
-              "Faculty/University",
-              "Academic Year"
-            ]
+          "Partial Ticket": {
+            "ICBAS Student": {
+              price: 15.5,
+              coupons: [...commonCoupons, "ICBASPROMOPARTIAL"],
+              requiredInfo: [...commonRequiredInfo, "Student Number", "Academic Year"]
+            },
+            "Non-ICBAS Student": {
+              price: 18.5,
+              coupons: commonCoupons,
+              requiredInfo: [
+                ...commonRequiredInfo,
+                "University or School",
+                "Year of Studies"
+              ]
+            },
+            "Non-Student": {
+              price: 39.5,
+              coupons: commonCoupons,
+              requiredInfo: commonRequiredInfo
+            }
           }
         },
-        "Partial Ticket": {
-          "ICBAS Student": {
-            price: 15.5,
-            coupons: [...commonCoupons, "ICBASPROMOPARTIAL"],
-            requiredInfo: [...commonRequiredInfo, "Student Number", "Academic Year"]
+        "Late Bird": {
+          "Full Ticket": {
+            "ICBAS Student": {
+              price: 38.5,
+              coupons: [...commonCoupons, "ICBASPROMOFULL"],
+              requiredInfo: [...commonRequiredInfo, "Student Number", "Academic Year"]
+            },
+            "Non-ICBAS Student": {
+              price: 41.5,
+              coupons: commonCoupons,
+              requiredInfo: [
+                ...commonRequiredInfo,
+                "University",
+                "Faculty",
+                "Academic Year"
+              ]
+            }
           },
-          "Non-ICBAS Student": {
-            price: 18.5,
-            coupons: commonCoupons,
-            requiredInfo: [
-              ...commonRequiredInfo,
-              "University or School",
-              "Year of Studies"
-            ]
-          },
-          "Non-Student": {
-            price: 39.5,
-            coupons: commonCoupons,
-            requiredInfo: commonRequiredInfo
+          "Partial Ticket": {
+            "ICBAS Student": {
+              price: 18.5,
+              coupons: [...commonCoupons, "ICBASPROMOPARTIAL"],
+              requiredInfo: [...commonRequiredInfo, "Student Number", "Academic Year"]
+            },
+            "Non-ICBAS Student": {
+              price: 21.5,
+              coupons: commonCoupons,
+              requiredInfo: [
+                ...commonRequiredInfo,
+                "University",
+                "Faculty",
+                "Year of Studies"
+              ]
+            },
+            "Non-Student": {
+              price: 42.5,
+              coupons: commonCoupons,
+              requiredInfo: commonRequiredInfo
+            }
           }
         }
-      },
-      "Late Bird": {
-        "Full Ticket": {
-          "ICBAS Student": {
-            price: 38.5,
-            coupons: [...commonCoupons, "ICBASPROMOFULL"],
-            requiredInfo: [...commonRequiredInfo, "Student Number", "Academic Year"]
-          },
-          "Non-ICBAS Student": {
-            price: 41.5,
-            coupons: commonCoupons,
-            requiredInfo: [
-              ...commonRequiredInfo,
-              "University",
-              "Faculty",
-              "Academic Year"
-            ]
-          }
-        },
-        "Partial Ticket": {
-          "ICBAS Student": {
-            price: 18.5,
-            coupons: [...commonCoupons, "ICBASPROMOPARTIAL"],
-            requiredInfo: [...commonRequiredInfo, "Student Number", "Academic Year"]
-          },
-          "Non-ICBAS Student": {
-            price: 21.5,
-            coupons: commonCoupons,
-            requiredInfo: [
-              ...commonRequiredInfo,
-              "University",
-              "Faculty",
-              "Year of Studies"
-            ]
-          },
-          "Non-Student": {
-            price: 42.5,
-            coupons: commonCoupons,
-            requiredInfo: commonRequiredInfo
-          }
-        }
-      }
-    };
-    const updateTotal = (price) => {
-      // const couponCode = document.getElementById("coupon-code").value;
-      // const couponResult = applyCoupon(couponCode, price);
+      };
+      const updateTotal = (price) => {
+        // const couponCode = document.getElementById("coupon-code").value;
+        // const couponResult = applyCoupon(couponCode, price);
 
-      // var discountedPrice = couponResult.discount;
-      // if (price === -1) {
+        // var discountedPrice = couponResult.discount;
+        // if (price === -1) {
 
-      //   discountedPrice = -1
+        // discountedPrice = -1
         // return -1;
         // // document.getElementById("coupon-error").textContent = "Invalid";
         // // document.getElementById("total").textContent = "invalid";
-      // } else {
-      //   document.getElementById("coupon-error").textContent = "";
-      //   if (couponResult.isValid) {
-      //     discountedPrice = couponResult.discount;
-          document.getElementById("total").textContent = price.toFixed(2);
-      //   } else {
-      //     discountedPrice = -1
-      //     document.getElementById("coupon-error").textContent = "Invalid coupon code";
-      //     return -1;
-      //   }
-      // }
-      return price;
-    };
-    const applyCoupon = (couponCode, price) => {
-      const couponMapping = {
-        "100OFF": 0,
-        "ICBASPROMOFULL": 200,
-        "ICBASPROMOPARTIAL": 300
+        // } else {
+        // document.getElementById("coupon-error").textContent = "";
+        // if (couponResult.isValid) {
+        // discountedPrice = couponResult.discount;
+        document.getElementById("total").textContent = price.toFixed(2);
+        // } else {
+        // discountedPrice = -1
+        // document.getElementById("coupon-error").textContent = "Invalid coupon code";
+        // return -1;
+        // }
+        // }
+        return price;
       };
-      if (couponCode) {
-        if (couponMapping.hasOwnProperty(couponCode)) {
-          const discount = couponMapping[couponCode];
-          return {
-            isValid: true,
-            discount
-          };
+      const applyCoupon = (couponCode, price) => {
+        const couponMapping = {
+          "100OFF": 0,
+          "ICBASPROMOFULL": 200,
+          "ICBASPROMOPARTIAL": 300
+        };
+        if (couponCode) {
+          if (couponMapping.hasOwnProperty(couponCode)) {
+            const discount = couponMapping[couponCode];
+            return {
+              isValid: true,
+              discount
+            };
+          } else {
+            return {
+              isValid: false
+            };
+          }
         } else {
           return {
-            isValid: false
+            isValid: true,
+            discount: price
           };
         }
-      } else {
-        return {
-          isValid: true,
-          discount: price
-        };
-      }
-    };
-    const generateFormFields = (requiredInfo) => {
-      let formFields = "";
-      const userEmail = localStorage.getItem('userEmail') || 'Please Sign In';
-      requiredInfo.forEach((info) => {
-        if (info === 'Academic Year') {
-          formFields += '<div>' +
-          '<label for="' + info + '">' +
-          info + ':' +
-          '</label>' +
-          '<select id="' + info + '" required aria-label="' + info + '">' +
-          '<option value="1st year">1st year</option>' +
-          '<option value="2nd year">2nd year</option>' +
-          '<option value="3rd year">3rd year</option>' +
-          '<option value="4th year">4th year</option>' +
-          '<option value="5th year">5th year</option>' +
-          '<option value="6th year">6th year</option>' +
-          '</select>' +
-          '</div>';
+      };
+      const generateFormFields = (requiredInfo) => {
+        let formFields = "";
+        const userEmail = localStorage.getItem('userEmail') || '';
+        requiredInfo.forEach((info) => {
+          if (info === 'Academic Year') {
+            formFields += '<div>' +
+              '<label htmlFor="' + info + '">' +
+              info + ':' +
+              '</label>' +
+              '<select id="' + info + '" required aria-label="' + info + '">' +
+              '<option value="1st year">1st year</option>' +
+              '<option value="2nd year">2nd year</option>' +
+              '<option value="3rd year">3rd year</option>' +
+              '<option value="4th year">4th year</option>' +
+              '<option value="5th year">5th year</option>' +
+              '<option value="6th year">6th year</option>' +
+              '</select>' +
+              '</div>';
 
-        } else if (userEmail && info === 'Email') {
-  formFields += '<div>' +
-    '<label for="' + info + '">' +
-    info + ':' +
-    '</label>' +
-    '<input type="email" id="' + info + '" required aria-label="' + info + '" readonly="readonly" value="' + userEmail + '"></input>' +
-    '</div>';
-} else {
-      formFields += '<div>' +
-    '<label for="' + info + '">' +
-    info + ':' +
-    '</label>' +
-    '<input type="text" id="' + info + '" required aria-label="' + info + '" />' +
-    '</div>';
-}
+          } else if (userEmail && info === 'Email') {
+            formFields += '<div>' +
+              '<label htmlFor="' + info + '">' +
+              info + ':' +
+              '</label>' +
+              '<input type="email" id="' + info + '" required aria-label="' + info +
+              '" value="' + userEmail + '"></input>' +
+              '</div>';
+          } else {
+            formFields += '<div>' +
+              '<label htmlFor="' + info + '">' +
+              info + ':' +
+              '</label>' +
+              '<input type="text" id="' + info + '" required aria-label="' + info + '" />' +
+              '</div>';
+          }
 
-        
-      });
-      return formFields;
-    };
+
+        });
+        return formFields;
+      };
 
 
       const updateFormFields = () => {
@@ -450,32 +715,34 @@
         if (formOfTicketValue === 'Full Ticket' || participantTypeValue === 'Non-Student') {
           if (formOfTicketValue === 'Full Ticket' && participantTypeValue === 'Non-Student') {
             alert("Ticket Not available")
-            console.log("Ticket Not available", ticketTypeValue, formOfTicketValue, participantTypeValue)
+            console.log("Ticket Not available", ticketTypeValue, formOfTicketValue,
+              participantTypeValue)
             //mudar seleção pq nãoe possivel
-          }else if(formOfTicketValue === 'Full Ticket'){
+          } else if (formOfTicketValue === 'Full Ticket') {
             console.log(ticketTypeValue, formOfTicketValue, participantTypeValue)
             participantType.attributes[0].ownerElement[2].innerText = 'Non-Student*'
             formOfTicket.attributes[0].ownerElement[0].innerText = 'Full Ticket'
             //mudar seleção do non student disbled
-          }else if(participantTypeValue === 'Non-Student'){
+          } else if (participantTypeValue === 'Non-Student') {
             console.log(ticketTypeValue, formOfTicketValue, participantTypeValue)
             formOfTicket.attributes[0].ownerElement[0].innerText = 'Full Ticket*'
             participantType.attributes[0].ownerElement[2].innerText = 'Non-Student'
             //mudar seleção do fullticketdisbled
-          }else{
+          } else {
             participantType.attributes[0].ownerElement[2].innerText = 'Non-Student'
             formOfTicket.attributes[0].ownerElement[0].innerText = 'Full Ticket'
           }
 
         } else {
           //disponibilizar seleçoes
-          
-            // console.log(participantType.attributes,participantType.attributes[0].ownerElement[0].innerText)
+
+          // console.log(participantType.attributes,participantType.attributes[0].ownerElement[0].innerText)
           participantType.attributes[0].ownerElement[2].innerText = 'Non-Student'
-            formOfTicket.attributes[0].ownerElement[0].innerText = 'Full Ticket'
+          formOfTicket.attributes[0].ownerElement[0].innerText = 'Full Ticket'
         }
         // Check that entered values are valid
-        if (!tickets[ticketTypeValue] || !tickets[ticketTypeValue][formOfTicketValue] || !tickets[ticketTypeValue][
+        if (!tickets[ticketTypeValue] || !tickets[ticketTypeValue][formOfTicketValue] || !tickets[
+            ticketTypeValue][
             formOfTicketValue
           ][participantTypeValue]) {
           console.error("Error: Invalid form values entered");
@@ -505,7 +772,9 @@
       };
       const calculateTotal = () => {
         try {
-          const ticketPrice = tickets[document.getElementById("ticket-bird").value][document.getElementById("ticket-type").value][document.getElementById("participant-type").value].price;
+          const ticketPrice = tickets[document.getElementById("ticket-bird").value][document
+            .getElementById("ticket-type").value
+          ][document.getElementById("participant-type").value].price;
           console.log("ticketPrice", ticketPrice);
           updateTotal(ticketPrice);
           if (!checkFormFields()) {
@@ -516,75 +785,77 @@
         }
       };
 
-      
-const submitForm = (event) => {
-  event.preventDefault();
-  // let metadata = {
-  //   studentNumber: document.getElementById("Student Number")?.innerText,
-  //   academicYear: document.getElementById("Academic Year")?.innerText,
-  //   facultyUniversity: document.getElementById("Faculty/University")?.innerText,
-  //   yearOfStudies: document.getElementById("Year of Studies")?.innerText,
-  //   facultyUniversitySchool: document.getElementById("University or School")?.innerText,
-  // }
-    
-  const endpoint = "/api/wevent/webhooks/submitTicketing";
-  const body = JSON.stringify({
-    action: "purchaseTicket",
-    ticketId: Math.random().toString(36).substr(2, 6),
-    ticketBird: document.getElementById("ticket-bird").value,
-    ticketType: document.getElementById("ticket-type").value,
-    participantType: document.getElementById("participant-type").value,
-    ambassadorCode: document.getElementById("ambassador-code").value,
-    couponCode: document.getElementById("coupon-code").value,
-    name: document.getElementById("Full Name").value,
-    email: document.getElementById("Email").value,
-    phone: document.getElementById("Phone Number").value,
-    metadata: {
-      studentNumber: document.getElementById("Student Number")?.value || '',
-      academicYear: document.getElementById("Academic Year")?.value,
-      facultyUniversity: document.getElementById("Faculty/University")?.value,
-      yearOfStudies: document.getElementById("Year of Studies")?.value,
-      facultyUniversitySchool: document.getElementById("University or School")?.value,
-    },
-    paymentAmount: parseFloat(document.getElementById("total").innerText) * 100,
-  });
+
+      const submitForm = (event) => {
+        event.preventDefault();
+        // let metadata = {
+        // studentNumber: document.getElementById("Student Number")?.innerText,
+        // academicYear: document.getElementById("Academic Year")?.innerText,
+        // facultyUniversity: document.getElementById("Faculty/University")?.innerText,
+        // yearOfStudies: document.getElementById("Year of Studies")?.innerText,
+        // facultyUniversitySchool: document.getElementById("University or School")?.innerText,
+        // }
+
+        const endpoint = "/api/wevent/webhooks/submitTicketingTests";
+        const body = JSON.stringify({
+          action: "purchaseTicket",
+          ticketId: Math.random().toString(36).substr(2, 6),
+          ticketBird: document.getElementById("ticket-bird").value,
+          ticketType: document.getElementById("ticket-type").value,
+          participantType: document.getElementById("participant-type").value,
+          ambassadorCode: document.getElementById("ambassador-code").value,
+          couponCode: document.getElementById("coupon-code").value,
+          name: document.getElementById("Full Name").value,
+          email: document.getElementById("Email").value,
+          phone: document.getElementById("Phone Number").value,
+          assigned: "No",
+          metadata: {
+            studentNumber: document.getElementById("Student Number")?.value || '',
+            academicYear: document.getElementById("Academic Year")?.value || '',
+            facultyUniversity: document.getElementById("Faculty/University")?.value || '',
+            yearOfStudies: document.getElementById("Year of Studies")?.value || '',
+            facultyUniversitySchool: document.getElementById("University or School")?.value ||
+              '',
+          },
+          paymentAmount: parseFloat(document.getElementById("total").innerText) * 100,
+          paymentIntent: '',
+        });
 
 
-  fetch(endpoint, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: body
-  })
-  .then(response => {
-    if (!response.ok) throw new Error('Network response was not ok');
-    return response.json();
-  })
-  .then(data => {
-    top.location.href = data.sessionUrl;
-  })
-  .catch(error => {
-    alert('Error submitting order. Please try again.');
-    console.error(error);
-  });
-};
+        fetch(endpoint, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: body
+          })
+          .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+          })
+          .then(data => {
+            top.location.href = data.sessionUrl;
+          })
+          .catch(error => {
+            alert('Error submitting order. Please try again.');
+            console.error(error);
+          });
+      };
 
 
-document.querySelectorAll("#ticket-bird, #ticket-type, #participant-type, #coupon-code").forEach(el => {
-  el.addEventListener("change", () => {
-    updateFormFields();
-    calculateTotal();
-  });
-});
+      document.querySelectorAll("#ticket-bird, #ticket-type, #participant-type, #coupon-code").forEach(el => {
+        el.addEventListener("change", () => {
+          updateFormFields();
+          calculateTotal();
+        });
+      });
 
-document.getElementById("submit-button").addEventListener("click", submitForm);
-
-
-updateFormFields();
-calculateTotal();
+      document.getElementById("submit-button").addEventListener("click", submitForm);
 
 
+      updateFormFields();
+      calculateTotal();
+    }
 
   </script>
 </body>
