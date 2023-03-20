@@ -794,7 +794,7 @@
     
       const submitForm = (event) => {
             event.preventDefault();    
-            const endpoint = "https://ticket.oportobiomedicalsummit.com/api/wevent/webhooks/submitTicketingTests";
+            const endpoint = "https://oportobiomedicalsummit.com/api/wevent/webhooks/submitTicketingTests";
             const body = JSON.stringify({
                 action: "purchaseTicket",
                 ticketId: Math.random().toString(36).substr(2, 6),
