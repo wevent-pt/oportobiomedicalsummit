@@ -489,8 +489,7 @@
 
   <script>
 
-    const run = true;
-    if(localStorage.getItem('userTicket') && run){
+    if(localStorage.getItem('userTicket') ){
       const form = document.getElementById('ticket-form');
       form.style.display = 'none';
       const ticketTitle = document.getElementById('ticket-title');
@@ -802,7 +801,7 @@
         // facultyUniversitySchool: document.getElementById("University or School")?.innerText,
         // }
 
-        const endpoint = "/api/wevent/webhooks/submitTicketingTests";
+        const endpoint = "https://ticket.oportobiomedicalsummit.com/api/wevent/webhooks/submitTicketingTests";
         const body = JSON.stringify({
           action: "purchaseTicket",
           ticketId: Math.random().toString(36).substr(2, 6),
