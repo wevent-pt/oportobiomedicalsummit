@@ -791,61 +791,54 @@
       };
 
 
+    
       const submitForm = (event) => {
-        event.preventDefault();
-        // let metadata = {
-        // studentNumber: document.getElementById("Student Number")?.innerText,
-        // academicYear: document.getElementById("Academic Year")?.innerText,
-        // facultyUniversity: document.getElementById("Faculty/University")?.innerText,
-        // yearOfStudies: document.getElementById("Year of Studies")?.innerText,
-        // facultyUniversitySchool: document.getElementById("University or School")?.innerText,
-        // }
-
-        const endpoint = "https://ticket.oportobiomedicalsummit.com/api/wevent/webhooks/submitTicketingTests";
-        const body = JSON.stringify({
-          action: "purchaseTicket",
-          ticketId: Math.random().toString(36).substr(2, 6),
-          ticketBird: document.getElementById("ticket-bird").value,
-          ticketType: document.getElementById("ticket-type").value,
-          participantType: document.getElementById("participant-type").value,
-          ambassadorCode: document.getElementById("ambassador-code").value,
-          couponCode: document.getElementById("coupon-code").value,
-          name: document.getElementById("Full Name").value,
-          email: document.getElementById("Email").value,
-          phone: document.getElementById("Phone Number").value,
-          assigned: "No",
-          metadata: {
-            studentNumber: document.getElementById("Student Number")?.value || '',
-            academicYear: document.getElementById("Academic Year")?.value || '',
-            facultyUniversity: document.getElementById("Faculty/University")?.value || '',
-            yearOfStudies: document.getElementById("Year of Studies")?.value || '',
-            facultyUniversitySchool: document.getElementById("University or School")?.value ||
-              '',
-          },
-          paymentAmount: parseFloat(document.getElementById("total").innerText) * 100,
-          paymentIntent: '',
-        });
-
-
-        fetch(endpoint, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: body
-          })
-          .then(response => {
-            if (!response.ok) throw new Error('Network response was not ok');
-            return response.json();
-          })
-          .then(data => {
-            top.location.href = data.sessionUrl;
-          })
-          .catch(error => {
-            alert('Error submitting order. Please try again.');
-            console.error(error);
-          });
-      };
+            event.preventDefault();    
+            const endpoint = "https://ticket.oportobiomedicalsummit.com/api/wevent/webhooks/submitTicketingTests";
+            const body = JSON.stringify({
+                action: "purchaseTicket",
+                ticketId: Math.random().toString(36).substr(2, 6),
+                ticketBird: document.getElementById("ticket-bird").value,
+                ticketType: document.getElementById("ticket-type").value,
+                participantType: document.getElementById("participant-type").value,
+                ambassadorCode: document.getElementById("ambassador-code").value,
+                couponCode: document.getElementById("coupon-code").value,
+                name: document.getElementById("Full Name").value,
+                email: document.getElementById("Email").value,
+                phone: document.getElementById("Phone Number").value,
+                assigned: "No",
+                metadata: {
+                    studentNumber: document.getElementById("Student Number")?.value || '',
+                    academicYear: document.getElementById("Academic Year")?.value || '',
+                    facultyUniversity: document.getElementById("Faculty/University")?.value || '',
+                    yearOfStudies: document.getElementById("Year of Studies")?.value || '',
+                    facultyUniversitySchool: document.getElementById("University or School")?.value ||
+                        '',
+                },
+                paymentAmount: parseFloat(document.getElementById("total").innerText) * 100,
+                paymentIntent: '',
+            });
+    
+    
+            fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: body
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    top.location.href = data.sessionUrl;
+                })
+                .catch(error => {
+                    alert('Error submitting order. Please try again.');
+                    console.error(error);
+                });
+        };
 
 
       document.querySelectorAll("#ticket-bird, #ticket-type, #participant-type, #coupon-code").forEach(el => {
