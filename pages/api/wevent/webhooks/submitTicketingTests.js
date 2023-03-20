@@ -1,7 +1,7 @@
 import axios from 'axios'
 const stripe = require('stripe').default('sk_test_51L5MzLBg4lHvVejrb4zYLpMKZY9s2eK8DzwypbV0nCy92iAgsgfYMxeuZuAoGlaKRlK7Sgg9QGCJrs6IR5TThHXy00L4h63yxX');
 
-const notionApiKey = 'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P' //ticketing1: secret_zM86Gogu5oR0kgOzcallucSXyJf2wYxYpTpIsdfsR3v
+// const notionApiKey = 'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P' //ticketing1: secret_zM86Gogu5oR0kgOzcallucSXyJf2wYxYpTpIsdfsR3v
 
 const notionApiKeys = [
     'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
@@ -11,14 +11,14 @@ const notionApiKeys = [
     'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P'
 ]
 const notionApiVersion = '2022-06-28'
-const headers = {
-    headers: {
-        'Content-Type': 'application/json',
-        'Notion-Version': notionApiVersion,
-        Authorization: "Bearer " + notionApiKey,
-        'Access-Control-Allow-Origin': '*'
-    }
-}
+// const headers = {
+//     headers: {
+//         'Content-Type': 'application/json',
+//         'Notion-Version': notionApiVersion,
+//         Authorization: "Bearer " + notionApiKey,
+//         'Access-Control-Allow-Origin': '*'
+//     }
+// }
 
 const participantsDbId = 'eb98b71ccb4b4aa2a5407961eed26bea';
 const ticketsDbId = '5dbaccb7c3484d9b8c12878b5aac92c7';
@@ -366,8 +366,9 @@ class Payment {
         Object.assign(this, { ticket, participant });
     }
 
+    
     async getStripeSession() {
-        if (this.ticket.paymentAmount <= 0) return { sessionUrl: `http://localhost:3000/api/wevent/webhooks/handleStripe?action=paymentSuccess&ticketId=${this.ticket.ticketId}&email=${this.participant.email}` };
+        if (this.ticket.paymentAmount <= 0) return { sessionUrl: `https://oportobiomedicalsummit.com/api/wevent/webhooks/handleStripe?action=paymentSuccessful&ticketId=${this.ticket.ticketId}&email=${this.participant.email}` };
         try {
             const session = await stripe.checkout.sessions.create({
                 line_items: [{
@@ -425,6 +426,8 @@ class NotionPageManager {
         let apiKeyIndex = 0;
         let retries = 0;
 
+
+        // eslint-disable-next-line no-constant-condition
         while (true) {
             const apiKey = notionApiKeys[apiKeyIndex];
             const headers = {
@@ -473,6 +476,7 @@ class NotionPageManager {
         let apiKeyIndex = 0;
         let retries = 0;
         console.log("trying to update with: ", pageId, JSON.stringify(body));
+        // eslint-disable-next-line no-constant-condition
         while (true) {
             const apiKey = notionApiKeys[apiKeyIndex];
             const headers = {
@@ -524,6 +528,7 @@ class NotionDbManager {
         let apiKeyIndex = 0;
         let retries = 0;
 
+        // eslint-disable-next-line no-constant-condition
         while (true) {
             const apiKey = notionApiKeys[apiKeyIndex];
             const headers = {
@@ -645,7 +650,8 @@ async function handleGetRequest(request, response) {
                         if (!ticketAssignment || !participantAssignment) {
                             throw new Error(`Failed to ticketAssignment or participantAssignment: ${ticketAssignment || participantAssignment}`);
                         }
-                        const reservationDeletion = await ticket.deleteReservation();
+                        // const reservationDeletion = await ticket.deleteReservation();
+                        await ticket.deleteReservation();
                         return response.status(200).json({ success: 'Ticket payment with success' });
                         } catch (error) {
                             console.error('Error handling Successful payment:', error);
@@ -726,8 +732,8 @@ async function handleGetRequest(request, response) {
         } catch (error) {
             console.error(`Error in handlePaymentUnsuccess: ${error}`);
             return { message: "Error in handlePaymentUnsuccess." };
-        } finally {
-            // Always send a response back to the client, even if an error occurred
-            response.end();
-        }
+        } //finally {
+        //     // Always send a response back to the client, even if an error occurred
+        //     response.end();
+        // }
     }
