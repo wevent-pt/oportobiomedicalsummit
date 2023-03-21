@@ -442,7 +442,7 @@ class NotionPageManager {
             try {
                 const response = await axios.post(
                     "https://api.notion.com/v1/pages", { parent: { database_id: databaseId }, properties },
-                    headers, { timeout: 10000 } // add a timeout of 10 seconds
+                    headers, { timeout: 30000 } // add a timeout of 10 seconds
                 );
 
                 return response.data;
@@ -689,51 +689,51 @@ async function handleGetRequest(request, response) {
     }
 }
 
-    async function handlePaymentUnsuccess(ticket, participant) {
-        try {
-            const [ticketPage, participantPage] = await Promise.allSettled([
-                ticket.get(),
-                participant.get(),
-            ]);
+async function handlePaymentUnsuccess(ticket, participant) {
+try {
+    const [ticketPage, participantPage] = await Promise.allSettled([
+        ticket.get(),
+        participant.get(),
+    ]);
 
-            if (ticketPage.status === "rejected" || participantPage.status === "rejected") {
-                console.error(`Failed to get ticket or participant page: ${ticketPage.reason || participantPage.reason}`);
-                return { message: "Failed to get ticket or participant page." };
-            }
-
-            const ticketResult = ticketPage.value;
-            const participantResult = participantPage.value;
-
-            const ticketMetadata = JSON.parse(ticketResult.properties["Ticket Metadata"].rich_text[0].plain_text);
-            const ticketAvailabilityId = `${ticketResult.properties["Ticket Bird"].rich_text[0].plain_text} ${ticketResult.properties["Ticket Type"].rich_text[0].plain_text} ${ticketResult.properties["Participant Type"].rich_text[0].plain_text}`;
-            const couponAvailabilityId = ticketResult.properties["Coupon Code"].rich_text[0].plain_text;
-            const studentNumberAvailabilityId = ticketMetadata.studentNumber;
-
-
-            const updatedTicketAvailability = await ticket.updateAvailabilityPage(1, ticketsAvailabilityDbId, ticketAvailabilityId);
-            const updatedCouponAvailability = await ticket.updateAvailabilityPage(1, couponsAvailabilityDbId, couponAvailabilityId);
-            const updatedStudentNumberAvailability = await ticket.updateAvailabilityPage(1, studentNumbersAvailabilityDbId, studentNumberAvailabilityId);
-            if (!updatedTicketAvailability || !updatedCouponAvailability || !updatedStudentNumberAvailability){
-                console.log("error uipdating!!!")
-            }else{
-                await ticket.delete();
-            }
-            
-
-            if (participantResult.status === "fulfilled") {
-                await participantResult.value.delete();
-            } else {
-                console.error(`Failed to get participant page: ${participantResult.reason}`);
-                return { message: "Failed to get participant page." };
-            }
-
-            console.log("Ticket payment with unsuccessful payment was successfully handled.");
-            return { message: "Ticket payment with unsuccessful payment was successfully handled." };
-        } catch (error) {
-            console.error(`Error in handlePaymentUnsuccess: ${error}`);
-            return { message: "Error in handlePaymentUnsuccess." };
-        } //finally {
-        //     // Always send a response back to the client, even if an error occurred
-        //     response.end();
-        // }
+    if (ticketPage.status === "rejected" || participantPage.status === "rejected") {
+        console.error(`Failed to get ticket or participant page: ${ticketPage.reason || participantPage.reason}`);
+        return { message: "Failed to get ticket or participant page." };
     }
+
+    const ticketResult = ticketPage.value;
+    const participantResult = participantPage.value;
+
+    const ticketMetadata = JSON.parse(ticketResult.properties["Ticket Metadata"].rich_text[0].plain_text);
+    const ticketAvailabilityId = `${ticketResult.properties["Ticket Bird"].rich_text[0].plain_text} ${ticketResult.properties["Ticket Type"].rich_text[0].plain_text} ${ticketResult.properties["Participant Type"].rich_text[0].plain_text}`;
+    const couponAvailabilityId = ticketResult.properties["Coupon Code"].rich_text[0].plain_text;
+    const studentNumberAvailabilityId = ticketMetadata.studentNumber;
+
+
+    const updatedTicketAvailability = await ticket.updateAvailabilityPage(1, ticketsAvailabilityDbId, ticketAvailabilityId);
+    const updatedCouponAvailability = await ticket.updateAvailabilityPage(1, couponsAvailabilityDbId, couponAvailabilityId);
+    const updatedStudentNumberAvailability = await ticket.updateAvailabilityPage(1, studentNumbersAvailabilityDbId, studentNumberAvailabilityId);
+    if (!updatedTicketAvailability || !updatedCouponAvailability || !updatedStudentNumberAvailability){
+        console.log("error uipdating!!!")
+    }else{
+        await ticket.delete();
+    }
+    
+
+    if (participantResult.status === "fulfilled") {
+        await participantResult.value.delete();
+    } else {
+        console.error(`Failed to get participant page: ${participantResult.reason}`);
+        return { message: "Failed to get participant page." };
+    }
+
+    console.log("Ticket payment with unsuccessful payment was successfully handled.");
+    return { message: "Ticket payment with unsuccessful payment was successfully handled." };
+} catch (error) {
+    console.error(`Error in handlePaymentUnsuccess: ${error}`);
+    return { message: "Error in handlePaymentUnsuccess." };
+} //finally {
+//     // Always send a response back to the client, even if an error occurred
+//     response.end();
+// }
+}
