@@ -1,23 +1,25 @@
 import axios from 'axios'
-const notionApiKey = 'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P' //ticketing1: secret_zM86Gogu5oR0kgOzcallucSXyJf2wYxYpTpIsdfsR3v
-const notionApiVersion = '2022-06-28'
-const headers = {
-    headers: {
-        'Content-Type': 'application/json',
-        'Notion-Version': notionApiVersion,
-        Authorization: "Bearer " + notionApiKey,
-        'Access-Control-Allow-Origin': '*'
-    }
-}
 
+const notionApiKeys = [
+    'secret_B7EfjTkZLgH3UvsJ9YSTEWzQpk6hoYthOIKOo8o2bWR',
+    'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
+    'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
+    'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
+    'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P'
+]
+const notionApiVersion = '2022-06-28'
 const participantsDbId = 'eb98b71ccb4b4aa2a5407961eed26bea';
+
+const MAX_RETRIES = 1;
+const RETRY_DELAY_MS = 1000;
+
+
 
 
 class EventParticipant {
-    constructor({ name, email, phone, assigned }) {
-        Object.assign(this, { name, email, phone, assigned });
+    constructor({ name, email, phone, assigned, paymentIntent }) {
+        Object.assign(this, { name, email, phone, assigned, paymentIntent });
     }
-    
     validInput(input) {
         if (typeof input !== 'string' || !input.trim()) {
             return false;
@@ -25,25 +27,80 @@ class EventParticipant {
         return true;
     }
 
-    async get(){
-        if (!this.email || !this.validInput(this.email)) {
-            throw new Error(`Invalid email : ${this.email}`);
+    async get() {
+        try {
+            if (!this.email || !this.validInput(this.email)) {
+                throw new Error(`Invalid participant email: ${this.email}`);
+            }
+            const response = await NotionDbManager.query(participantsDbId, { filter: { property: 'Email', title: { equals: this.email } } });
+
+            if (!response || !response.results || response.results.length === 0) {
+                throw new Error(`No results found for 'Email' = ${this.email}`);
+            }
+            return response.results[0];
+        } catch (error) {
+            console.error(error);
+            return false;
         }
-        const response = await NotionDbManager.query(participantsDbId, { filter:  { property: 'Email', rich_text: { equals: this.email } } });
-        const page = await response?.results?.[0]
-        // console.log(response)
-        return page || false;
     }
 }
+
 class NotionDbManager {
     static async query(dbId, query) {
-        try {
-            const response = await axios.post(
-                `https://api.notion.com/v1/databases/${dbId}/query`, query, headers
-            );
-            return response.data;
-        } catch (err) {
-            return err;
+        let apiKeyIndex = 0;
+        let retries = 0;
+
+        // eslint-disable-next-line no-constant-condition
+        while (true) {
+            const apiKey = notionApiKeys[apiKeyIndex];
+            let headers = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Notion-Version': notionApiVersion,
+                    Authorization: 'Bearer ' + apiKey,
+                    'Access-Control-Allow-Origin': '*',
+                },
+            };
+
+            try {
+                const response = await axios.post(
+                    `https://api.notion.com/v1/databases/${dbId}/query`,
+                    query,
+                    headers, { timeout: 10000 } // add a timeout of 10 seconds
+                );
+
+                return response.data;
+            } catch (err) {
+                if (err.response && err.response.status === 429) {
+                    // if rate limit exceeded, wait for reset
+                    const resetTime = err.response.headers['x-rate-limit-reset'];
+                    const delay = resetTime * 1000 - Date.now() + 1000; // add 1 second buffer
+                    console.warn(
+                        `Rate limit exceeded for Notion API. Waiting ${delay / 1000} seconds before retrying...`
+                    );
+                    await new Promise((resolve) => setTimeout(resolve, delay));
+                } else if (retries >= MAX_RETRIES) {
+                    if (apiKeyIndex === notionApiKeys.length - 1) {
+                        console.error(
+                            `Failed to query Notion database ${dbId} after ${MAX_RETRIES} attempts with all API keys. Error: ${err.message}`
+                        );
+                        return null;
+                    } else {
+                        console.warn(
+                            `Failed to query Notion database ${dbId} with API key ${apiKey}. Changing to next API key...`
+                        );
+                        apiKeyIndex++;
+                        retries = 0;
+                    }
+                } else {
+                    const delay = Math.pow(2, retries) * RETRY_DELAY_MS;
+                    console.warn(
+                        `Encountered temporary failure while querying Notion database ${dbId} with API key ${apiKey}: ${err.message}. Retrying in ${delay / 1000} seconds...`
+                    );
+                    retries++;
+                    await new Promise((resolve) => setTimeout(resolve, delay));
+                }
+            }
         }
     }
 }

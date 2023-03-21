@@ -636,7 +636,7 @@ class NotionDbManager {
         // eslint-disable-next-line no-constant-condition
         while (true) {
             const apiKey = notionApiKeys[apiKeyIndex];
-            const headers = {
+            let headers = {
                 headers: {
                     'Content-Type': 'application/json',
                     'Notion-Version': notionApiVersion,

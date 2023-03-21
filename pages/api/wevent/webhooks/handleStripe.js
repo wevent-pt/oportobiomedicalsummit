@@ -53,7 +53,6 @@ class NotionDbManager {
                     },
                 };
                 
-
             try {
                 const response = await axios.post(
                     `https://api.notion.com/v1/databases/${dbId}/query`,
