@@ -1,16 +1,9 @@
 import axios from 'axios'
-const stripe = require('stripe').default('sk_test_51L5MzLBg4lHvVejrb4zYLpMKZY9s2eK8DzwypbV0nCy92iAgsgfYMxeuZuAoGlaKRlK7Sgg9QGCJrs6IR5TThHXy00L4h63yxX');
-
+const stripe = require('stripe').default('sk_test_51Mmie4FwvY5MDrSUGIQbduW1n7cxkpa6rpx4V5u5bxmGBnjW02MALtOqG2TsVfo3vKVR0dd99wa749pVMzo55BEo00HBuXlv3Q');
+//test key: sk_test_51Mmie4FwvY5MDrSUGIQbduW1n7cxkpa6rpx4V5u5bxmGBnjW02MALtOqG2TsVfo3vKVR0dd99wa749pVMzo55BEo00HBuXlv3Q
+//private key: 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
 // const notionApiKey = 'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P' //ticketing1: secret_zM86Gogu5oR0kgOzcallucSXyJf2wYxYpTpIsdfsR3v
 
-const notionApiKeys = [
-    'secret_B7EfjTkZLgH3UvsJ9YSTEWzQpk6hoYthOIKOo8o2bWR',
-    'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
-    'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
-    'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
-    'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P'
-]
-const notionApiVersion = '2022-06-28'
 // const headers = {
 //     headers: {
 //         'Content-Type': 'application/json',
@@ -20,13 +13,21 @@ const notionApiVersion = '2022-06-28'
 //     }
 // }
 
-const participantsDbId = 'eb98b71ccb4b4aa2a5407961eed26bea';
-const ticketsDbId = '5dbaccb7c3484d9b8c12878b5aac92c7';
-const ticketsAvailabilityDbId = 'eca8f685664a452583b448e81cdfe3ef';
-const couponsAvailabilityDbId = '14f3f2f6d0fc488cb72d8bd7554a14fb';
-const studentNumbersAvailabilityDbId = 'f3fdc42694ed4913a336cacfcf19d6a2';
-const reservationsDbId = '443518c87bcc479d8805bddf1e84377a';
-const MAX_RETRIES = 1;
+const notionApiKeys = [
+    'secret_xSTC2XcM6oynGsiTIYgG9Aj97mzE9oHsdjZZgEaO2S8',
+    'secret_wh2MYlJ0whHDmKdszfvRuLNTyUk6rfNPKChIvviH5mX',
+    'secret_B7EfjTkZLgH3UvsJ9YSTEWzQpk6hoYthOIKOo8o2bWR',
+    'secret_zM86Gogu5oR0kgOzcallucSXyJf2wYxYpTpIsdfsR3v',
+    'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P'
+]
+const notionApiVersion = '2022-06-28'
+const participantsDbId = 'e4e0faf7bad8443382aca6771c132fb5';
+const ticketsDbId = '2e12347eea9c440986311875d7699781';
+const ticketsAvailabilityDbId = '6a5d309dd43e413cb66868e9566abf69';
+const couponsAvailabilityDbId = 'ae63f9cf9ccb43229fd4a9005917e0dc';
+const studentNumbersAvailabilityDbId = 'b420771345e2448bb93da953e6d7305b';
+const reservationsDbId = '5449d9fc5c354b609bc72b7b8f7a6be3';
+const MAX_RETRIES = 2;
 const RETRY_DELAY_MS = 1000;
 
 

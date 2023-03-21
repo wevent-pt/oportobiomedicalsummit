@@ -3,14 +3,14 @@ import axios from 'axios';
 // const stripe = require('stripe').default('sk_test_51L5MzLBg4lHvVejrb4zYLpMKZY9s2eK8DzwypbV0nCy92iAgsgfYMxeuZuAoGlaKRlK7Sgg9QGCJrs6IR5TThHXy00L4h63yxX');
 // const notionApiKey = 'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P' //ticketing1: secret_zM86Gogu5oR0kgOzcallucSXyJf2wYxYpTpIsdfsR3v
 
-const notionApiKeys = [
-    'secret_B7EfjTkZLgH3UvsJ9YSTEWzQpk6hoYthOIKOo8o2bWR',
-    'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
-    'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
-    'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
-    'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P'
-]
 
+const notionApiKeys = [
+    'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
+    'secret_zM86Gogu5oR0kgOzcallucSXyJf2wYxYpTpIsdfsR3v',
+    'secret_B7EfjTkZLgH3UvsJ9YSTEWzQpk6hoYthOIKOo8o2bWR',
+    'secret_wh2MYlJ0whHDmKdszfvRuLNTyUk6rfNPKChIvviH5mX',
+    'secret_xSTC2XcM6oynGsiTIYgG9Aj97mzE9oHsdjZZgEaO2S8'
+]
 
 const notionApiVersion = '2022-06-28'
 // const headers = {
@@ -22,12 +22,12 @@ const notionApiVersion = '2022-06-28'
 //     }
 // }
 const WEBHOOK_URL = 'https://oportobiomedicalsummit.com/api/wevent/webhooks/submitTicketingTests';
-const MAX_RETRIES = 1;
+const MAX_RETRIES = 2;
 const RETRY_DELAY_MS = 1000;
 // const TIMEOUT = 10000;
 
-const participantsDbId = 'eb98b71ccb4b4aa2a5407961eed26bea';
-const ticketsDbId = '5dbaccb7c3484d9b8c12878b5aac92c7';
+const participantsDbId = 'e4e0faf7bad8443382aca6771c132fb5';
+const ticketsDbId = '2e12347eea9c440986311875d7699781';
 
 function validInput(input) {
     if (typeof input !== 'string' || !input.trim()) {
