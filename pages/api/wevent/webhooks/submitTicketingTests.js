@@ -1,5 +1,5 @@
 import axios from 'axios'
-const stripe = require('stripe').default('sk_test_51Mmie4FwvY5MDrSUGIQbduW1n7cxkpa6rpx4V5u5bxmGBnjW02MALtOqG2TsVfo3vKVR0dd99wa749pVMzo55BEo00HBuXlv3Q');
+const stripe = require('stripe').default('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');
 //test key: sk_test_51Mmie4FwvY5MDrSUGIQbduW1n7cxkpa6rpx4V5u5bxmGBnjW02MALtOqG2TsVfo3vKVR0dd99wa749pVMzo55BEo00HBuXlv3Q
 //private key: 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
 // const notionApiKey = 'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P' //ticketing1: secret_zM86Gogu5oR0kgOzcallucSXyJf2wYxYpTpIsdfsR3v
