@@ -173,30 +173,82 @@ class EventTicket {
             const valueOfCoupon = await this.valueOfCoupon();
             this.paymentAmount = ((100 - valueOfCoupon) / 100 * this.paymentAmount).toString();
 
-            const session = await (new Payment({ ticket: this, participant })).getStripeSession();
+            if(this.paymentAmount > 0){
+                const session = await (new Payment({ ticket: this, participant })).getStripeSession();
+                const [isTicketRegistrationSuccessful, isParticipantRegistrationSuccessful] = await Promise.all([
+                    this.metadata = { payment_intent: session.payment_intent, ...this.metadata },
+                    this.paymentIntent = session.payment_intent,
+                    participant.paymentIntent = session.payment_intent,
+                    this.createReservation(participant),
+                    this.create(participant),
+                    participant.create(this),
+                ]);
+                if (!(isTicketRegistrationSuccessful && isParticipantRegistrationSuccessful)) {
+                    throw new Error('Ticket registration or participant registration failed.');
+                }
 
-            const [isTicketRegistrationSuccessful, isParticipantRegistrationSuccessful] = await Promise.all([
-                this.metadata = { payment_intent: session.payment_intent, ...this.metadata },
-                this.paymentIntent = session.payment_intent,
-                participant.paymentIntent = session.payment_intent,
-                this.createReservation(participant),
-                this.create(participant),
-                participant.create(this),
-            ]);
-            if (!(isTicketRegistrationSuccessful && isParticipantRegistrationSuccessful)) {
-                throw new Error('Ticket registration or participant registration failed.');
+                const ticketAvailabilityId = `${this.ticketBird} ${this.ticketType} ${this.participantType}`;
+                const updatedTicketAvailability = await this.updateAvailabilityPage(-1, ticketsAvailabilityDbId, ticketAvailabilityId);
+                const updatedCouponAvailability = await this.updateAvailabilityPage(-1, couponsAvailabilityDbId, this.couponCode);
+                const updatedStudentNumberAvailability = await this.updateAvailabilityPage(-1, studentNumbersAvailabilityDbId, this.metadata.studentNumber);
+                if (!updatedTicketAvailability || !updatedCouponAvailability || !updatedStudentNumberAvailability){
+                    console.log("error uipdating!!!")
+                }
+
+                console.log(session.payment_intent)
+                return session ? session.sessionUrl : false;
             }
+            else{
+
+                const [isTicketRegistrationSuccessful, isParticipantRegistrationSuccessful] = await Promise.all([
+                    this.metadata = { payment_intent: 'coupon', ...this.metadata },
+                    this.paymentIntent = 'coupon',
+                    participant.paymentIntent = 'coupon',
+                    this.createReservation(participant),
+                    this.create(participant),
+                    participant.create(this),
+                ]);
+                
+                if (!(isTicketRegistrationSuccessful && isParticipantRegistrationSuccessful)) {
+                    throw new Error('Ticket registration or participant registration failed.');
+                }
+
+                const ticketAvailabilityId = `${this.ticketBird} ${this.ticketType} ${this.participantType}`;
+                const updatedTicketAvailability = await this.updateAvailabilityPage(-1, ticketsAvailabilityDbId, ticketAvailabilityId);
+                const updatedCouponAvailability = await this.updateAvailabilityPage(-1, couponsAvailabilityDbId, this.couponCode);
+                const updatedStudentNumberAvailability = await this.updateAvailabilityPage(-1, studentNumbersAvailabilityDbId, this.metadata.studentNumber);
+                if (!updatedTicketAvailability || !updatedCouponAvailability || !updatedStudentNumberAvailability){
+                    console.log("error uipdating!!!")
+                }
+
+                try {
+                    // Check that ticket and participant objects exist
+                    if (!this || !participant) {
+                        throw new Error('Ticket or participant not found');
+                    }
+                    try {
+                        const ticketAssignment = await this.assign();
+                        const participantAssignment = await participant.assign();
+                        if (!ticketAssignment || !participantAssignment) {
+                            throw new Error(`Failed to ticketAssignment or participantAssignment: ${ticketAssignment || participantAssignment}`);
+                        }
+                        // const reservationDeletion = await ticket.deleteReservation();
+                        await this.deleteReservation();
+                        // return response.status(200).json({ success: 'Ticket payment with success' });
+                        return `https://oportobiomedicalsummit.com/ticket-success`
+                        } catch (error) {
+                            console.error('Error handling Successful payment:', error);
+                            return false
+                        } 
+                } catch (error) {
+                    console.error('Error handling Successful payment:', error);
+                    return false;
+                } 
+            }
+
             
-            const ticketAvailabilityId = `${this.ticketBird} ${this.ticketType} ${this.participantType}`;
-            const updatedTicketAvailability = await this.updateAvailabilityPage(-1, ticketsAvailabilityDbId, ticketAvailabilityId);
-            const updatedCouponAvailability = await this.updateAvailabilityPage(-1, couponsAvailabilityDbId, this.couponCode);
-            const updatedStudentNumberAvailability = await this.updateAvailabilityPage(-1, studentNumbersAvailabilityDbId, this.metadata.studentNumber);
-            if (!updatedTicketAvailability || !updatedCouponAvailability || !updatedStudentNumberAvailability){
-                console.log("error uipdating!!!")
-            }
-
-            console.log(session.payment_intent)
-            return session ? session.sessionUrl : false;
+            
+            
 
         } catch (error) {
             console.error(error);
