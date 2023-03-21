@@ -219,7 +219,7 @@ export default async function handleStripeWebhook(req, res) {
                     try {
                         // Call the handleUnsuccess function to add a ticket to the availability database
                         const response = await handleUnsuccess(paymentIntent);
-                        return res.status(200).json('Success handling payment_intent.canceled webhook event to: ' response);
+                        return res.status(200).json('Success handling payment_intent.canceled webhook event to: ', response);
                     
                     } catch (error) {
                         // console.error(error);
