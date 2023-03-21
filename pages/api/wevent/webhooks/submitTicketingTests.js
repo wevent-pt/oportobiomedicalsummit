@@ -51,6 +51,23 @@ class EventTicket {
             return false;
         }
     }
+    async getReservation() {
+        try {
+            if (!this.ticketId || !this.validInput(this.ticketId)) {
+                throw new Error(`Invalid ticket id: ${this.ticketId}`);
+            }
+            const response = await NotionDbManager.query(reservationsDbId, { filter: { property: 'Name', title: { equals: this.ticketId } } });
+
+            if (!response || !response.results || response.results.length === 0) {
+                throw new Error(`No results found for 'Name' = ${this.ticketId}`);
+            }
+
+            return response.results[0];
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+    }
     async create(participant) {
         const ticketPage = await NotionPageManager.createPage('Ticket', {
             'Name': { title: [{ text: { content: this.ticketId } }] },
@@ -780,12 +797,13 @@ async function handleGetRequest(request, response) {
 
 async function handlePaymentUnsuccess(ticket) {
 try {
-    const [ticketPage] = await Promise.allSettled([
+    const [ticketPage, reservationPage] = await Promise.allSettled([
         ticket.get(),
+        ticket.getReservation()
         // participant.get(),
     ]);
 
-    if (!ticketPage) {
+    if (!ticketPage || !reservationPage) {
         console.error(`Failed to get ticket or participant page`);
         return { message: "Failed to get ticket or participant page." };
     }
