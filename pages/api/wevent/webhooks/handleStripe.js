@@ -21,7 +21,7 @@ const notionApiVersion = '2022-06-28'
 //         'Access-Control-Allow-Origin': '*'
 //     }
 // }
-const WEBHOOK_URL = 'http://localhost:3000/api/wevent/webhooks/submitTicketingTests';
+const WEBHOOK_URL = 'https://oportobiomedicalsummit.com/api/wevent/webhooks/submitTicketingTests';
 const MAX_RETRIES = 1;
 const RETRY_DELAY_MS = 1000;
 // const TIMEOUT = 10000;
