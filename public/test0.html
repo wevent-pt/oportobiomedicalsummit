@@ -404,12 +404,30 @@
       color: #4A5568;
     }
 
+    .spinner{
+    position: absolute;
+    top: 33vh;
+    /* left: 50%; */
+    transform: translate(-50%, -50%);
+    width: 50vw;
+    height: auto;
+    border-radius: 50%;
+    animation: animateSpinner 3s infinite linear;
+    display: none;
+
+}
+@keyframes animateSpinner{
+    0%{transform: rotate(0deg);}
+    100%{transform: rotate(360deg);}
+}
+
   </style>
 </head>
 
 <body>
   <h1 id="ticket-title">Ticketing Form</h1>
 
+    <img id="spinner" class="spinner" src="/nav/logo_menu.svg">
   <form id="ticket-form">
     <div id="formContent">
       <label htmlFor="ticket-bird">Ticket Bird:</label>
@@ -794,7 +812,7 @@
     
       const submitForm = (event) => {
             event.preventDefault();    
-            const endpoint = "https://oportobiomedicalsummit.com/api/wevent/webhooks/submitTicketingTests";
+            const endpoint = "/api/wevent/webhooks/submitTicketingTests";
             const body = JSON.stringify({
                 action: "purchaseTicket",
                 ticketId: Math.random().toString(36).substr(2, 6),
@@ -819,7 +837,11 @@
                 paymentIntent: '',
             });
     
-    
+            
+                  const hiddenForm = document.getElementById("ticket-form");
+                  hiddenForm.style.display = "none";
+                  const spinner = document.getElementById("spinner");
+                  spinner.style.display = "block";
             fetch(endpoint, {
                     method: 'POST',
                     headers: {
@@ -829,14 +851,21 @@
                 })
                 .then(response => {
                     if (!response.ok) throw new Error('Network response was not ok');
+                    hiddenForm.style.display = "flex";
+                    spinner.style.display = "none";
                     return response.json();
                 })
                 .then(data => {
                     top.location.href = data.sessionUrl;
                 })
-                .catch(error => {
-                    alert('Error submitting order. Please try again.');
+                .catch(error => { 
+                  alert('Error submitting order. Please try again.');
                     console.error(error);
+                  const hiddenForm = document.getElementById("ticket-form");
+                  hiddenForm.style.display = "flex";
+                  const spinner = document.getElementById("spinner");
+                  spinner.style.display = "none";
+                   
                 });
         };
 
