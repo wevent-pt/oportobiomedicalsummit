@@ -212,6 +212,7 @@ export default async function handleStripeWebhook(req, res) {
         try {
             // Retrieve the ID of the canceled payment intent from the request body
             const paymentIntent = req.body?.data?.object?.id;
+            console.log("!!!!", paymentIntent);
             switch (eventType) {
                 case 'payment_intent.canceled':
 
