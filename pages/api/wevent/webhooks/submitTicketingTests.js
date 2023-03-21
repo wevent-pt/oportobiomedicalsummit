@@ -456,6 +456,7 @@ class Payment {
     
     async getStripeSession() {
         if (this.ticket.paymentAmount <= 0) return { sessionUrl: `https://oportobiomedicalsummit.com/api/wevent/webhooks/handleStripe?action=paymentSuccessful&ticketId=${this.ticket.ticketId}&email=${this.participant.email}` };
+        this.ticket.paymentAmount = Math.floor(this.ticket.paymentAmount);
         try {
             const session = await stripe.checkout.sessions.create({
                 line_items: [{
