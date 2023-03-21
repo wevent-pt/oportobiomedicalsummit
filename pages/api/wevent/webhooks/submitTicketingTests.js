@@ -4,7 +4,7 @@ const stripe = require('stripe').default('sk_test_51L5MzLBg4lHvVejrb4zYLpMKZY9s2
 // const notionApiKey = 'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P' //ticketing1: secret_zM86Gogu5oR0kgOzcallucSXyJf2wYxYpTpIsdfsR3v
 
 const notionApiKeys = [
-    'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
+    'secret_B7EfjTkZLgH3UvsJ9YSTEWzQpk6hoYthOIKOo8o2bWR',
     'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
     'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
     'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
@@ -26,7 +26,7 @@ const ticketsAvailabilityDbId = 'eca8f685664a452583b448e81cdfe3ef';
 const couponsAvailabilityDbId = '14f3f2f6d0fc488cb72d8bd7554a14fb';
 const studentNumbersAvailabilityDbId = 'f3fdc42694ed4913a336cacfcf19d6a2';
 const reservationsDbId = '443518c87bcc479d8805bddf1e84377a';
-const MAX_RETRIES = 5;
+const MAX_RETRIES = 1;
 const RETRY_DELAY_MS = 1000;
 
 
@@ -188,11 +188,28 @@ class EventTicket {
                 }
 
                 const ticketAvailabilityId = `${this.ticketBird} ${this.ticketType} ${this.participantType}`;
-                const updatedTicketAvailability = await this.updateAvailabilityPage(-1, ticketsAvailabilityDbId, ticketAvailabilityId);
-                const updatedCouponAvailability = await this.updateAvailabilityPage(-1, couponsAvailabilityDbId, this.couponCode);
-                const updatedStudentNumberAvailability = await this.updateAvailabilityPage(-1, studentNumbersAvailabilityDbId, this.metadata.studentNumber);
-                if (!updatedTicketAvailability || !updatedCouponAvailability || !updatedStudentNumberAvailability){
-                    console.log("error uipdating!!!")
+
+                if(this.validInput(this.couponCode)){
+                    const updatedCouponAvailability = await this.updateAvailabilityPage(-1, couponsAvailabilityDbId, this.couponCode);
+                    if( !updatedCouponAvailability){
+                        console.log("error updating updatedCouponAvailability!!!")
+            
+                    }
+                }
+                if(this.validInput(this.metadata.studentNumber)){
+                    const updatedStudentNumberAvailability = await this.updateAvailabilityPage(-1, studentNumbersAvailabilityDbId, this.metadata.studentNumber);
+                    if( !updatedStudentNumberAvailability){
+                        console.log("error updating updatedStudentNumberAvailability!!!")
+            
+                    }
+                }
+            
+                if(this.validInput(ticketAvailabilityId)){
+                    const updatedTicketAvailability = await this.updateAvailabilityPage(-1, ticketsAvailabilityDbId, ticketAvailabilityId);
+                    if( !updatedTicketAvailability){
+                        console.log("error updating updatedTicketAvailability!!!")
+            
+                    }
                 }
 
                 console.log(session.payment_intent)
@@ -214,12 +231,30 @@ class EventTicket {
                 }
 
                 const ticketAvailabilityId = `${this.ticketBird} ${this.ticketType} ${this.participantType}`;
-                const updatedTicketAvailability = await this.updateAvailabilityPage(-1, ticketsAvailabilityDbId, ticketAvailabilityId);
-                const updatedCouponAvailability = await this.updateAvailabilityPage(-1, couponsAvailabilityDbId, this.couponCode);
-                const updatedStudentNumberAvailability = await this.updateAvailabilityPage(-1, studentNumbersAvailabilityDbId, this.metadata.studentNumber);
-                if (!updatedTicketAvailability || !updatedCouponAvailability || !updatedStudentNumberAvailability){
-                    console.log("error uipdating!!!")
+
+                if(this.validInput(this.couponCode)){
+                    const updatedCouponAvailability = await this.updateAvailabilityPage(-1, couponsAvailabilityDbId, this.couponCode);
+                    if( !updatedCouponAvailability){
+                        console.log("error updating updatedCouponAvailability!!!")
+            
+                    }
                 }
+                if(this.validInput(this.metadata.studentNumber)){
+                    const updatedStudentNumberAvailability = await this.updateAvailabilityPage(-1, studentNumbersAvailabilityDbId, this.metadata.studentNumber);
+                    if( !updatedStudentNumberAvailability){
+                        console.log("error updating updatedStudentNumberAvailability!!!")
+            
+                    }
+                }
+            
+                if(this.validInput(ticketAvailabilityId)){
+                    const updatedTicketAvailability = await this.updateAvailabilityPage(-1, ticketsAvailabilityDbId, ticketAvailabilityId);
+                    if( !updatedTicketAvailability){
+                        console.log("error updating updatedTicketAvailability!!!")
+            
+                    }
+                }
+
 
                 try {
                     // Check that ticket and participant objects exist
@@ -328,9 +363,9 @@ class EventParticipant {
     async get() {
         try {
             if (!this.email || !this.validInput(this.email)) {
-                throw new Error(`Invalid ticket id: ${this.email}`);
+                throw new Error(`Invalid participant email: ${this.email}`);
             }
-            const response = await NotionDbManager.query(ticketsDbId, { filter: { property: 'Email', title: { equals: this.email } } });
+            const response = await NotionDbManager.query(participantsDbId, { filter: { property: 'Email', title: { equals: this.email } } });
 
             if (!response || !response.results || response.results.length === 0) {
                 throw new Error(`No results found for 'Email' = ${this.email}`);
@@ -679,19 +714,20 @@ async function handlePostRequest(request, response) {
 
 
 async function handleGetRequest(request, response) {
-    const { action, ticketId, email } = request.query;
+    const { action, ticketId } = request.query;
 
     if (!ACTIONS.includes(action)) {
         return response.status(400).json({ error: 'Invalid action!' });
     }
 
     const ticket = new EventTicket({ ticketId: ticketId });
-    const participant = new EventParticipant({ email: email });
 
     try {
         switch (action) {
             case 'paymentSuccessful':
                 try {
+                    const email = request.query.email;
+                    const participant = new EventParticipant({ email: email });
                     // Check that ticket and participant objects exist
                     if (!ticket || !participant) {
                         throw new Error('Ticket or participant not found');
@@ -723,7 +759,7 @@ async function handleGetRequest(request, response) {
             // Handle payment failure for a ticket
             case 'paymentUnsuccessful':
                 try {
-                    const responseMessage = await handlePaymentUnsuccess(ticket, participant);
+                    const responseMessage = await handlePaymentUnsuccess(ticket);
                     return response.status(200).json({ message: responseMessage });
                 } catch (error) {
                     console.error('Error handling unsuccessful payment:', error);
@@ -741,44 +777,54 @@ async function handleGetRequest(request, response) {
     }
 }
 
-async function handlePaymentUnsuccess(ticket, participant) {
+async function handlePaymentUnsuccess(ticket) {
 try {
-    const [ticketPage, participantPage] = await Promise.allSettled([
+    const [ticketPage] = await Promise.allSettled([
         ticket.get(),
-        participant.get(),
+        // participant.get(),
     ]);
 
-    if (ticketPage.status === "rejected" || participantPage.status === "rejected") {
-        console.error(`Failed to get ticket or participant page: ${ticketPage.reason || participantPage.reason}`);
+    if (!ticketPage) {
+        console.error(`Failed to get ticket or participant page`);
         return { message: "Failed to get ticket or participant page." };
     }
 
     const ticketResult = ticketPage.value;
-    const participantResult = participantPage.value;
-
+    // const participantResult = participantPage.value;
+    // console.log("ticket: ",JSON.stringify(ticketResult));
+    // console.log("partic: ", JSON.stringify(participantResult));
+    
     const ticketMetadata = JSON.parse(ticketResult.properties["Ticket Metadata"].rich_text[0].plain_text);
     const ticketAvailabilityId = `${ticketResult.properties["Ticket Bird"].rich_text[0].plain_text} ${ticketResult.properties["Ticket Type"].rich_text[0].plain_text} ${ticketResult.properties["Participant Type"].rich_text[0].plain_text}`;
     const couponAvailabilityId = ticketResult.properties["Coupon Code"].rich_text[0].plain_text;
     const studentNumberAvailabilityId = ticketMetadata.studentNumber;
 
+    if(ticket.validInput(couponAvailabilityId)){
+        const updatedCouponAvailability = await ticket.updateAvailabilityPage(1, couponsAvailabilityDbId, couponAvailabilityId);
+        if( !updatedCouponAvailability){
+            console.log("error updating updatedCouponAvailability!!!")
 
-    const updatedTicketAvailability = await ticket.updateAvailabilityPage(1, ticketsAvailabilityDbId, ticketAvailabilityId);
-    const updatedCouponAvailability = await ticket.updateAvailabilityPage(1, couponsAvailabilityDbId, couponAvailabilityId);
-    const updatedStudentNumberAvailability = await ticket.updateAvailabilityPage(1, studentNumbersAvailabilityDbId, studentNumberAvailabilityId);
-    if (!updatedTicketAvailability || !updatedCouponAvailability || !updatedStudentNumberAvailability){
-        console.log("error uipdating!!!")
-    }else{
-        await ticket.delete();
+        }
     }
+    if(ticket.validInput(studentNumberAvailabilityId)){
+        const updatedStudentNumberAvailability = await ticket.updateAvailabilityPage(1, studentNumbersAvailabilityDbId, studentNumberAvailabilityId);
+        if( !updatedStudentNumberAvailability){
+            console.log("error updating updatedStudentNumberAvailability!!!")
+
+        }
+    }
+
+    if(ticket.validInput(ticketAvailabilityId)){
+        const updatedTicketAvailability = await ticket.updateAvailabilityPage(1, ticketsAvailabilityDbId, ticketAvailabilityId);
+        if( !updatedTicketAvailability){
+            console.log("error updating updatedTicketAvailability!!!")
+
+        }
+    }
+    // await ticket.delete();
+    // await participant.delete();
+    await ticket.deleteReservation();
     
-
-    if (participantResult.status === "fulfilled") {
-        await participantResult.value.delete();
-    } else {
-        console.error(`Failed to get participant page: ${participantResult.reason}`);
-        return { message: "Failed to get participant page." };
-    }
-
     console.log("Ticket payment with unsuccessful payment was successfully handled.");
     return { message: "Ticket payment with unsuccessful payment was successfully handled." };
 } catch (error) {

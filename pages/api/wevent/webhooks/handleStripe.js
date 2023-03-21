@@ -1,29 +1,30 @@
 import axios from 'axios';
 
 // const stripe = require('stripe').default('sk_test_51L5MzLBg4lHvVejrb4zYLpMKZY9s2eK8DzwypbV0nCy92iAgsgfYMxeuZuAoGlaKRlK7Sgg9QGCJrs6IR5TThHXy00L4h63yxX');
-const notionApiKey = 'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P' //ticketing1: secret_zM86Gogu5oR0kgOzcallucSXyJf2wYxYpTpIsdfsR3v
+// const notionApiKey = 'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P' //ticketing1: secret_zM86Gogu5oR0kgOzcallucSXyJf2wYxYpTpIsdfsR3v
 
-// const notionApiKeys = [
-//     'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
-//     'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
-//     'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
-//     'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
-//     'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P'
-// ]
+const notionApiKeys = [
+    'secret_B7EfjTkZLgH3UvsJ9YSTEWzQpk6hoYthOIKOo8o2bWR',
+    'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
+    'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
+    'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P',
+    'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P'
+]
 
 
 const notionApiVersion = '2022-06-28'
-const headers = {
-    headers: {
-        'Content-Type': 'application/json',
-        'Notion-Version': notionApiVersion,
-        Authorization: "Bearer " + notionApiKey,
-        'Access-Control-Allow-Origin': '*'
-    }
-}
-const WEBHOOK_URL = 'https://oportobiomedicalsummit.com/api/wevent/webhooks/submitTicketingTests';
-const MAX_RETRIES = 5;
+// const headers = {
+//     headers: {
+//         'Content-Type': 'application/json',
+//         'Notion-Version': notionApiVersion,
+//         Authorization: "Bearer " + notionApiKey,
+//         'Access-Control-Allow-Origin': '*'
+//     }
+// }
+const WEBHOOK_URL = 'http://localhost:3000/api/wevent/webhooks/submitTicketingTests';
+const MAX_RETRIES = 1;
 const RETRY_DELAY_MS = 1000;
+// const TIMEOUT = 10000;
 
 const participantsDbId = 'eb98b71ccb4b4aa2a5407961eed26bea';
 const ticketsDbId = '5dbaccb7c3484d9b8c12878b5aac92c7';
@@ -36,34 +37,68 @@ function validInput(input) {
 }
 class NotionDbManager {
     static async query(dbId, query) {
+        let apiKeyIndex = 0;
         let retries = 0;
-
+        
+        
         // eslint-disable-next-line no-constant-condition
         while (true) {
+            let apiKey = notionApiKeys[apiKeyIndex];
+            let headers = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Notion-Version': notionApiVersion,
+                        Authorization: 'Bearer ' + apiKey,
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                };
+                
+
             try {
                 const response = await axios.post(
                     `https://api.notion.com/v1/databases/${dbId}/query`,
                     query,
-                    headers
+                    headers, { timeout: 10000 } // add a timeout of 10 seconds
                 );
+
                 return response.data;
             } catch (err) {
-                if (retries >= MAX_RETRIES) {
-                    console.error(
-                        `Failed to query Notion database ${dbId} after ${MAX_RETRIES} attempts: ${err.message}`
+                if (err.response && err.response.status === 429) {
+                    // if rate limit exceeded, wait for reset
+                    const resetTime = err.response.headers['x-rate-limit-reset'] || 0;
+                    const delay = resetTime * 1000 - Date.now() + 1000; // add 1 second buffer
+                    console.warn(
+                        `Rate limit exceeded for Notion API. Waiting ${delay / 1000} seconds before retrying...`
                     );
-                    return null;
+                    await new Promise((resolve) => setTimeout(resolve, delay));
+                } else if (retries >= MAX_RETRIES) {
+                    if (apiKeyIndex === notionApiKeys.length - 1) {
+                        console.error(
+                            `Failed to query Notion database ${dbId} after ${MAX_RETRIES} attempts with all API keys. Error: ${err.message}`
+                        );
+                        return null;
+                    } else {
+                        console.warn(
+                            `Failed to query Notion database ${dbId} with API key ${apiKey}. Changing to next API key...`
+                        );
+                        apiKeyIndex++;
+                        retries = 0;
+                    }
+                } else {
+                    console.log(err)
+                    const delay = Math.pow(1, retries) * RETRY_DELAY_MS;
+                    console.log(
+                        `Encountered temporary failure while querying Notion database ${dbId} with API key ${apiKey}: ${err.message}. Retrying in ${delay / 1000} seconds...`
+                    );
+                    retries++;
+                    await new Promise((resolve) => setTimeout(resolve, delay));
                 }
-
-                console.warn(
-                    `Encountered temporary failure while querying Notion database ${dbId}: ${err.message}`
-                );
-                retries++;
-                await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
             }
         }
     }
 }
+
+
 
 
 async function get(db, filteringProperty, filteringMatch, type) {
@@ -75,16 +110,16 @@ async function get(db, filteringProperty, filteringMatch, type) {
         if (!filteringMatch || !validInput(filteringMatch)) {
             throw new Error(`Invalid filtering match: ${filteringMatch}`);
         }
+        const response = await NotionDbManager.query(db, { filter: { property: filteringProperty, rich_text: { equals: filteringMatch } } });
 
-        const response = await NotionDbManager.query(db, { filter: { property: filteringProperty, title: { equals: filteringMatch } } });
-
+        
         if (!response || !response.results || response.results.length === 0) {
             throw new Error(`No results found for ${filteringProperty} = ${filteringMatch} on ${type}`);
         }
 
         return response.results[0];
     } catch (error) {
-        // console.error(error);
+        console.error(error);
         return false;
     }
 }
@@ -92,25 +127,25 @@ async function get(db, filteringProperty, filteringMatch, type) {
 async function handleUnsuccess(paymentIntent) {
     try {
         // Retrieve the relevant product and participant details from the database
-        const ticketDetails = await get(ticketsDbId, 'Payment Intent', paymentIntent);
-        const participantDetails = await get(participantsDbId, 'Payment Intent', paymentIntent);
+        const ticketDetails = await get(ticketsDbId, 'Payment Intent', paymentIntent, 'tickets');
+        // const participantDetails = await get(participantsDbId, 'Payment Intent', paymentIntent, 'participants');
 
         // Extract the ticket ID and email from the retrieved data
         const ticketId = ticketDetails?.properties?.['Name']?.title?.[0]?.text?.content;
-        const email = participantDetails?.properties?.['Email']?.rich_text?.[0]?.text?.content;
+        // const email = participantDetails?.properties?.['Email']?.rich_text?.[0]?.text?.content;
 
         // Throw an error if either the ticket ID or email is missing
-        if (!ticketId || !email) {
+        if (!ticketId) {
             throw new Error('Missing required data: ticketId or email');
         }
-
+        console.log("canceling ", ticketId);
         // Attempt to submit the relevant information to the webhook using Axios
         let response = null;
         let retries = 0;
 
         while (response === null && retries < MAX_RETRIES) {
             try {
-                response = await axios.get(`${WEBHOOK_URL}?action=paymentUnsuccessful&ticketId=${ticketId}&email=${email}`);
+                response = await axios.get(`${WEBHOOK_URL}?action=paymentUnsuccessful&ticketId=${ticketId}`);
                 return response; // Return the response from the webhook
             } catch (error) {
                 // console.error(error);
@@ -123,7 +158,7 @@ async function handleUnsuccess(paymentIntent) {
         return false;
     } catch (error) {
         // Handle any errors that occur while retrieving the data
-        // console.error(error);
+        console.error(error);
         return false;
     }
 }
@@ -161,53 +196,84 @@ async function handleSuccess(paymentIntent) {
         return false;
     } catch (error) {
         // Handle any errors that occur while retrieving the data
-        // console.error(error);
+        console.error(error);
         return false;
     }
 }
 
+const ALLOWED_METHODS = ['POST', 'GET'];
 export default async function handleStripeWebhook(req, res) {
-    if (req.method !== 'POST') {
-        return res.status(500).json('Invalid request method.');
+    const { method } = req;
+
+    if (!ALLOWED_METHODS.includes(method))
+        return res.status(500).json({ error: 'Method not allowed' });
+
+    if (method === 'POST'){
+        const eventType = req.body?.type;
+        try {
+            // Retrieve the ID of the canceled payment intent from the request body
+            const paymentIntent = req.body?.data?.object?.id;
+            switch (eventType) {
+                case 'payment_intent.canceled':
+
+                    try {
+                        // Call the handleUnsuccess function to add a ticket to the availability database
+                        const response = await handleUnsuccess(paymentIntent);
+                        return response;
+                    } catch (error) {
+                        // console.error(error);
+                        return res.status(500).json('Error handling payment_intent.canceled webhook event.');
+                    }
+                
+                case 'payment_intent.succeeded':
+
+                    try {
+                        // Call the handleUnsuccess function to add a ticket to the availability database
+                        await handleSuccess(paymentIntent);
+                        return res.status(200).json('Success handling payment_intent.succeeded webhook event.');
+                
+                    } catch (error) {
+                        // console.error(error);
+                        return res.status(500).json('Error handling payment_intent.succeeded webhook event.');
+                }
+                    
+                default:
+                    // handle other webhook events
+                    console.log(`Received ${eventType} webhook event`);
+                    return res.status(200).json('Received webhook event');
+            }
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json('Error handling webhook event.');
+        }
+    } else{
+        try {
+            // Retrieve the ID of the canceled payment intent from the request body
+            const { action } = req.query;
+            const paymentIntent1 = req.query.paymentIntent;
+            switch (action) {
+                case 'cancel':
+                    console.log("canceling ", paymentIntent1);
+                    try {
+                        const response = await handleUnsuccess(paymentIntent1);
+                        if (response){
+                            res.status(200).json('Success handling payment_intent.canceled webhook event.');
+                        }
+                        res.status(500).json('Error handling payment_intent.canceled webhook event.');
+                    } catch (error) {
+                        // console.error(error);
+                        return res.status(500).json('Error handling payment_intent.canceled webhook event.');
+                    }
+                    break;
+                default:
+                    // handle other webhook events
+                    console.log(`Received ${action} webhook event`);
+                    return res.status(200).json('Received webhook event');
+            }
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json('Error handling webhook event.');
     }
 
-    const eventType = req.body?.type;
-
-    try {
-        // Retrieve the ID of the canceled payment intent from the request body
-        const paymentIntent = req.body?.data?.object?.id;
-        switch (eventType) {
-            case 'payment_intent.canceled':
-
-                try {
-                    // Call the handleUnsuccess function to add a ticket to the availability database
-                    const response = await handleUnsuccess(paymentIntent);
-                    return response;
-                } catch (error) {
-                    // console.error(error);
-                    return res.status(500).json('Error handling payment_intent.canceled webhook event.');
-                }
-            
-            case 'payment_intent.succeeded':
-
-                try {
-                    // Call the handleUnsuccess function to add a ticket to the availability database
-                    // const response = await handleSuccess(paymentIntent);
-                    await handleSuccess(paymentIntent);
-                    return res.status(200).json('Success handling payment_intent.succeeded webhook event.');
-            
-                } catch (error) {
-                    // console.error(error);
-                    return res.status(500).json('Error handling payment_intent.succeeded webhook event.');
-            }
-                
-            default:
-                // handle other webhook events
-                console.log(`Received ${eventType} webhook event`);
-                return res.status(200).json('Received webhook event');
-        }
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json('Error handling webhook event.');
     }
 };
