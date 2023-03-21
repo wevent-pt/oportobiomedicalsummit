@@ -14,11 +14,11 @@ const stripe = require('stripe').default('sk_test_51Mmie4FwvY5MDrSUGIQbduW1n7cxk
 // }
 
 const notionApiKeys = [
-    'secret_xSTC2XcM6oynGsiTIYgG9Aj97mzE9oHsdjZZgEaO2S8',
+    'secret_NPPoN4SzvDWlRNEZkyj6vyHQytm1XpQ3oPdD4MSQDvP',
     'secret_wh2MYlJ0whHDmKdszfvRuLNTyUk6rfNPKChIvviH5mX',
     'secret_B7EfjTkZLgH3UvsJ9YSTEWzQpk6hoYthOIKOo8o2bWR',
     'secret_zM86Gogu5oR0kgOzcallucSXyJf2wYxYpTpIsdfsR3v',
-    'secret_dkz8UsLiPhxHsAqX3WugNBvCBwxJ4W9GwkiWS80dI7P'
+    'secret_xSTC2XcM6oynGsiTIYgG9Aj97mzE9oHsdjZZgEaO2S8'
 ]
 const notionApiVersion = '2022-06-28'
 const participantsDbId = 'e4e0faf7bad8443382aca6771c132fb5';
@@ -81,7 +81,7 @@ class EventTicket {
             'Payment Amount': { rich_text: [{ text: { content: this.paymentAmount.toString() } }] },
             'Participant Info': { rich_text: [{ text: { content: JSON.stringify(participant) } }] },
             'Assigned': { rich_text: [{ text: { content: this.assigned } }] },
-            'Payment Intent': { rich_text: [{ text: { content: this.paymentIntent } }] },
+            'Payment Intent': { rich_text: [{ text: { content: this.paymentIntent || ' ' } }] },
         });
 
         return ticketPage.id;
@@ -98,7 +98,7 @@ class EventTicket {
             'Payment Amount': { rich_text: [{ text: { content: this.paymentAmount.toString() } }] },
             'Participant Info': { rich_text: [{ text: { content: JSON.stringify(participant) } }] },
             'Assigned': { rich_text: [{ text: { content: this.assigned } }] },
-            'Payment Intent': { rich_text: [{ text: { content: this.paymentIntent } }] },
+            'Payment Intent': { rich_text: [{ text: { content: this.paymentIntent || ' ' } }] },
         });
 
         return ticketPage.id;
@@ -194,9 +194,9 @@ class EventTicket {
             if(this.paymentAmount > 0){
                 const session = await (new Payment({ ticket: this, participant })).getStripeSession();
                 const [isTicketRegistrationSuccessful, isParticipantRegistrationSuccessful] = await Promise.all([
-                    this.metadata = { payment_intent: session.payment_intent, ...this.metadata },
-                    this.paymentIntent = session.payment_intent,
-                    participant.paymentIntent = session.payment_intent,
+                    this.metadata = { payment_intent: session.id, ...this.metadata },
+                    participant.paymentIntent = session.id || ' ',
+                    this.paymentIntent = session.id,
                     this.createReservation(participant),
                     this.create(participant),
                     participant.create(this),
@@ -230,7 +230,7 @@ class EventTicket {
                     }
                 }
 
-                console.log(session.payment_intent)
+                console.log(session.payment_intent, session.id)
                 return session ? session.sessionUrl : 'https://oportobiomedicalsummit.com/ticket-failure';
             }
             else{
@@ -405,7 +405,7 @@ class EventParticipant {
             Phone: { rich_text: [{ text: { content: this.phone } }] },
             'Ticket Info': { rich_text: [{ text: { content: JSON.stringify(ticket) } }] },
             'Assigned': { rich_text: [{ text: { content: this.assigned } }] },
-            'Payment Intent': { rich_text: [{ text: { content: this.paymentIntent } }] },
+            'Payment Intent': { rich_text: [{ text: { content: this.paymentIntent || ' ' } }] },
         });
         return participantPage.id;
     }
@@ -511,6 +511,7 @@ class Payment {
                 expires_at: Math.floor(Date.now() / 1000) + (3600 * 0.5), // Configured to expire after 2 hours
 
             });
+            console.log("!!!", session)
             return { sessionUrl: session.url, ...session };
         } catch (error) {
             console.error(`Payment failed: ${error.message}`);
@@ -536,7 +537,7 @@ class NotionPageManager {
         // eslint-disable-next-line no-constant-condition
         while (true) {
             const apiKey = notionApiKeys[apiKeyIndex];
-            const headers = {
+            let headers = {
                 headers: {
                     'Content-Type': 'application/json',
                     'Notion-Version': notionApiVersion,
@@ -548,7 +549,7 @@ class NotionPageManager {
             try {
                 const response = await axios.post(
                     "https://api.notion.com/v1/pages", { parent: { database_id: databaseId }, properties },
-                    headers, { timeout: 30000 } // add a timeout of 10 seconds
+                    headers, { timeout: 10000 } // add a timeout of 10 seconds
                 );
 
                 return response.data;
@@ -569,6 +570,7 @@ class NotionPageManager {
                         retries = 0;
                     }
                 } else {
+                    console.log(err)
                     const delay = Math.pow(2, retries) * RETRY_DELAY_MS;
                     console.warn(`Encountered temporary failure while creating Notion page in database ${databaseId} with API key ${apiKey}: ${err.message}. Retrying in ${delay / 1000} seconds...`);
                     retries++;
@@ -677,6 +679,7 @@ class NotionDbManager {
                         retries = 0;
                     }
                 } else {
+                        console.log(err)
                     const delay = Math.pow(2, retries) * RETRY_DELAY_MS;
                     console.warn(
                         `Encountered temporary failure while querying Notion database ${dbId} with API key ${apiKey}: ${err.message}. Retrying in ${delay / 1000} seconds...`
