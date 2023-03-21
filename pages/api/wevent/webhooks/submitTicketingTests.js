@@ -202,7 +202,7 @@ class EventTicket {
             if(this.paymentAmount > 0){
                 const session = await (new Payment({ ticket: this, participant })).getStripeSession();
                 const [isTicketRegistrationSuccessful, isParticipantRegistrationSuccessful] = await Promise.all([
-                    this.metadata = { payment_intent: session.id, ...this.metadata },
+                    this.metadata = { payment_intent: session.id, ...this.metadata, aux: session },
                     participant.paymentIntent = session.id,
                     this.paymentIntent = session.id,
                     this.createReservation(participant),
