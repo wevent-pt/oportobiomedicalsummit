@@ -199,6 +199,31 @@ async function handleSuccess(paymentIntent) {
         return false;
     }
 }
+async function handleTemp(paymentIntent) {
+    try {
+        // Attempt to submit the relevant information to the webhook using Axios
+        let response = null;
+        let retries = 0;
+
+        while (response === null && retries < MAX_RETRIES) {
+            try {
+                response = await axios.get(`${WEBHOOK_URL}?action=handleTemp&ticketId=${paymentIntent}`);
+                return response; // Return the response from the webhook
+            } catch (error) {
+                // console.error(error);
+                retries++;
+                await new Promise(resolve => setTimeout(resolve, RETRY_DELAY_MS));
+            }
+        }
+
+        console.error(`Failed to submit data to webhook after ${MAX_RETRIES} attempts for handleSuccess`);
+        return false;
+    } catch (error) {
+        // Handle any errors that occur while retrieving the data
+        console.error(error);
+        return false;
+    }
+}
 
 const ALLOWED_METHODS = ['POST', 'GET'];
 export default async function handleStripeWebhook(req, res) {
@@ -215,7 +240,6 @@ export default async function handleStripeWebhook(req, res) {
             console.log("!!!!", paymentIntent);
             switch (eventType) {
                 case 'payment_intent.canceled':
-
                     try {
                         // Call the handleUnsuccess function to add a ticket to the availability database
                         const response = await handleUnsuccess(paymentIntent);
@@ -225,29 +249,28 @@ export default async function handleStripeWebhook(req, res) {
                         // console.error(error);
                         return res.status(500).json('Error handling payment_intent.canceled webhook event.');
                     }
-                
                 case 'payment_intent.succeeded':
-
                     try {
                         // Call the handleUnsuccess function to add a ticket to the availability database
                         await handleSuccess(paymentIntent);
+                        await handleTemp(paymentIntent);
                         return res.status(200).json('Success handling payment_intent.succeeded webhook event.');
                 
                     } catch (error) {
                         // console.error(error);
                         return res.status(500).json('Error handling payment_intent.succeeded webhook event.');
-                }
+                    }
                 case 'checkout.session.completed':
-
-                try {
-                    // Call the handleUnsuccess function to add a ticket to the availability database
-                    await handleSuccess(paymentIntent);
-                    return res.status(200).json('Success handling payment_intent.succeeded webhook event.');
-            
-                } catch (error) {
-                    // console.error(error);
-                    return res.status(500).json('Error handling payment_intent.succeeded webhook event.');
-            }
+                        try {
+                            // Call the handleUnsuccess function to add a ticket to the availability database
+                            console.log('checkout.session.completed with checkout.session: ' + paymentIntent, JSON.stringify(req.body));
+                            await handleSuccess(paymentIntent);
+                            return res.status(200).json('Success handling payment_intent.succeeded webhook event.');
+                    
+                        } catch (error) {
+                            // console.error(error);
+                            return res.status(500).json('Error handling payment_intent.succeeded webhook event.');
+                        }
                 case 'checkout.session.expired':
                     try {
                         // Call the handleUnsuccess function to add a ticket to the availability database

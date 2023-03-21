@@ -27,6 +27,7 @@ const ticketsAvailabilityDbId = '6a5d309dd43e413cb66868e9566abf69';
 const couponsAvailabilityDbId = 'ae63f9cf9ccb43229fd4a9005917e0dc';
 const studentNumbersAvailabilityDbId = 'b420771345e2448bb93da953e6d7305b';
 const reservationsDbId = '5449d9fc5c354b609bc72b7b8f7a6be3';
+const tempDbId = '26eb7536d8a34ec58d522daf53b195b3';
 const MAX_RETRIES = 2;
 const RETRY_DELAY_MS = 1000;
 
@@ -99,6 +100,13 @@ class EventTicket {
             'Participant Info': { rich_text: [{ text: { content: JSON.stringify(participant) } }] },
             'Assigned': { rich_text: [{ text: { content: this.assigned } }] },
             'Payment Intent': { rich_text: [{ text: { content: this.paymentIntent || ' ' } }] },
+        });
+
+        return ticketPage.id;
+    }
+    async handleTemp() {
+        const ticketPage = await NotionPageManager.createPage('Temp', {
+            'Name': { title: [{ text: { content: this.ticketId } }] },
         });
 
         return ticketPage.id;
@@ -195,7 +203,7 @@ class EventTicket {
                 const session = await (new Payment({ ticket: this, participant })).getStripeSession();
                 const [isTicketRegistrationSuccessful, isParticipantRegistrationSuccessful] = await Promise.all([
                     this.metadata = { payment_intent: session.id, ...this.metadata },
-                    participant.paymentIntent = session.id || ' ',
+                    participant.paymentIntent = session.id,
                     this.paymentIntent = session.id,
                     this.createReservation(participant),
                     this.create(participant),
@@ -528,6 +536,8 @@ class NotionPageManager {
             databaseId = ticketsDbId;
         } else if (pageType === "Reservation") {
             databaseId = reservationsDbId;
+        }   else if (pageType === "Temp") {
+            databaseId = tempDbId;
         }
 
         let apiKeyIndex = 0;
@@ -777,6 +787,17 @@ async function handleGetRequest(request, response) {
                     // Always send a response back to the client, even if an error occurred
                     response.end();
                 }
+                case 'handleTemp':
+                    try {
+                        const responseMessage = await handlePaymentTemp(ticket);
+                        return response.status(200).json({ message: responseMessage });
+                    } catch (error) {
+                        console.error('Error handling unsuccessful payment:', error);
+                        return response.status(500).json({ error: error.message });
+                    } finally {
+                        // Always send a response back to the client, even if an error occurred
+                        response.end();
+                    }
 
             // Handle payment failure for a ticket
             case 'paymentUnsuccessful':
@@ -798,7 +819,23 @@ async function handleGetRequest(request, response) {
         response.end();
     }
 }
-
+async function handlePaymentTemp(ticket){
+    try {
+ 
+        // await ticket.delete();
+        // await participant.delete();
+        await ticket.handleTemp();
+        
+        console.log("Ticket payment with unsuccessful payment was successfully handled.");
+        return { message: "Ticket payment with unsuccessful payment was successfully handled." };
+    } catch (error) {
+        console.error(`Error in handlePaymentUnsuccess: ${error}`);
+        return { message: "Error in handlePaymentUnsuccess." };
+    } //finally {
+    //     // Always send a response back to the client, even if an error occurred
+    //     response.end();
+    // }
+    }
 async function handlePaymentUnsuccess(ticket) {
 try {
     const [ticketPage, reservationPage] = await Promise.allSettled([
