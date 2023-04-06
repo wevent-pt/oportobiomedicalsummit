@@ -252,12 +252,12 @@
 
     /* Main Ticket Style */
     .ticketContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-    justify-content: flex-start;
-}
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: flex-start;
+    }
     .ticket {
       color: #243445;
       border-color: #C87766;
@@ -425,7 +425,7 @@
 </head>
 
 <body>
-  <h1 id="ticket-title">Ticketing Form</h1>
+  <!-- <h1 id="ticket-title">Ticketing Form</h1>
 
     <img id="spinner" class="spinner" src="/nav/logo_menu.svg">
   <form id="ticket-form">
@@ -467,7 +467,7 @@
 
       <br /><br />
     </div>
-  </form>
+  </form> -->
 
   <h1 id="ticket-title-1" style="display: none;">Your Ticket</h1>
   <div id="ticketPageContainer" class="ticketPageContainer">
@@ -508,10 +508,10 @@
   <script>
 
     if(localStorage.getItem('userTicket') ){
-      const form = document.getElementById('ticket-form');
-      form.style.display = 'none';
-      const ticketTitle = document.getElementById('ticket-title');
-      ticketTitle.style.display = 'none';
+      // const form = document.getElementById('ticket-form');
+      // form.style.display = 'none';
+      // const ticketTitle = document.getElementById('ticket-title');
+      // ticketTitle.style.display = 'none';
 
       const userTicketString = localStorage.getItem('userTicket');
       const userTicket = JSON.parse(userTicketString);
@@ -546,341 +546,339 @@
       const ticketTitle = document.getElementById('ticket-title-1');
       ticketTitle.style.display = 'none';
 
-      // Your JavaScript code goes here
-      const commonRequiredInfo = ["Full Name", "Email", "Phone Number"];
-      const commonCoupons = ["100OFF"];
-      const tickets = {
-        "Early Bird": {
-          "Full Ticket": {
-            "ICBAS Student": {
-              price: 35.5,
-              coupons: [...commonCoupons, "ICBASPROMOFULL"],
-              requiredInfo: [...commonRequiredInfo, "Student Number", "Academic Year"]
-            },
-            "Non-ICBAS Student": {
-              price: 38.5,
-              coupons: commonCoupons,
-              requiredInfo: [
-                ...commonRequiredInfo,
-                "Faculty/University",
-                "Academic Year"
-              ]
-            }
-          },
-          "Partial Ticket": {
-            "ICBAS Student": {
-              price: 15.5,
-              coupons: [...commonCoupons, "ICBASPROMOPARTIAL"],
-              requiredInfo: [...commonRequiredInfo, "Student Number", "Academic Year"]
-            },
-            "Non-ICBAS Student": {
-              price: 18.5,
-              coupons: commonCoupons,
-              requiredInfo: [
-                ...commonRequiredInfo,
-                "University or School",
-                "Year of Studies"
-              ]
-            },
-            "Non-Student": {
-              price: 39.5,
-              coupons: commonCoupons,
-              requiredInfo: commonRequiredInfo
-            }
-          }
-        },
-        "Late Bird": {
-          "Full Ticket": {
-            "ICBAS Student": {
-              price: 38.5,
-              coupons: [...commonCoupons, "ICBASPROMOFULL"],
-              requiredInfo: [...commonRequiredInfo, "Student Number", "Academic Year"]
-            },
-            "Non-ICBAS Student": {
-              price: 41.5,
-              coupons: commonCoupons,
-              requiredInfo: [
-                ...commonRequiredInfo,
-                "University",
-                "Faculty",
-                "Academic Year"
-              ]
-            }
-          },
-          "Partial Ticket": {
-            "ICBAS Student": {
-              price: 18.5,
-              coupons: [...commonCoupons, "ICBASPROMOPARTIAL"],
-              requiredInfo: [...commonRequiredInfo, "Student Number", "Academic Year"]
-            },
-            "Non-ICBAS Student": {
-              price: 21.5,
-              coupons: commonCoupons,
-              requiredInfo: [
-                ...commonRequiredInfo,
-                "University",
-                "Faculty",
-                "Year of Studies"
-              ]
-            },
-            "Non-Student": {
-              price: 49.5,
-              coupons: commonCoupons,
-              requiredInfo: commonRequiredInfo
-            }
-          }
-        }
-      };
-      const updateTotal = (price) => {
-        // const couponCode = document.getElementById("coupon-code").value;
-        // const couponResult = applyCoupon(couponCode, price);
+      // // Your JavaScript code goes here
+      // const commonRequiredInfo = ["Full Name", "Email", "Phone Number"];
+      // const commonCoupons = ["100OFF"];
+      // const tickets = {
+      //   "Early Bird": {
+      //     "Full Ticket": {
+      //       "ICBAS Student": {
+      //         price: 35.5,
+      //         coupons: [...commonCoupons, "ICBASPROMOFULL"],
+      //         requiredInfo: [...commonRequiredInfo, "Student Number", "Academic Year"]
+      //       },
+      //       "Non-ICBAS Student": {
+      //         price: 38.5,
+      //         coupons: commonCoupons,
+      //         requiredInfo: [
+      //           ...commonRequiredInfo,
+      //           "Faculty/University",
+      //           "Academic Year"
+      //         ]
+      //       }
+      //     },
+      //     "Partial Ticket": {
+      //       "ICBAS Student": {
+      //         price: 15.5,
+      //         coupons: [...commonCoupons, "ICBASPROMOPARTIAL"],
+      //         requiredInfo: [...commonRequiredInfo, "Student Number", "Academic Year"]
+      //       },
+      //       "Non-ICBAS Student": {
+      //         price: 18.5,
+      //         coupons: commonCoupons,
+      //         requiredInfo: [
+      //           ...commonRequiredInfo,
+      //           "University or School",
+      //           "Year of Studies"
+      //         ]
+      //       },
+      //       "Non-Student": {
+      //         price: 39.5,
+      //         coupons: commonCoupons,
+      //         requiredInfo: commonRequiredInfo
+      //       }
+      //     }
+      //   },
+      //   "Late Bird": {
+      //     "Full Ticket": {
+      //       "ICBAS Student": {
+      //         price: 38.5,
+      //         coupons: [...commonCoupons, "ICBASPROMOFULL"],
+      //         requiredInfo: [...commonRequiredInfo, "Student Number", "Academic Year"]
+      //       },
+      //       "Non-ICBAS Student": {
+      //         price: 41.5,
+      //         coupons: commonCoupons,
+      //         requiredInfo: [
+      //           ...commonRequiredInfo,
+      //           "University",
+      //           "Faculty",
+      //           "Academic Year"
+      //         ]
+      //       }
+      //     },
+      //     "Partial Ticket": {
+      //       "ICBAS Student": {
+      //         price: 18.5,
+      //         coupons: [...commonCoupons, "ICBASPROMOPARTIAL"],
+      //         requiredInfo: [...commonRequiredInfo, "Student Number", "Academic Year"]
+      //       },
+      //       "Non-ICBAS Student": {
+      //         price: 21.5,
+      //         coupons: commonCoupons,
+      //         requiredInfo: [
+      //           ...commonRequiredInfo,
+      //           "University",
+      //           "Faculty",
+      //           "Year of Studies"
+      //         ]
+      //       },
+      //       "Non-Student": {
+      //         price: 49.5,
+      //         coupons: commonCoupons,
+      //         requiredInfo: commonRequiredInfo
+      //       }
+      //     }
+      //   }
+      // };
+      // const updateTotal = (price) => {
+      //   // const couponCode = document.getElementById("coupon-code").value;
+      //   // const couponResult = applyCoupon(couponCode, price);
 
-        // var discountedPrice = couponResult.discount;
-        // if (price === -1) {
+      //   // var discountedPrice = couponResult.discount;
+      //   // if (price === -1) {
 
-        // discountedPrice = -1
-        // return -1;
-        // // document.getElementById("coupon-error").textContent = "Invalid";
-        // // document.getElementById("total").textContent = "invalid";
-        // } else {
-        // document.getElementById("coupon-error").textContent = "";
-        // if (couponResult.isValid) {
-        // discountedPrice = couponResult.discount;
-        document.getElementById("total").textContent = price.toFixed(2);
-        // } else {
-        // discountedPrice = -1
-        // document.getElementById("coupon-error").textContent = "Invalid coupon code";
-        // return -1;
-        // }
-        // }
-        return price;
-      };
-      const applyCoupon = (couponCode, price) => {
-        const couponMapping = {
-          "100OFF": 0,
-          "ICBASPROMOFULL": 200,
-          "ICBASPROMOPARTIAL": 300
-        };
-        if (couponCode) {
-          if (couponMapping.hasOwnProperty(couponCode)) {
-            const discount = couponMapping[couponCode];
-            return {
-              isValid: true,
-              discount
-            };
-          } else {
-            return {
-              isValid: false
-            };
-          }
-        } else {
-          return {
-            isValid: true,
-            discount: price
-          };
-        }
-      };
-      const generateFormFields = (requiredInfo) => {
-        let formFields = "";
-        const userEmail = localStorage.getItem('userEmail') || '';
-        requiredInfo.forEach((info) => {
-          if (info === 'Academic Year') {
-            formFields += '<div>' +
-              '<label htmlFor="' + info + '">' +
-              info + ':' +
-              '</label>' +
-              '<select id="' + info + '" required aria-label="' + info + '">' +
-              '<option value="1st year">1st year</option>' +
-              '<option value="2nd year">2nd year</option>' +
-              '<option value="3rd year">3rd year</option>' +
-              '<option value="4th year">4th year</option>' +
-              '<option value="5th year">5th year</option>' +
-              '<option value="6th year">6th year</option>' +
-              '</select>' +
-              '</div>';
+      //   // discountedPrice = -1
+      //   // return -1;
+      //   // // document.getElementById("coupon-error").textContent = "Invalid";
+      //   // // document.getElementById("total").textContent = "invalid";
+      //   // } else {
+      //   // document.getElementById("coupon-error").textContent = "";
+      //   // if (couponResult.isValid) {
+      //   // discountedPrice = couponResult.discount;
+      //   document.getElementById("total").textContent = price.toFixed(2);
+      //   // } else {
+      //   // discountedPrice = -1
+      //   // document.getElementById("coupon-error").textContent = "Invalid coupon code";
+      //   // return -1;
+      //   // }
+      //   // }
+      //   return price;
+      // };
+      // const applyCoupon = (couponCode, price) => {
+      //   const couponMapping = {
+      //     "100OFF": 0,
+      //     "ICBASPROMOFULL": 200,
+      //     "ICBASPROMOPARTIAL": 300
+      //   };
+      //   if (couponCode) {
+      //     if (couponMapping.hasOwnProperty(couponCode)) {
+      //       const discount = couponMapping[couponCode];
+      //       return {
+      //         isValid: true,
+      //         discount
+      //       };
+      //     } else {
+      //       return {
+      //         isValid: false
+      //       };
+      //     }
+      //   } else {
+      //     return {
+      //       isValid: true,
+      //       discount: price
+      //     };
+      //   }
+      // };
+      // const generateFormFields = (requiredInfo) => {
+      //   let formFields = "";
+      //   const userEmail = localStorage.getItem('userEmail') || '';
+      //   requiredInfo.forEach((info) => {
+      //     if (info === 'Academic Year') {
+      //       formFields += '<div>' +
+      //         '<label htmlFor="' + info + '">' +
+      //         info + ':' +
+      //         '</label>' +
+      //         '<select id="' + info + '" required aria-label="' + info + '">' +
+      //         '<option value="1st year">1st year</option>' +
+      //         '<option value="2nd year">2nd year</option>' +
+      //         '<option value="3rd year">3rd year</option>' +
+      //         '<option value="4th year">4th year</option>' +
+      //         '<option value="5th year">5th year</option>' +
+      //         '<option value="6th year">6th year</option>' +
+      //         '</select>' +
+      //         '</div>';
 
-          } else if (userEmail && info === 'Email') {
-            formFields += '<div>' +
-              '<label htmlFor="' + info + '">' +
-              info + ':' +
-              '</label>' +
-              '<input type="email" id="' + info + '" required aria-label="' + info +
-              '" value="' + userEmail + '"></input>' +
-              '</div>';
-          } else {
-            formFields += '<div>' +
-              '<label htmlFor="' + info + '">' +
-              info + ':' +
-              '</label>' +
-              '<input type="text" id="' + info + '" required aria-label="' + info + '" />' +
-              '</div>';
-          }
-
-
-        });
-        return formFields;
-      };
+      //     } else if (userEmail && info === 'Email') {
+      //       formFields += '<div>' +
+      //         '<label htmlFor="' + info + '">' +
+      //         info + ':' +
+      //         '</label>' +
+      //         '<input type="email" id="' + info + '" required aria-label="' + info +
+      //         '" value="' + userEmail + '"></input>' +
+      //         '</div>';
+      //     } else {
+      //       formFields += '<div>' +
+      //         '<label htmlFor="' + info + '">' +
+      //         info + ':' +
+      //         '</label>' +
+      //         '<input type="text" id="' + info + '" required aria-label="' + info + '" />' +
+      //         '</div>';
+      //     }
 
 
-      const updateFormFields = () => {
-        const ticketType = document.getElementById("ticket-bird");
-        const formOfTicket = document.getElementById("ticket-type");
-        const participantType = document.getElementById("participant-type");
-        // Check that required form elements exist
-
-        if (!ticketType || !formOfTicket || !participantType) {
-          console.error("Error: Required form elements not found");
-          return;
-        }
-        const ticketTypeValue = ticketType.value;
-        const formOfTicketValue = formOfTicket.value;
-        const participantTypeValue = participantType.value;
-        if (formOfTicketValue === 'Full Ticket' || participantTypeValue === 'Non-Student') {
-          if (formOfTicketValue === 'Full Ticket' && participantTypeValue === 'Non-Student') {
-            alert("Ticket Not available")
-            console.log("Ticket Not available", ticketTypeValue, formOfTicketValue,
-              participantTypeValue)
-            //mudar seleção pq nãoe possivel
-          } else if (formOfTicketValue === 'Full Ticket') {
-            console.log(ticketTypeValue, formOfTicketValue, participantTypeValue)
-            participantType.attributes[0].ownerElement[2].innerText = 'Non-Student*'
-            formOfTicket.attributes[0].ownerElement[0].innerText = 'Full Ticket'
-            //mudar seleção do non student disbled
-          } else if (participantTypeValue === 'Non-Student') {
-            console.log(ticketTypeValue, formOfTicketValue, participantTypeValue)
-            formOfTicket.attributes[0].ownerElement[0].innerText = 'Full Ticket*'
-            participantType.attributes[0].ownerElement[2].innerText = 'Non-Student'
-            //mudar seleção do fullticketdisbled
-          } else {
-            participantType.attributes[0].ownerElement[2].innerText = 'Non-Student'
-            formOfTicket.attributes[0].ownerElement[0].innerText = 'Full Ticket'
-          }
-
-        } else {
-          //disponibilizar seleçoes
-
-          // console.log(participantType.attributes,participantType.attributes[0].ownerElement[0].innerText)
-          participantType.attributes[0].ownerElement[2].innerText = 'Non-Student'
-          formOfTicket.attributes[0].ownerElement[0].innerText = 'Full Ticket'
-        }
-        // Check that entered values are valid
-        if (!tickets[ticketTypeValue] || !tickets[ticketTypeValue][formOfTicketValue] || !tickets[
-            ticketTypeValue][
-            formOfTicketValue
-          ][participantTypeValue]) {
-          console.error("Error: Invalid form values entered");
-          return;
-        }
-        const requiredInfo =
-          tickets[ticketTypeValue][formOfTicketValue][participantTypeValue].requiredInfo;
-        const formFields = generateFormFields(requiredInfo);
-        document.getElementById("form-fields").innerHTML = formFields;
-      };
-      const checkFormFields = () => {
-        const emailInForm = document.querySelectorAll("#form-fields #Email");
-        console.log("check:::", emailInForm[0].validity.valid);
-        let isFormValid = true;
-        if (!emailInForm[0].validity.valid) {
-          isFormValid = false;
-        }
-
-        const requiredFields = document.querySelectorAll("#form-fields input[required]");
-        requiredFields.forEach((field) => {
-          if (field.value.trim() === "") {
-            isFormValid = false;
-            // updateTotal(-1);
-          }
-        });
-        return isFormValid;
-      };
-      const calculateTotal = () => {
-        try {
-          const ticketPrice = tickets[document.getElementById("ticket-bird").value][document
-            .getElementById("ticket-type").value
-          ][document.getElementById("participant-type").value].price;
-          console.log("ticketPrice", ticketPrice);
-          updateTotal(ticketPrice);
-          if (!checkFormFields()) {
-            throw new Error("Please fill in all required form fields");
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      };
+      //   });
+      //   return formFields;
+      // };
 
 
-    
-      const submitForm = (event) => {
-            event.preventDefault();    
-            const endpoint = "/api/wevent/webhooks/submitTicketingTests";
-            const body = JSON.stringify({
-                action: "purchaseTicket",
-                ticketId: Math.random().toString(36).substr(2, 6),
-                ticketBird: document.getElementById("ticket-bird").value,
-                ticketType: document.getElementById("ticket-type").value,
-                participantType: document.getElementById("participant-type").value,
-                ambassadorCode: document.getElementById("ambassador-code").value,
-                couponCode: document.getElementById("coupon-code").value,
-                name: document.getElementById("Full Name").value,
-                email: document.getElementById("Email").value,
-                phone: document.getElementById("Phone Number").value,
-                assigned: "No",
-                metadata: {
-                    studentNumber: document.getElementById("Student Number")?.value || '',
-                    academicYear: document.getElementById("Academic Year")?.value || '',
-                    facultyUniversity: document.getElementById("Faculty/University")?.value || '',
-                    yearOfStudies: document.getElementById("Year of Studies")?.value || '',
-                    facultyUniversitySchool: document.getElementById("University or School")?.value || '',
-                },
-                paymentAmount: parseFloat(document.getElementById("total").innerText) * 100,
-                paymentIntent: 'q',
-            });
+      // const updateFormFields = () => {
+      //   const ticketType = document.getElementById("ticket-bird");
+      //   const formOfTicket = document.getElementById("ticket-type");
+      //   const participantType = document.getElementById("participant-type");
+      //   // Check that required form elements exist
+
+      //   if (!ticketType || !formOfTicket || !participantType) {
+      //     console.error("Error: Required form elements not found");
+      //     return;
+      //   }
+      //   const ticketTypeValue = ticketType.value;
+      //   const formOfTicketValue = formOfTicket.value;
+      //   const participantTypeValue = participantType.value;
+      //   if (formOfTicketValue === 'Full Ticket' || participantTypeValue === 'Non-Student') {
+      //     if (formOfTicketValue === 'Full Ticket' && participantTypeValue === 'Non-Student') {
+      //       alert("Ticket Not available")
+      //       console.log("Ticket Not available", ticketTypeValue, formOfTicketValue,
+      //         participantTypeValue)
+      //       //mudar seleção pq nãoe possivel
+      //     } else if (formOfTicketValue === 'Full Ticket') {
+      //       console.log(ticketTypeValue, formOfTicketValue, participantTypeValue)
+      //       participantType.attributes[0].ownerElement[2].innerText = 'Non-Student*'
+      //       formOfTicket.attributes[0].ownerElement[0].innerText = 'Full Ticket'
+      //       //mudar seleção do non student disbled
+      //     } else if (participantTypeValue === 'Non-Student') {
+      //       console.log(ticketTypeValue, formOfTicketValue, participantTypeValue)
+      //       formOfTicket.attributes[0].ownerElement[0].innerText = 'Full Ticket*'
+      //       participantType.attributes[0].ownerElement[2].innerText = 'Non-Student'
+      //       //mudar seleção do fullticketdisbled
+      //     } else {
+      //       participantType.attributes[0].ownerElement[2].innerText = 'Non-Student'
+      //       formOfTicket.attributes[0].ownerElement[0].innerText = 'Full Ticket'
+      //     }
+
+      //   } else {
+      //     //disponibilizar seleçoes
+
+      //     // console.log(participantType.attributes,participantType.attributes[0].ownerElement[0].innerText)
+      //     participantType.attributes[0].ownerElement[2].innerText = 'Non-Student'
+      //     formOfTicket.attributes[0].ownerElement[0].innerText = 'Full Ticket'
+      //   }
+      //   // Check that entered values are valid
+      //   if (!tickets[ticketTypeValue] || !tickets[ticketTypeValue][formOfTicketValue] || !tickets[
+      //       ticketTypeValue][
+      //       formOfTicketValue
+      //     ][participantTypeValue]) {
+      //     console.error("Error: Invalid form values entered");
+      //     return;
+      //   }
+      //   const requiredInfo =
+      //     tickets[ticketTypeValue][formOfTicketValue][participantTypeValue].requiredInfo;
+      //   const formFields = generateFormFields(requiredInfo);
+      //   document.getElementById("form-fields").innerHTML = formFields;
+      // };
+      // const checkFormFields = () => {
+      //   const emailInForm = document.querySelectorAll("#form-fields #Email");
+      //   console.log("check:::", emailInForm[0].validity.valid);
+      //   let isFormValid = true;
+      //   if (!emailInForm[0].validity.valid) {
+      //     isFormValid = false;
+      //   }
+
+      //   const requiredFields = document.querySelectorAll("#form-fields input[required]");
+      //   requiredFields.forEach((field) => {
+      //     if (field.value.trim() === "") {
+      //       isFormValid = false;
+      //       // updateTotal(-1);
+      //     }
+      //   });
+      //   return isFormValid;
+      // };
+      // const calculateTotal = () => {
+      //   try {
+      //     const ticketPrice = tickets[document.getElementById("ticket-bird").value][document
+      //       .getElementById("ticket-type").value
+      //     ][document.getElementById("participant-type").value].price;
+      //     console.log("ticketPrice", ticketPrice);
+      //     updateTotal(ticketPrice);
+      //     if (!checkFormFields()) {
+      //       throw new Error("Please fill in all required form fields");
+      //     }
+      //   } catch (error) {
+      //     console.error(error);
+      //   }
+      // };
+
+      // const submitForm = (event) => {
+      //       event.preventDefault();    
+      //       const endpoint = "/api/wevent/webhooks/submitTicketingTests";
+      //       const body = JSON.stringify({
+      //           action: "purchaseTicket",
+      //           ticketId: Math.random().toString(36).substr(2, 6),
+      //           ticketBird: document.getElementById("ticket-bird").value,
+      //           ticketType: document.getElementById("ticket-type").value,
+      //           participantType: document.getElementById("participant-type").value,
+      //           ambassadorCode: document.getElementById("ambassador-code").value,
+      //           couponCode: document.getElementById("coupon-code").value,
+      //           name: document.getElementById("Full Name").value,
+      //           email: document.getElementById("Email").value,
+      //           phone: document.getElementById("Phone Number").value,
+      //           assigned: "No",
+      //           metadata: {
+      //               studentNumber: document.getElementById("Student Number")?.value || '',
+      //               academicYear: document.getElementById("Academic Year")?.value || '',
+      //               facultyUniversity: document.getElementById("Faculty/University")?.value || '',
+      //               yearOfStudies: document.getElementById("Year of Studies")?.value || '',
+      //               facultyUniversitySchool: document.getElementById("University or School")?.value || '',
+      //           },
+      //           paymentAmount: parseFloat(document.getElementById("total").innerText) * 100,
+      //           paymentIntent: 'q',
+      //       });
     
             
-                  const hiddenForm = document.getElementById("ticket-form");
-                  hiddenForm.style.display = "none";
-                  const spinner = document.getElementById("spinner");
-                  spinner.style.display = "block";
-            fetch(endpoint, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: body
-                })
-                .then(response => {
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    // hiddenForm.style.display = "flex";
-                    spinner.style.display = "none";
-                    return response.json();
-                })
-                .then(data => {
-                    top.location.href = data.sessionUrl;
-                })
-                .catch(error => { 
-                  alert('Error submitting order. Please try again.');
-                    console.error(error);
-                  const hiddenForm = document.getElementById("ticket-form");
-                  hiddenForm.style.display = "flex";
-                  const spinner = document.getElementById("spinner");
-                  spinner.style.display = "none";
+      //             const hiddenForm = document.getElementById("ticket-form");
+      //             hiddenForm.style.display = "none";
+      //             const spinner = document.getElementById("spinner");
+      //             spinner.style.display = "block";
+      //       fetch(endpoint, {
+      //               method: 'POST',
+      //               headers: {
+      //                   'Content-Type': 'application/json'
+      //               },
+      //               body: body
+      //           })
+      //           .then(response => {
+      //               if (!response.ok) throw new Error('Network response was not ok');
+      //               // hiddenForm.style.display = "flex";
+      //               spinner.style.display = "none";
+      //               return response.json();
+      //           })
+      //           .then(data => {
+      //               top.location.href = data.sessionUrl;
+      //           })
+      //           .catch(error => { 
+      //             alert('Error submitting order. Please try again.');
+      //               console.error(error);
+      //             const hiddenForm = document.getElementById("ticket-form");
+      //             hiddenForm.style.display = "flex";
+      //             const spinner = document.getElementById("spinner");
+      //             spinner.style.display = "none";
                    
-                });
-        };
+      //           });
+      //   };
 
 
-      document.querySelectorAll("#ticket-bird, #ticket-type, #participant-type, #coupon-code").forEach(el => {
-        el.addEventListener("change", () => {
-          updateFormFields();
-          calculateTotal();
-        });
-      });
+      // document.querySelectorAll("#ticket-bird, #ticket-type, #participant-type, #coupon-code").forEach(el => {
+      //   el.addEventListener("change", () => {
+      //     updateFormFields();
+      //     calculateTotal();
+      //   });
+      // });
 
-      document.getElementById("submit-button").addEventListener("click", submitForm);
+      // document.getElementById("submit-button").addEventListener("click", submitForm);
 
 
-      updateFormFields();
-      calculateTotal();
+      // updateFormFields();
+      // calculateTotal();
     }
 
   </script>
