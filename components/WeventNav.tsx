@@ -1,10 +1,15 @@
-import * as React from 'react'
+import * as React from 'react';
+import { useEffect, useState } from 'react';
 
-import * as types from 'notion-types'
 
-import LoginBtn from './UserComponentLoginBtn'
-import LoginBtnMobile from './UserComponentLoginBtnMobile'
-import { useState, useEffect } from 'react'
+
+import * as types from 'notion-types';
+
+
+
+import LoginBtn from './UserComponentLoginBtn';
+import LoginBtnMobile from './UserComponentLoginBtnMobile';
+
 
 export const WeventNav: React.FC<{
   block: types.CollectionViewPageBlock | types.PageBlock
@@ -19,7 +24,166 @@ export const WeventNav: React.FC<{
       // const data = await res.json();
       if (!dynamic){
 
-        const navArr =[{"name":"Scientific Program","subArr":[{"name":"Scientific","href":"/scientific","class":null,"type":"li","order":null},{"name":"Workshops","href":"/workshops","class":null,"type":"li","order":null},{"name":"Contests","href":"/contests","class":null,"type":"li","order":null},{"name":"OBServatory","href":"/observatory","class":null,"type":"li","order":null}],"href":null,"class":null,"type":"div","order":0},{"name":"Social Program","subArr":[{"name":"Social","href":"/social","class":null,"type":"li","order":null},{"name":"Sunset","href":"/sunset","class":null,"type":"li","order":null},{"name":"Gala Dinner","href":"/gala-dinner","class":null,"type":"li","order":null}],"href":null,"class":null,"type":"div","order":1},{"name":"Tickets","subArr":null,"href":"/tickets","class":null,"type":"li","order":2},{"name":"Partners","subArr":[{"name":"Partner Congresses","href":"/partnercongresses","class":null,"type":"li","order":null},{"name":"Ambassadors and Promoters","href":"/ambassadorsandpromoters","class":null,"type":"li","order":null},{"name":"Volunteer Organization","href":"/volunteerorganization","class":null,"type":"li","order":null},{"name":"Accomodation","href":"accomodation","class":null,"type":"li","order":null}],"href":null,"class":null,"type":"div","order":3},{"name":"About Us","subArr":[{"name":"Organizing Committee","href":"/organizingcommittee","class":null,"type":"li","order":null},{"name":"Scientific Committee","href":"/scientificcommittee","class":null,"type":"li","order":null},{"name":"Past Editions","href":"pasteditions","class":null,"type":"li","order":null}],"href":null,"class":null,"type":"div","order":4},{"name":"Sign In","subArr":null,"href":"/api/auth/login","class":null,"type":"login","order":5}];
+        const navArr = [
+          {
+            name: 'Scientific Program',
+            subArr: [
+              {
+                name: 'Scientific',
+                href: '/scientific',
+                class: null,
+                type: 'li',
+                order: null
+              },
+              {
+                name: 'Workshops',
+                href: '/workshops',
+                class: null,
+                type: 'li',
+                order: null
+              },
+              {
+                name: 'Contests',
+                href: '/contests',
+                class: null,
+                type: 'li',
+                order: null
+              },
+              {
+                name: 'OBServatory',
+                href: '/observatory',
+                class: null,
+                type: 'li',
+                order: null
+              }
+            ],
+            href: null,
+            class: null,
+            type: 'div',
+            order: 0
+          },
+          {
+            name: 'Social Program',
+            subArr: [
+              {
+                name: 'Social',
+                href: '/social',
+                class: null,
+                type: 'li',
+                order: null
+              },
+              {
+                name: 'Sunset',
+                href: '/sunset',
+                class: null,
+                type: 'li',
+                order: null
+              },
+              {
+                name: 'Gala Dinner',
+                href: '/gala-dinner',
+                class: null,
+                type: 'li',
+                order: null
+              }
+            ],
+            href: null,
+            class: null,
+            type: 'div',
+            order: 1
+          },
+          {
+            name: 'Tickets',
+            subArr: null,
+            href: '/tickets',
+            class: null,
+            type: 'li',
+            order: 2
+          },
+          {
+            name: 'Partners',
+            subArr: [
+              {
+                name: 'Partner Congresses',
+                href: '/partnercongresses',
+                class: null,
+                type: 'li',
+                order: null
+              },
+              {
+                name: 'Ambassadors and Promoters',
+                href: '/ambassadorsandpromoters',
+                class: null,
+                type: 'li',
+                order: null
+              },
+              {
+                name: 'Volunteer Organization',
+                href: '/volunteerorganization',
+                class: null,
+                type: 'li',
+                order: null
+              },
+              {
+                name: 'Accomodation',
+                href: 'accomodation',
+                class: null,
+                type: 'li',
+                order: null
+              }
+            ],
+            href: null,
+            class: null,
+            type: 'div',
+            order: 3
+          },
+          {
+            name: 'About Us',
+            subArr: [
+              {
+                name: 'Organizing Committee',
+                href: '/organizingcommittee',
+                class: null,
+                type: 'li',
+                order: null
+              },
+              {
+                name: 'Scientific Committee',
+                href: '/scientificcommittee',
+                class: null,
+                type: 'li',
+                order: null
+              },
+              {
+                name: 'Past Editions',
+                href: 'pasteditions',
+                class: null,
+                type: 'li',
+                order: null
+              }
+            ],
+            href: null,
+            class: null,
+            type: 'div',
+            order: 4
+          },
+          {
+            name: 'Sponsors',
+            subArr: null,
+            href: '/sponsors',
+            class: null,
+            type: 'li',
+            order: 5
+          },
+          {
+            name: 'Sign In',
+            subArr: null,
+            href: '/api/auth/login',
+            class: null,
+            type: 'login',
+            order: 6
+          }
+        ]
 
         setNavStruct([...navArr])
       }
