@@ -104,15 +104,15 @@ export const WeventNav: React.FC<{
             name: 'Partners',
             subArr: [
               {
-                name: 'Partner Congresses',
-                href: '/partnercongresses',
+                name: 'Sponsors',
+                href: '/sponsors',
                 class: null,
                 type: 'li',
                 order: null
               },
               {
-                name: 'Sponsors',
-                href: '/sponsors',
+                name: 'Partner Congresses',
+                href: '/partnercongresses',
                 class: null,
                 type: 'li',
                 order: null
