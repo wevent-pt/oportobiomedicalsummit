@@ -208,7 +208,7 @@ async function submitCheckoutForm() {
       }
     </script>
     <script id="sponsors_redirect0">
-    function doStuff0(inputs0) {
+    function doStuff00(inputs0) {
       // console.log(inputs0);
       inputs0.forEach(input => {
         const formAction = input.querySelector('form')?.getAttribute('action') || '#';
@@ -220,10 +220,11 @@ async function submitCheckoutForm() {
     var checkIfExists0 = setInterval(function() {
       var exists0 = document.querySelectorAll('.notion-block-8059a7b092164dbf8b41dc87cd134466 .notion-collection-card');
   
-      if (exists0 && exists0.length > 0) {
+      if (exists0 && exists0.length > 52) {
           clearInterval(checkIfExists0);
-          doStuff0(exists0);
+          doStuff00(exists0);
       }
+
     }, 25);
   }
 
