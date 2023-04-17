@@ -111,6 +111,13 @@ export const WeventNav: React.FC<{
                 order: null
               },
               {
+                name: 'Sponsors',
+                href: '/sponsors',
+                class: null,
+                type: 'li',
+                order: null
+              },
+              {
                 name: 'Ambassadors and Promoters',
                 href: '/ambassadorsandpromoters',
                 class: null,
@@ -168,20 +175,12 @@ export const WeventNav: React.FC<{
             order: 4
           },
           {
-            name: 'Sponsors',
-            subArr: null,
-            href: '/sponsors',
-            class: null,
-            type: 'li',
-            order: 5
-          },
-          {
             name: 'Sign In',
             subArr: null,
             href: '/api/auth/login',
             class: null,
             type: 'login',
-            order: 6
+            order: 5
           }
         ]
 
