@@ -209,7 +209,7 @@ async function submitCheckoutForm() {
     </script>
     <script id="sponsors_redirect0">
     function doStuff0(inputs0) {
-      console.log(inputs0);
+      // console.log(inputs0);
       inputs0.forEach(input => {
         const formAction = input.querySelector('form')?.getAttribute('action') || '#';
         input.href = formAction;
