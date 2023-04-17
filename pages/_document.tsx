@@ -207,10 +207,32 @@ async function submitCheckoutForm() {
         }
       }
     </script>
+    <script id="sponsors_redirect0">
+    function doStuff0(inputs0) {
+      console.log(inputs0);
+      inputs0.forEach(input => {
+        const formAction = input.querySelector('form')?.getAttribute('action') || '#';
+        input.href = formAction;
+      });
+    }
+    
+    if(window.location.pathname == '/sponsors'){
+    var checkIfExists0 = setInterval(function() {
+      var exists0 = document.querySelectorAll('.notion-block-8059a7b092164dbf8b41dc87cd134466 .notion-collection-card');
+  
+      if (exists0 && exists0.length > 0) {
+          clearInterval(checkIfExists0);
+          doStuff0(exists0);
+      }
+    }, 25);
+  }
+
+
+    
+    </script>
     `
     const htmlInnerBody = `
-    <script>
-    </script>`
+    `
     return (
       <IconContext.Provider value={{ style: { verticalAlign: 'middle' } }}>
         <Html lang='en'>

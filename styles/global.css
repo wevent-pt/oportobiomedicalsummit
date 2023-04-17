@@ -30,9 +30,9 @@ a {
   --fg-color-6: rgba(55, 53, 47, 0.8);
   --fg-color-icon: var(--fg-color);
   
-  --bg-color-0: rgba(135, 131, 120, 0.15);
-  --bg-color-1: rgb(247, 246, 243);
-  --bg-color-2: rgba(135, 131, 120, 0.15);
+  --bg-color-0: #cd9c93;
+  --bg-color-1: #cd9c93;
+  --bg-color-2: #cd9c93;
   --select-color-0: rgb(46, 170, 220);
   --select-color-1: rgba(45, 170, 219, 0.3);
   --select-color-2: #d9eff8;
@@ -79,7 +79,7 @@ a {
 
 .dark-mode {
   --fg-color: #243445;
-  --fg-hover-color: rgba(36, 52, 69, 0.759);
+  --fg-hover-color: #cd9c93;
   --xg-color: #C87766; 
   --bg-color: #D4DFEC;
 
@@ -91,9 +91,9 @@ a {
   --fg-color-5: rgba(255, 255, 255, 0.7);
   --fg-color-6: #fff;
   
-  --bg-color-0: rgb(71, 76, 80);
-  --bg-color-1: rgb(63, 68, 71);
-  --bg-color-2: rgba(135, 131, 120, 0.15);
+  --bg-color-0: #cd9c93;
+  --bg-color-1: #cd9c93;
+  --bg-color-2: #cd9c93;
 
   --notion-red: rgb(255, 115, 105);
   --notion-pink: rgb(226, 85, 161);

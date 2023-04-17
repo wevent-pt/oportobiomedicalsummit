@@ -245,6 +245,16 @@ export const NotionPage: React.FC<types.PageProps> = ({
   } 
   
   const htmlInnerBody = `
+  <script>
+    const inputs = document.querySelectorAll('.notion-collection-card');
+    console.log(inputs);
+    inputs.forEach(input => {
+      input.addEventListener('click', () => {
+        const formAction = input.querySelector('form').getAttribute('action');
+        window.open(formAction, '_blank');
+      });
+    });
+  </script>
   `;
   return (
     <>

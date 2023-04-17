@@ -486,6 +486,10 @@
 
 
 /*sponsors gallery*/
-.notion-block-8059a7b092164dbf8b41dc87cd134466{
+/* .notion-block-8059a7b092164dbf8b41dc87cd134466{
   pointer-events: none;
+} */
+
+.notion-block-8059a7b092164dbf8b41dc87cd134466 .notion-property-text{
+  display: none;
 }
