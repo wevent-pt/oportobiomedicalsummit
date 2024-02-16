@@ -26,7 +26,7 @@ export const WeventNav: React.FC<{
 
         const navArr = [
           {
-            name: 'Scientific Program',
+            name: 'Scientific Programme',
             subArr: [
               {
                 name: 'Scientific',
@@ -63,7 +63,7 @@ export const WeventNav: React.FC<{
             order: 0
           },
           {
-            name: 'Social Program',
+            name: 'Social Programme',
             subArr: [
               {
                 name: 'Social',
