@@ -43,7 +43,7 @@ export const WeventNav: React.FC<{
                 order: null
               },
               {
-                name: 'Contests',
+                name: 'Competitions',
                 href: '/contests',
                 class: null,
                 type: 'li',
@@ -66,7 +66,7 @@ export const WeventNav: React.FC<{
             name: 'Social Programme',
             subArr: [
               {
-                name: 'Social',
+                name: 'Cultural Programme',
                 href: '/social',
                 class: null,
                 type: 'li',
