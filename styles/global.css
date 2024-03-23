@@ -189,3 +189,7 @@ body {
 disclaimer{/*bawkbox*/
   display: none !important;
 }
+
+#loginBtn {
+  display: none;
+}
