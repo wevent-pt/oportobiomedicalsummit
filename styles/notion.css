@@ -493,3 +493,6 @@
 .notion-block-8059a7b092164dbf8b41dc87cd134466 .notion-property-text{
   display: none;
 }
+.notion-block-dfcb721db7db4c1b89c291eb0fe654e6 > div {
+  height: 100% !important;
+}
