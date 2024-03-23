@@ -40,8 +40,8 @@
 }
 .notion-text {
   padding: 0.5em 2px;
+  font-family: Montserrat, sans-serif;
 }
- 
 .notion-asset-caption {
   text-align: center;
 }
@@ -150,14 +150,14 @@
 .notion-h1{
   font-size: 1.875em;
   margin-top: 1.08em;
-  font-family: 'Alata', sans-serif;
+  font-family: 'Circe', sans-serif;
   display: flex;
   align-self: center;
 }
 
 .notion-h2{
   font-size: 1.65em;
-  font-family: 'Alata', sans-serif;
+  font-family: 'Circe', sans-serif;
 }
 
 .notion-h3{
@@ -169,7 +169,7 @@
 .notion-text{
   font-size: 1.1em;
   text-align: justify;
-  font-family: 'ArialNova', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .notion-page-title-text{
