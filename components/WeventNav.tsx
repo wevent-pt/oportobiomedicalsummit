@@ -29,7 +29,7 @@ export const WeventNav: React.FC<{
             name: 'Scientific Programme',
             subArr: [
               {
-                name: 'Scientific',
+                name: 'Lectures',
                 href: '/scientific',
                 class: null,
                 type: 'li',
