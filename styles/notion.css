@@ -208,11 +208,11 @@
 .notion-block-813e5aaeb710488aaa3a621938e774ae .notion-property-multi_select:not(:empty){
   display: none;
 }
-
+/* to improvre
 .notion-block-813e5aaeb710488aaa3a621938e774ae .notion-collection-card:has(.notion-property-multi_select:not(:empty)){
   pointer-events: none;
 }
-
+*/
 /**BLock schedule routing*/
 
 /*Schedule change background color*/
